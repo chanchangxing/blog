@@ -5,19 +5,16 @@
   
   <title>Flog&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="title:Rxjava和单例模式结合遇到的问题
-date:2016/12/28 16:48纪录一个关于单例模式和Rxjava组合使用的bug。项目中关于用户的基本信息使用了数据库来保存，操作数据库的helper类使用了最简单的单例模式。1234567891011public SqlHelper &amp;#123;	public static SqlHelper helper;	public stati">
+  <meta name="description" content="纪录一个关于单例模式和Rxjava组合使用的bug。项目中关于用户的基本信息使用了数据库来保存，操作数据库的helper类使用了最简单的单例模式。1234567891011public SqlHelper &amp;#123;	public static SqlHelper helper;	public static SqlHelper getInstance() &amp;#123;		return new S">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Flog'blog">
 <meta property="og:url" content="https://chanchangxing.me/2016/12/17/20161228/index.html">
 <meta property="og:site_name" content="Flog'blog">
-<meta property="og:description" content="title:Rxjava和单例模式结合遇到的问题
-date:2016/12/28 16:48纪录一个关于单例模式和Rxjava组合使用的bug。项目中关于用户的基本信息使用了数据库来保存，操作数据库的helper类使用了最简单的单例模式。1234567891011public SqlHelper &amp;#123;	public static SqlHelper helper;	public stati">
-<meta property="og:updated_time" content="2016-12-28T08:48:51.000Z">
+<meta property="og:description" content="纪录一个关于单例模式和Rxjava组合使用的bug。项目中关于用户的基本信息使用了数据库来保存，操作数据库的helper类使用了最简单的单例模式。1234567891011public SqlHelper &amp;#123;	public static SqlHelper helper;	public static SqlHelper getInstance() &amp;#123;		return new S">
+<meta property="og:updated_time" content="2016-12-28T08:50:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Flog'blog">
-<meta name="twitter:description" content="title:Rxjava和单例模式结合遇到的问题
-date:2016/12/28 16:48纪录一个关于单例模式和Rxjava组合使用的bug。项目中关于用户的基本信息使用了数据库来保存，操作数据库的helper类使用了最简单的单例模式。1234567891011public SqlHelper &amp;#123;	public static SqlHelper helper;	public stati">
+<meta name="twitter:description" content="纪录一个关于单例模式和Rxjava组合使用的bug。项目中关于用户的基本信息使用了数据库来保存，操作数据库的helper类使用了最简单的单例模式。1234567891011public SqlHelper &amp;#123;	public static SqlHelper helper;	public static SqlHelper getInstance() &amp;#123;		return new S">
   
     <link rel="alternate" href="/atom.xml" title="Flog&#39;blog" type="application/atom+xml">
   
@@ -59,9 +56,9 @@ date:2016/12/28 16:48纪录一个关于单例模式和Rxjava组合使用的bug�
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://chanchangxing.me"></form>
@@ -82,8 +79,7 @@ date:2016/12/28 16:48纪录一个关于单例模式和Rxjava组合使用的bug�
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>title:Rxjava和单例模式结合遇到的问题</p>
-<h2 id="date-2016-12-28-16-48"><a href="#date-2016-12-28-16-48" class="headerlink" title="date:2016/12/28 16:48"></a>date:2016/12/28 16:48</h2><p>纪录一个关于单例模式和Rxjava组合使用的bug。<br>项目中关于用户的基本信息使用了数据库来保存，操作数据库的helper类使用了最简单的单例模式。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> SqlHelper &#123;</div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> SqlHelper helper;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SqlHelper <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">new</span> SqlHelper();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> Observable&lt;Member&gt; <span class="title">getMember</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span>  Observable.just(member.getToken);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+        <p>纪录一个关于单例模式和Rxjava组合使用的bug。<br>项目中关于用户的基本信息使用了数据库来保存，操作数据库的helper类使用了最简单的单例模式。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> SqlHelper &#123;</div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> SqlHelper helper;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SqlHelper <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">new</span> SqlHelper();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> Observable&lt;Member&gt; <span class="title">getMember</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span>  Observable.just(member.getToken);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>在一个页面上我在onCreate方法中调用了一次该方法，并请求接口，在另一个点击事件中修改了数据库数据，请求了另一个接口。</p>
 <p>接口使用Retrofit和Rxjava。</p>
 <p>在点击之后发现了一个问题，页面上的两个接口又重新被请求，因为是提交订单页面，所以导致第二次被调用的时候出现了订单状态错误的bug。</p>
@@ -94,7 +90,7 @@ date:2016/12/28 16:48纪录一个关于单例模式和Rxjava组合使用的bug�
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://chanchangxing.me/2016/12/17/20161228/" data-id="cix8ot6sp0000qrj5nza2p7yd" class="article-share-link">Partager</a>
+      <a data-url="https://chanchangxing.me/2016/12/17/20161228/" data-id="cix8ot6sp0000qrj5nza2p7yd" class="article-share-link">Share</a>
       
       
     </footer>
@@ -128,7 +124,7 @@ date:2016/12/28 16:48纪录一个关于单例模式和Rxjava组合使用的bug�
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
@@ -149,7 +145,7 @@ date:2016/12/28 16:48纪录一个关于单例模式和Rxjava组合使用的bug�
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2016 chenchangxing<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
