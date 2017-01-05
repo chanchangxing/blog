@@ -3,27 +3,33 @@
 <head>
   <meta charset="utf-8">
   
-  <title>20170105 | Flog&#39;blog</title>
+  <title>ConstraintLayout（约束布局） | Flog&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="ConstraintLayout（约束布局）ConstraintLayout（约束布局）是谷歌新出的布局，在使用了一段时间后感觉 约束布局 非常的强大，这里将讲解一下 约束布局 的使用和几种情况下的方便之处。
-1.安装如果使用 约束布局 那么在android studio中SDK Tools 中下载，然后再gradle中添加库的地址，版本的话看github上吧。我使用的时候版本更新的很快，所以没事">
+  <meta name="description" content="ConstraintLayout（约束布局）是谷歌新出的布局，在使用了一段时间后感觉 约束布局 非常的强大，这里将讲解一下 约束布局 的使用和几种情况下的方便之处。
+1.安装如果使用 约束布局 那么在android studio中SDK Tools 中下载，然后再gradle中添加库的地址，版本的话看github上吧。我使用的时候版本更新的很快，所以没事就要看一下版本。
+2.使用
+“A Const">
 <meta property="og:type" content="article">
-<meta property="og:title" content="20170105">
+<meta property="og:title" content="ConstraintLayout（约束布局）">
 <meta property="og:url" content="https://chanchangxing.me/2017/01/05/20170105/index.html">
 <meta property="og:site_name" content="Flog'blog">
-<meta property="og:description" content="ConstraintLayout（约束布局）ConstraintLayout（约束布局）是谷歌新出的布局，在使用了一段时间后感觉 约束布局 非常的强大，这里将讲解一下 约束布局 的使用和几种情况下的方便之处。
-1.安装如果使用 约束布局 那么在android studio中SDK Tools 中下载，然后再gradle中添加库的地址，版本的话看github上吧。我使用的时候版本更新的很快，所以没事">
+<meta property="og:description" content="ConstraintLayout（约束布局）是谷歌新出的布局，在使用了一段时间后感觉 约束布局 非常的强大，这里将讲解一下 约束布局 的使用和几种情况下的方便之处。
+1.安装如果使用 约束布局 那么在android studio中SDK Tools 中下载，然后再gradle中添加库的地址，版本的话看github上吧。我使用的时候版本更新的很快，所以没事就要看一下版本。
+2.使用
+“A Const">
 <meta property="og:image" content="https://chanchangxing.me/2017/01/05/20170105/2.png">
 <meta property="og:image" content="https://chanchangxing.me/2017/01/05/20170105/3.png">
 <meta property="og:image" content="https://chanchangxing.me/2017/01/05/20170105/4.png">
 <meta property="og:image" content="https://chanchangxing.me/2017/01/05/20170105/5.png">
 <meta property="og:image" content="https://chanchangxing.me/2017/01/05/20170105/6.png">
 <meta property="og:image" content="https://chanchangxing.me/2017/01/05/20170105/7.png">
-<meta property="og:updated_time" content="2017-01-05T07:11:25.000Z">
+<meta property="og:updated_time" content="2017-01-05T07:35:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="20170105">
-<meta name="twitter:description" content="ConstraintLayout（约束布局）ConstraintLayout（约束布局）是谷歌新出的布局，在使用了一段时间后感觉 约束布局 非常的强大，这里将讲解一下 约束布局 的使用和几种情况下的方便之处。
-1.安装如果使用 约束布局 那么在android studio中SDK Tools 中下载，然后再gradle中添加库的地址，版本的话看github上吧。我使用的时候版本更新的很快，所以没事">
+<meta name="twitter:title" content="ConstraintLayout（约束布局）">
+<meta name="twitter:description" content="ConstraintLayout（约束布局）是谷歌新出的布局，在使用了一段时间后感觉 约束布局 非常的强大，这里将讲解一下 约束布局 的使用和几种情况下的方便之处。
+1.安装如果使用 约束布局 那么在android studio中SDK Tools 中下载，然后再gradle中添加库的地址，版本的话看github上吧。我使用的时候版本更新的很快，所以没事就要看一下版本。
+2.使用
+“A Const">
 <meta name="twitter:image" content="https://chanchangxing.me/2017/01/05/20170105/2.png">
   
     <link rel="alternate" href="/atom.xml" title="Flog&#39;blog" type="application/atom+xml">
@@ -66,9 +72,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://chanchangxing.me"></form>
@@ -83,6 +89,10 @@
   <time datetime="2017-01-05T01:17:16.000Z" itemprop="datePublished">2017-01-05</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -91,7 +101,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      20170105
+      ConstraintLayout（约束布局）
     </h1>
   
 
@@ -99,7 +109,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="ConstraintLayout（约束布局）"><a href="#ConstraintLayout（约束布局）" class="headerlink" title="ConstraintLayout（约束布局）"></a>ConstraintLayout（约束布局）</h2><p>ConstraintLayout（约束布局）是谷歌新出的布局，在使用了一段时间后感觉 约束布局 非常的强大，这里将讲解一下 约束布局 的使用和几种情况下的方便之处。</p>
+        <p>ConstraintLayout（约束布局）是谷歌新出的布局，在使用了一段时间后感觉 约束布局 非常的强大，这里将讲解一下 约束布局 的使用和几种情况下的方便之处。</p>
 <h5 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h5><p>如果使用 约束布局 那么在android studio中SDK Tools 中下载，然后再gradle中添加库的地址，版本的话看<a href="https://github.com/googlecodelabs/constraint-layout" target="_blank" rel="external">github</a>上吧。我使用的时候版本更新的很快，所以没事就要看一下版本。</p>
 <h5 id="2-使用"><a href="#2-使用" class="headerlink" title="2.使用"></a>2.使用</h5><blockquote>
 <p>“A ConstraintLayout is a ViewGroup which allows you to position and size widgets in a flexible way.”</p>
@@ -173,11 +183,9 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://chanchangxing.me/2017/01/05/20170105/" data-id="cixk1t2di0001flj5n7ibhbbx" class="article-share-link">Partager</a>
+      <a data-url="https://chanchangxing.me/2017/01/05/20170105/" data-id="cixk25w1n0001kfj5d9g0vqxk" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
-
     </footer>
   </div>
   
@@ -185,8 +193,8 @@
 <nav id="article-nav">
   
   
-    <a href="/2016/12/28/20161228/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Ancien</strong>
+    <a href="/2017/01/05/20161228/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">纪录一个关于单例模式和Rxjava组合使用的bug。</div>
     </a>
   
@@ -201,7 +209,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Catégories</h3>
+    <h3 class="widget-title">Categories</h3>
     <div class="widget">
       <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a></li></ul>
     </div>
@@ -210,29 +218,15 @@
 
   
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Mot-clés</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/android/">android</a></li></ul>
-    </div>
-  </div>
-
 
   
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Nuage de mot-clés</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/android/" style="font-size: 10px;">android</a>
-    </div>
-  </div>
-
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li></ul>
     </div>
   </div>
 
@@ -240,16 +234,16 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Articles récents</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2017/01/05/20170105/">20170105</a>
+            <a href="/2017/01/05/20170105/">ConstraintLayout（约束布局）</a>
           </li>
         
           <li>
-            <a href="/2016/12/28/20161228/">纪录一个关于单例模式和Rxjava组合使用的bug。</a>
+            <a href="/2017/01/05/20161228/">纪录一个关于单例模式和Rxjava组合使用的bug。</a>
           </li>
         
       </ul>
@@ -265,7 +259,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 chenchangxing<br>
-      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
