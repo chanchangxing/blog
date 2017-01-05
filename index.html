@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
   <meta charset="utf-8">
   
@@ -18,66 +18,293 @@
     <link rel="alternate" href="/atom.xml" title="Flog&#39;blog" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.ico">
+    <link rel="icon" href="/favicon.png">
   
-  <link rel="stylesheet" href="/css/typing.css">
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
 </head>
 
-  
-    <body class="home-body">
-  
-      <div id="container" class="container">
-        <div class="home">
-  <div class="content">
-    <div class="profile">
-      <h1 class="nickname">flog&#39;blog</h1>
-      <div class="description">
-        <p><p>flog eats bug</p>
-</p>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Flog&#39;blog</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">CCX</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://chanchangxing.me"></form>
       </div>
     </div>
-    <hr/>
-    <ul class="links">
-      
-        <li>
-          <a href="/archives">Blog</a>
-        </li>
-      
-        <li>
-          <a href="https://github.com/chanchangxing">GitHub</a>
-        </li>
-      
-    </ul>
   </div>
-</div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-20170105" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/01/05/20170105/" class="article-date">
+  <time datetime="2017-01-05T01:17:16.000Z" itemprop="datePublished">2017-01-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </div>
 
-      </div>
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/05/20170105/">ConstraintLayout（约束布局）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
       
-  <footer id="footer" class="home-footer footer">
-    <div id="copyright" class="copyright">
-      &copy; 2017 chenchangxing  Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme &copy; <a href="https://github.com/geekplux" target="_blank">GeekPlux</a>
+        <p>ConstraintLayout（约束布局）是谷歌新出的布局，在使用了一段时间后感觉 约束布局 非常的强大，这里将讲解一下 约束布局 的使用和几种情况下的方便之处。</p>
+<h5 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h5><p>如果使用 约束布局 那么在android studio中SDK Tools 中下载，然后再gradle中添加库的地址，版本的话看<a href="https://github.com/googlecodelabs/constraint-layout" target="_blank" rel="external">github</a>上吧。我使用的时候版本更新的很快，所以没事就要看一下版本。</p>
+<h5 id="2-使用"><a href="#2-使用" class="headerlink" title="2.使用"></a>2.使用</h5><blockquote>
+<p>“A ConstraintLayout is a ViewGroup which allows you to position and size widgets in a flexible way.”</p>
+<p>ConstraintLayout是一个ViewGroup，它允许您以灵活的方式定位和调整小部件的大小。</p>
+</blockquote>
+<p>灵活的定位和调整小部件的大小是这个布局的主要功能。</p>
+<blockquote>
+<p>“For example, in order to position button B to the right of button A”</p>
+<p>这个例子为了将button B 定位在 button A 的右边</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">Button</span> <span class="attr">android:id</span>=<span class="string">"@+id/buttonA"</span> <span class="attr">...</span> /&gt;</span></div><div class="line">         <span class="tag">&lt;<span class="name">Button</span> <span class="attr">android:id</span>=<span class="string">"@+id/buttonB"</span> <span class="attr">...</span></span></div><div class="line">                 <span class="attr">app:layout_constraintLeft_toRightOf</span>=<span class="string">"@+id/buttonA"</span> /&gt;</div></pre></td></tr></table></figure>
+<p>上面的xml是将button B 的左边定位在button A的右边。如果要加一点margin的话需要使用<code>android:layout_marginLeft</code></p>
+<p><strong>注意：</strong>不要使用<code>layout_margin</code>，在新的界面预览中会有很大的问题。千万不要使用！</p>
+<p>下面是可以使用的约束</p>
+<ul>
+<li><code>layout_constraintLeft_toLeftOf</code></li>
+<li><code>layout_constraintLeft_toRightOf</code></li>
+<li><code>layout_constraintRight_toLeftOf</code></li>
+<li><code>layout_constraintRight_toRightOf</code></li>
+<li><code>layout_constraintTop_toTopOf</code></li>
+<li><code>layout_constraintTop_toBottomOf</code></li>
+<li><code>layout_constraintBottom_toTopOf</code></li>
+<li><code>layout_constraintBottom_toBottomOf</code></li>
+<li><code>layout_constraintBaseline_toBaselineOf</code></li>
+<li><code>layout_constraintBaseline_creator</code></li>
+<li><code>layout_constraintStart_toEndOf</code></li>
+<li><code>layout_constraintStart_toStartOf</code></li>
+<li><code>layout_constraintEnd_toStartOf</code></li>
+<li><code>layout_constraintEnd_toEndOf</code></li>
+</ul>
+<p><strong>注意：</strong> 1.<code>layout_constraintBaseline_toBaselineOf</code>是控件中文字的底部和参照物控件的文字的底部做约束。<code>layout_constraintBaseline_creator</code>官方文档没有做介绍，我在官网也搜索不到，所以我将两者做了对比，发现creator貌似是约束文字的顶部，但是我也发现了<code>layout_constraintLeft_creator</code>这一系列。所以这里让我非常疑惑，我觉得应该是更新了代码却没有更新文档。</p>
+<p>​    2.约束可以以父布局做参照物布局，比如<code>layout_constraintLeft_toLeftOf=&quot;parent&quot;</code></p>
+<p>当一种情况是登录按钮充满横屏。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">android.support.constraint.ConstraintLayout</span></span></div><div class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span>&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">Button</span></span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"0dp"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">        <span class="attr">android:text</span>=<span class="string">"ttt"</span></div><div class="line">        <span class="attr">app:layout_constraintLeft_toLeftOf</span>=<span class="string">"parent"</span></div><div class="line">        <span class="attr">app:layout_constraintRight_toRightOf</span>=<span class="string">"parent"</span> /&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">android.support.constraint.ConstraintLayout</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>将<code>layout_width</code>设置为0dp是会充满界面。</p>
+<p>接下来我们把<code>layout_width</code>设置为200dp，他将以200dp的宽度居中。</p>
+<p>然后要介绍的是<code>layout_constraintHorizontal_bias</code>和<code>layout_constraintVertical_bias</code>，他们两个相对于垂直和水平做偏移。比较难解释，我们直接在上面的例子使用</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">android.support.constraint.ConstraintLayout</span></span></div><div class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span>&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">Button</span></span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"200dp"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">        <span class="attr">android:text</span>=<span class="string">"ttt"</span></div><div class="line">        <span class="attr">app:layout_constraintHorizontal_bias</span>=<span class="string">"0.3"</span></div><div class="line">        <span class="attr">app:layout_constraintLeft_toLeftOf</span>=<span class="string">"parent"</span></div><div class="line">        <span class="attr">app:layout_constraintRight_toRightOf</span>=<span class="string">"parent"</span> /&gt;</div><div class="line"><span class="tag">&lt;/<span class="name">android.support.constraint.ConstraintLayout</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>我们在<code>layout_constraintHorizontal_bias</code>设置了0.3，作用为将左侧的空间从50%替换成30%</p>
+<img src="/2017/01/05/20170105/2.png" alt="2.png" title="">
+<p><code>layout_constraintVertical_bias</code>和<code>layout_constraintHorizontal_bias</code>作用相似。</p>
+<p>在其他布局中，<code>visibility=&quot;gone&quot;</code>意味着这个控件在布局中消失了。但是在 约束布局 中，他意味着他变成了一个点，而其他将该控件作为参考物的控件的约束还是有作用的。</p>
+<blockquote>
+<p>For the layout pass, their dimension will be considered as if zero (basically, they will be resolved to a point)</p>
+<p>If they have constraints to other widgets they will still be respected, but any margins will be as if equals to zero</p>
+</blockquote>
+<p>我认为采用这种机制是因为约束布局中控件与控件之间都是有联系的，当一个控件消失，那么其他控件的定位就会大乱，所以通过这种机制让其他布局能尽可能少的受到gone的影响</p>
+<p>举个例子</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">android.support.constraint.ConstraintLayout</span></span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span>&gt;</div><div class="line">        <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">            <span class="attr">android:visibility</span>=<span class="string">"gone"</span></div><div class="line">            <span class="attr">android:id</span>=<span class="string">"@+id/textview"</span></div><div class="line">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">            <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">            <span class="attr">android:text</span>=<span class="string">"aaa"</span></div><div class="line">            <span class="attr">app:layout_constraintLeft_toLeftOf</span>=<span class="string">"parent"</span> /&gt;</div><div class="line">        <span class="tag">&lt;<span class="name">Button</span></span></div><div class="line">            <span class="attr">android:layout_width</span>=<span class="string">"200dp"</span></div><div class="line">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">            <span class="attr">android:text</span>=<span class="string">"ttt"</span></div><div class="line">            <span class="attr">android:layout_marginLeft</span>=<span class="string">"20dp"</span></div><div class="line">            <span class="attr">app:layout_constraintLeft_toRightOf</span>=<span class="string">"@id/textview"</span> /&gt;</div><div class="line">    <span class="tag">&lt;/<span class="name">android.support.constraint.ConstraintLayout</span>&gt;</span></div></pre></td></tr></table></figure>
+<img src="/2017/01/05/20170105/3.png" alt="3.png" title="">
+<p>你会发现button的还是有个20dp的距离，然后我们再设置另一个值<code>app:layout_goneMarginLeft=&quot;10dp&quot;</code>看结果</p>
+<img src="/2017/01/05/20170105/4.png" alt="4.png" title="">
+<p>你会发现button对于边框的距离变成了10dp，如果设置<code>app:layout_goneMarginLeft=&quot;0dp&quot;</code>，那么就能达到和其他布局一样的效果。</p>
+<p>接下来我们要看到<code>调整小部件的大小</code>的方法,<code>layout_constraintDimensionRatio</code>可以达到这种效果。他的用法也是通过比例来实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;Button android:layout_width=&quot;wrap_content&quot;</div><div class="line">                  android:layout_height=&quot;0dp&quot;</div><div class="line">                  app:layout_constraintDimensionRatio=&quot;1:1&quot; /&gt;</div></pre></td></tr></table></figure>
+<p>1：1的意思是width和height的比例为1：1，width:height，要注意的是被约束的尺寸需要设置为0dp。</p>
+<p><strong>注意：</strong>当我用上述的代码，在界面预览的时候button的边界却不是1：1的，但是当我用另一个控件去被约束到button的right，发现另一个控件嵌近控件里面了，这个问题不知道如何解决，amazing！</p>
+<img src="/2017/01/05/20170105/5.png" alt="5.png" title="">
+<p>当水平或者垂直方向都被约束，那么可以将<code>layout_width</code>和<code>layout_height</code>都设置为0dp，然后就可以使用ratio了，如果想将比例设置为height：width，那么需要这样<code>layout_constraintDimensionRatio=&quot;H,1:1&quot;</code></p>
+<p>终于到了最后一个点了，关于chain，链。</p>
+<p>这个很像铁索连舟，当你有三个控件类似这样的</p>
+<img src="/2017/01/05/20170105/6.png" alt="6.png" title="">
+<p>注意下面的代码，3个button都是彼此双向连接的，除了最左边和最右边的parent，这就创建了一个链。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">android.support.constraint.ConstraintLayout</span></span></div><div class="line">    <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">    <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span>&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">Button</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@id/button"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">        <span class="attr">android:text</span>=<span class="string">"aaa"</span></div><div class="line">        <span class="attr">app:layout_constraintBottom_toBottomOf</span>=<span class="string">"parent"</span></div><div class="line">        <span class="attr">app:layout_constraintLeft_toLeftOf</span>=<span class="string">"parent"</span></div><div class="line">        <span class="attr">app:layout_constraintRight_toLeftOf</span>=<span class="string">"@id/button2"</span></div><div class="line">        <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">"parent"</span> /&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">Button</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@id/button2"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">        <span class="attr">android:text</span>=<span class="string">"bbb"</span></div><div class="line">        <span class="attr">app:layout_constraintBottom_toBottomOf</span>=<span class="string">"parent"</span></div><div class="line">        <span class="attr">app:layout_constraintLeft_toRightOf</span>=<span class="string">"@id/button"</span></div><div class="line">        <span class="attr">app:layout_constraintRight_toLeftOf</span>=<span class="string">"@id/button3"</span></div><div class="line">        <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">"parent"</span> /&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">Button</span></span></div><div class="line">        <span class="attr">android:id</span>=<span class="string">"@+id/button3"</span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">        <span class="attr">android:text</span>=<span class="string">"ccc"</span></div><div class="line">        <span class="attr">app:layout_constraintBottom_toBottomOf</span>=<span class="string">"parent"</span></div><div class="line">        <span class="attr">app:layout_constraintLeft_toRightOf</span>=<span class="string">"@id/button2"</span></div><div class="line">        <span class="attr">app:layout_constraintRight_toRightOf</span>=<span class="string">"parent"</span></div><div class="line">        <span class="attr">app:layout_constraintTop_toTopOf</span>=<span class="string">"parent"</span> /&gt;</div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">android.support.constraint.ConstraintLayout</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>你可以在链的第一个控件上设置<code>layout_constraintHorizontal_chainStyle</code>，可以设置链中控件的位置，下面的图就是所有的类型</p>
+<img src="/2017/01/05/20170105/7.png" alt="7.png" title="">
+<p>终于结束了！</p>
+<p>对了，我用了业余时间封装了一个非常烂Recycleview，同事用了都说烂，连版本号都显得很烂。</p>
+<p>希望你也能看看，如果真的很烂，麻烦也能star一下。<a href="https://github.com/chanchangxing/CCXRecyclerView" target="_blank" rel="external">折跃一下</a></p>
 
-      </div>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chanchangxing.me/2017/01/05/20170105/" data-id="cixk533xz0001ibj5rzvearwd" class="article-share-link">Share</a>
+      
+      
     </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-20161228" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/01/05/20161228/" class="article-date">
+  <time datetime="2017-01-04T16:00:00.000Z" itemprop="datePublished">2017-01-05</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/05/20161228/">纪录一个关于单例模式和Rxjava组合使用的bug。</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>项目中关于用户的基本信息使用了数据库来保存，操作数据库的helper类使用了最简单的单例模式。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> SqlHelper &#123;</div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> SqlHelper helper;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SqlHelper <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">new</span> SqlHelper();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> Observable&lt;Member&gt; <span class="title">getMember</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span>  Observable.just(member.getToken);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在一个页面上我在onCreate方法中调用了一次该方法，并请求接口，在另一个点击事件中修改了数据库数据，请求了另一个接口。</p>
+<p>接口使用Retrofit和Rxjava。</p>
+<p>在点击之后发现了一个问题，页面上的两个接口又重新被请求，因为是提交订单页面，所以导致第二次被调用的时候出现了订单状态错误的bug。</p>
+<p>Rxjava是一个观察者模式。当点击事件调用时修改了数据，Observable观察到数据的变化，重新调用。<br>SqlHelper类是一个单例，所以导致两个Observable从属于同一个，导致两个接口被再次请求。</p>
+<p>目前的解决办法是取消单例模式。通过这个bug也很好的实践了观察者模式。</p>
+<p>如有错误麻烦请指出，非常感谢！</p>
 
       
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://chanchangxing.me/2017/01/05/20161228/" data-id="cixk533xv0000ibj5f8mz3swf" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
 
-<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+
+  
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/android/">android</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/01/05/20170105/">ConstraintLayout（约束布局）</a>
+          </li>
+        
+          <li>
+            <a href="/2017/01/05/20161228/">纪录一个关于单例模式和Rxjava组合使用的bug。</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 chenchangxing<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
   <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
   <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
-<script src="/js/typing.js"></script>
-<!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+<script src="/js/script.js"></script>
 
-
-
-
-
-
-
-    </div>
-  </body>
+  </div>
+</body>
 </html>
