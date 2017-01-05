@@ -3,17 +3,28 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Flog&#39;blog</title>
+  <title>20170105 | Flog&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="chenchangxing&apos;s blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Flog'blog">
-<meta property="og:url" content="https://chanchangxing.me/index.html">
+  <meta name="description" content="ConstraintLayout（约束布局）ConstraintLayout（约束布局）是谷歌新出的布局，在使用了一段时间后感觉 约束布局 非常的强大，这里将讲解一下 约束布局 的使用和几种情况下的方便之处。
+1.安装如果使用 约束布局 那么在android studio中SDK Tools 中下载，然后再gradle中添加库的地址，版本的话看github上吧。我使用的时候版本更新的很快，所以没事">
+<meta property="og:type" content="article">
+<meta property="og:title" content="20170105">
+<meta property="og:url" content="https://chanchangxing.me/2017/01/05/20170105/index.html">
 <meta property="og:site_name" content="Flog'blog">
-<meta property="og:description" content="chenchangxing&apos;s blog">
+<meta property="og:description" content="ConstraintLayout（约束布局）ConstraintLayout（约束布局）是谷歌新出的布局，在使用了一段时间后感觉 约束布局 非常的强大，这里将讲解一下 约束布局 的使用和几种情况下的方便之处。
+1.安装如果使用 约束布局 那么在android studio中SDK Tools 中下载，然后再gradle中添加库的地址，版本的话看github上吧。我使用的时候版本更新的很快，所以没事">
+<meta property="og:image" content="https://chanchangxing.me/2017/01/05/20170105/2.png">
+<meta property="og:image" content="https://chanchangxing.me/2017/01/05/20170105/3.png">
+<meta property="og:image" content="https://chanchangxing.me/2017/01/05/20170105/4.png">
+<meta property="og:image" content="https://chanchangxing.me/2017/01/05/20170105/5.png">
+<meta property="og:image" content="https://chanchangxing.me/2017/01/05/20170105/6.png">
+<meta property="og:image" content="https://chanchangxing.me/2017/01/05/20170105/7.png">
+<meta property="og:updated_time" content="2017-01-05T07:11:25.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Flog'blog">
-<meta name="twitter:description" content="chenchangxing&apos;s blog">
+<meta name="twitter:title" content="20170105">
+<meta name="twitter:description" content="ConstraintLayout（约束布局）ConstraintLayout（约束布局）是谷歌新出的布局，在使用了一段时间后感觉 约束布局 非常的强大，这里将讲解一下 约束布局 的使用和几种情况下的方便之处。
+1.安装如果使用 约束布局 那么在android studio中SDK Tools 中下载，然后再gradle中添加库的地址，版本的话看github上吧。我使用的时候版本更新的很快，所以没事">
+<meta name="twitter:image" content="https://chanchangxing.me/2017/01/05/20170105/2.png">
   
     <link rel="alternate" href="/atom.xml" title="Flog&#39;blog" type="application/atom+xml">
   
@@ -66,9 +77,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-20170105" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-20170105" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/01/05/20170105/" class="article-date">
   <time datetime="2017-01-05T01:17:16.000Z" itemprop="datePublished">2017-01-05</time>
@@ -81,8 +90,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/05/20170105/">20170105</a>
+    <h1 class="article-title" itemprop="name">
+      20170105
     </h1>
   
 
@@ -172,57 +181,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-20161228" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/12/28/20161228/" class="article-date">
-  <time datetime="2016-12-27T16:00:00.000Z" itemprop="datePublished">2016-12-28</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/android/">android</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/28/20161228/">纪录一个关于单例模式和Rxjava组合使用的bug。</a>
-    </h1>
+    <a href="/2016/12/28/20161228/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">纪录一个关于单例模式和Rxjava组合使用的bug。</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>项目中关于用户的基本信息使用了数据库来保存，操作数据库的helper类使用了最简单的单例模式。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> SqlHelper &#123;</div><div class="line">	<span class="keyword">public</span> <span class="keyword">static</span> SqlHelper helper;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> SqlHelper <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span> <span class="keyword">new</span> SqlHelper();</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> Observable&lt;Member&gt; <span class="title">getMember</span><span class="params">()</span> </span>&#123;</div><div class="line">		<span class="keyword">return</span>  Observable.just(member.getToken);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
-<p>在一个页面上我在onCreate方法中调用了一次该方法，并请求接口，在另一个点击事件中修改了数据库数据，请求了另一个接口。</p>
-<p>接口使用Retrofit和Rxjava。</p>
-<p>在点击之后发现了一个问题，页面上的两个接口又重新被请求，因为是提交订单页面，所以导致第二次被调用的时候出现了订单状态错误的bug。</p>
-<p>Rxjava是一个观察者模式。当点击事件调用时修改了数据，Observable观察到数据的变化，重新调用。<br>SqlHelper类是一个单例，所以导致两个Observable从属于同一个，导致两个接口被再次请求。</p>
-<p>目前的解决办法是取消单例模式。通过这个bug也很好的实践了观察者模式。</p>
-<p>如有错误麻烦请指出，非常感谢！</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://chanchangxing.me/2016/12/28/20161228/" data-id="cixk1b7xa0000ahj5ce0osdf3" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
   
 </article>
-
-
-  
 
 </section>
         
