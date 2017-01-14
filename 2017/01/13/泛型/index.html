@@ -3,18 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>泛型 | Flog&#39;blog</title>
+  <title>Recycleview | Flog&#39;blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="chenchangxing&apos;s blog">
+  <meta name="description" content="RecyclerView中的PositionRecyclerView采用了在Adapter和LayoutManager中额外增加的一级抽象，它是为了在计算布局的时候检测数据集的变化。这样避免了LayoutManager为了计算动画而追踪adapter的改变，这也有助于提高性能因为所有的view都在同一个时间绑定并且避免了不必要的绑定
+因为上述原因，在Recycleview有两种和position有">
 <meta property="og:type" content="article">
-<meta property="og:title" content="泛型">
+<meta property="og:title" content="Recycleview">
 <meta property="og:url" content="https://chanchangxing.me/2017/01/13/泛型/index.html">
 <meta property="og:site_name" content="Flog'blog">
-<meta property="og:description" content="chenchangxing&apos;s blog">
-<meta property="og:updated_time" content="2017-01-13T15:00:36.000Z">
+<meta property="og:description" content="RecyclerView中的PositionRecyclerView采用了在Adapter和LayoutManager中额外增加的一级抽象，它是为了在计算布局的时候检测数据集的变化。这样避免了LayoutManager为了计算动画而追踪adapter的改变，这也有助于提高性能因为所有的view都在同一个时间绑定并且避免了不必要的绑定
+因为上述原因，在Recycleview有两种和position有">
+<meta property="og:updated_time" content="2017-01-14T10:06:28.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="泛型">
-<meta name="twitter:description" content="chenchangxing&apos;s blog">
+<meta name="twitter:title" content="Recycleview">
+<meta name="twitter:description" content="RecyclerView中的PositionRecyclerView采用了在Adapter和LayoutManager中额外增加的一级抽象，它是为了在计算布局的时候检测数据集的变化。这样避免了LayoutManager为了计算动画而追踪adapter的改变，这也有助于提高性能因为所有的view都在同一个时间绑定并且避免了不必要的绑定
+因为上述原因，在Recycleview有两种和position有">
   
     <link rel="alternate" href="/atom.xml" title="Flog&#39;blog" type="application/atom+xml">
   
@@ -54,7 +57,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      泛型
+      Recycleview
     </h1>
   
 
@@ -62,7 +65,9 @@
     
     <div class="article-entry typo" itemprop="articleBody">
       
-        
+        <h4 id="RecyclerView中的Position"><a href="#RecyclerView中的Position" class="headerlink" title="RecyclerView中的Position"></a>RecyclerView中的Position</h4><p>RecyclerView采用了在Adapter和LayoutManager中额外增加的一级抽象，它是为了在计算布局的时候检测数据集的变化。这样避免了LayoutManager为了计算动画而追踪adapter的改变，这也有助于提高性能因为所有的view都在同一个时间绑定并且避免了不必要的绑定</p>
+<p>因为上述原因，在Recycleview有两种和position有关的方法：</p>
+
       
     </div>
     <footer class="article-footer">
@@ -74,6 +79,16 @@
 </a>
 
         </li>
+        
+          <li>
+            <span class="label">Category:</span>
+            
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/android/">android</a>
+  </div>
+
+
+          </li>
         
         
         <hr/>
@@ -101,7 +116,7 @@
 
   <section id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" style="width:60%; margin:0 auto; border-radius: 5px" data-thread-key="post-泛型" data-title="泛型" data-url="https://chanchangxing.me/2017/01/13/泛型/"></div>
+    <div class="ds-thread" style="width:60%; margin:0 auto; border-radius: 5px" data-thread-key="post-泛型" data-title="Recycleview" data-url="https://chanchangxing.me/2017/01/13/泛型/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
