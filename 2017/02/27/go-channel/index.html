@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>go-channel | Flog&#39;blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="这个是go多线程的实例。
+12345678910111213141516171819202122232425package mainimport (	. &quot;fmt&quot;)func sum(a []int, c chan int) &amp;#123;	total := 0	for _, v := range a &amp;#123;		total += v	&amp;#125;	c &amp;lt;- total&amp;#125;func">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go-channel">
+<meta property="og:url" content="https://chanchangxing.me/2017/02/27/go-channel/index.html">
+<meta property="og:site_name" content="Flog'blog">
+<meta property="og:description" content="这个是go多线程的实例。
+12345678910111213141516171819202122232425package mainimport (	. &quot;fmt&quot;)func sum(a []int, c chan int) &amp;#123;	total := 0	for _, v := range a &amp;#123;		total += v	&amp;#125;	c &amp;lt;- total&amp;#125;func">
+<meta property="og:updated_time" content="2017-02-27T14:57:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="go-channel">
+<meta name="twitter:description" content="这个是go多线程的实例。
+12345678910111213141516171819202122232425package mainimport (	. &quot;fmt&quot;)func sum(a []int, c chan int) &amp;#123;	total := 0	for _, v := range a &amp;#123;		total += v	&amp;#125;	c &amp;lt;- total&amp;#125;func">
+  
+    <link rel="alternate" href="/atom.xml" title="Flog&#39;blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+</head>
+
+  
+    <body>
+  
+      <div id="container" class="container">
+        <article id="post-go-channel" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav id="main-nav" class="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+    
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      go-channel
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <p>这个是go多线程的实例。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> main</div><div class="line"></div><div class="line"><span class="keyword">import</span> (</div><div class="line">	. <span class="string">"fmt"</span></div><div class="line">)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">sum</span><span class="params">(a []<span class="keyword">int</span>, c <span class="keyword">chan</span> <span class="keyword">int</span>)</span></span> &#123;</div><div class="line">	total := <span class="number">0</span></div><div class="line">	<span class="keyword">for</span> _, v := <span class="keyword">range</span> a &#123;</div><div class="line">		total += v</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	c &lt;- total</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</div><div class="line">	a := []<span class="keyword">int</span>&#123;<span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">7</span>, <span class="number">2</span>&#125;</div><div class="line"></div><div class="line">	c := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</div><div class="line">	<span class="keyword">go</span> sum(a[:<span class="number">4</span>], c)</div><div class="line">	<span class="keyword">go</span> sum(a[<span class="number">4</span>:], c)</div><div class="line"></div><div class="line">	x, y := &lt;-c, &lt;-c;</div><div class="line">	Println(x, y, x+y)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>后面讲到channel的缓存写入，也有一个导致了缓存写入的bug的实例。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">c := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>, <span class="number">2</span>)</div><div class="line">sum(a[:<span class="number">4</span>], c)</div><div class="line">sum(a[<span class="number">4</span>:], c)</div><div class="line"></div><div class="line">x, y := &lt;-c, &lt;-c;</div></pre></td></tr></table></figure>
+<p>本来以为这样也会出现deadlock的bug，但是发现并不会出现deadlock的bug。</p>
+<p>是想着应该是写入6次，两个线程6次。</p>
+<p>其实应该是只有两次缓存写入，所以如果下面的代码没有缓存写入，那么就会出现deadlock</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2017/02/27/go-channel/" class="article-date">
+  <time datetime="2017-02-27T14:32:00.000Z" itemprop="datePublished">2017-02-27</time>
+</a>
+
+        </li>
+        
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+  
+  
+    <a href="/2017/01/13/泛型/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Recycleview</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" style="width:60%; margin:0 auto; border-radius: 5px" data-thread-key="post-go-channel" data-title="go-channel" data-url="https://chanchangxing.me/2017/02/27/go-channel/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'chanchangxing'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这家伙很懒，什么都没有留下</p>
+
+
+      </div>
+    </footer>
+
+      
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
