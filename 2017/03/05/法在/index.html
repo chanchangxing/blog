@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>法在用户端 | Flog&#39;blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在首页的页面绘制的时候，遇到了一个banner图的效果类似下图
+
+刚开始肯定想到的是viewpager，但是看了一个源码的效果之后发现viewpager只会预加载后面两个页面，前一个页面并没有显示出来，于是决定使用recycleview来实现。
+也下载了别人的源码，发现是通过横向的LinearLayout来实现布局，通过将getItemCount设置为Integer.MAX_VALUE来实现无限循">
+<meta property="og:type" content="article">
+<meta property="og:title" content="法在用户端">
+<meta property="og:url" content="https://chanchangxing.me/2017/03/05/法在/index.html">
+<meta property="og:site_name" content="Flog'blog">
+<meta property="og:description" content="在首页的页面绘制的时候，遇到了一个banner图的效果类似下图
+
+刚开始肯定想到的是viewpager，但是看了一个源码的效果之后发现viewpager只会预加载后面两个页面，前一个页面并没有显示出来，于是决定使用recycleview来实现。
+也下载了别人的源码，发现是通过横向的LinearLayout来实现布局，通过将getItemCount设置为Integer.MAX_VALUE来实现无限循">
+<meta property="og:image" content="https://chanchangxing.me/2017/03/05/法在/banner.png">
+<meta property="og:updated_time" content="2017-03-15T09:59:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="法在用户端">
+<meta name="twitter:description" content="在首页的页面绘制的时候，遇到了一个banner图的效果类似下图
+
+刚开始肯定想到的是viewpager，但是看了一个源码的效果之后发现viewpager只会预加载后面两个页面，前一个页面并没有显示出来，于是决定使用recycleview来实现。
+也下载了别人的源码，发现是通过横向的LinearLayout来实现布局，通过将getItemCount设置为Integer.MAX_VALUE来实现无限循">
+<meta name="twitter:image" content="https://chanchangxing.me/2017/03/05/法在/banner.png">
+  
+    <link rel="alternate" href="/atom.xml" title="Flog&#39;blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+</head>
+
+  
+    <body>
+  
+      <div id="container" class="container">
+        <article id="post-法在" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav id="main-nav" class="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS"></a>
+    
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      法在用户端
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <p>在首页的页面绘制的时候，遇到了一个banner图的效果类似下图</p>
+<img src="/2017/03/05/法在/banner.png" alt="banner.png" title="">
+<p>刚开始肯定想到的是viewpager，但是看了一个源码的效果之后发现viewpager只会预加载后面两个页面，前一个页面并没有显示出来，于是决定使用recycleview来实现。</p>
+<p>也下载了别人的源码，发现是通过横向的LinearLayout来实现布局，通过将<code>getItemCount</code>设置为<code>Integer.MAX_VALUE</code>来实现无限循环轮播<strong>（但其实这里是有问题的，因为我在打印position的时候发现postion是从30000开始的，也就是说如果用户往左边滑30000下的话，会出现意想不到的问题，具体是什么问题我也不是很清楚，因为还没有时间滑动30000下。）</strong></p>
+<p>recycleview有一个<code>LinearSnapHelper</code>的类，是用来解决banner手滑之后自动将显示在主页的图片滑动到中间。</p>
+<p>在修改recycleviewBanner的时候发现旁边两张页面的缩小很难实现，原因<strong>第一</strong>是无法在adapter中筛选出目前的图片，<strong>第二</strong>是小图到大图的过渡的动画比较难以实现。再考虑到时间的问题上，决定放弃。</p>
+<p>接着在网上看到鸿洋大神的github的<a href="https://github.com/hongyangAndroid/MagicViewPager/" target="_blank" rel="external">MagicViewPager</a>，通过系统的viewPager实现了上面的效果。于是决定将本来使用的<a href="https://github.com/saiwu-bigkoo/Android-ConvenientBanner" target="_blank" rel="external">ConvenientBanner</a>来进行修改，发现ConvenientBanner的内部布局有点问题，修改了一点布局。</p>
+<p>最后出现了问题，如果设置ImageView<code>android:scaleType=&quot;centerCrop&quot;</code>，旁边的小图会填充满。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2017/03/05/法在/" class="article-date">
+  <time datetime="2017-03-05T04:56:32.000Z" itemprop="datePublished">2017-03-05</time>
+</a>
+
+        </li>
+        
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <a href="/2017/03/07/kotlin/" id="article-nav-newer" class="article-nav-link-wrap newer">
+      <strong class="article-nav-caption">Nuevo</strong>
+      <div class="article-nav-title">
+        
+          kotlin
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/03/03/go-project/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Viejo</strong>
+      <div class="article-nav-title">go-project</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+  <section id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" style="width:60%; margin:0 auto; border-radius: 5px" data-thread-key="post-法在" data-title="法在用户端" data-url="https://chanchangxing.me/2017/03/05/法在/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'chanchangxing'};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+      </script>
+    <!-- 多说公共JS代码 end -->
+  </section>
+  
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这家伙很懒，什么都没有留下</p>
+
+
+      </div>
+    </footer>
+
+      
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
