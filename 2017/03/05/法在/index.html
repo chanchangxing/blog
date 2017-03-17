@@ -18,7 +18,7 @@
 刚开始肯定想到的是viewpager，但是看了一个源码的效果之后发现viewpager只会预加载后面两个页面，前一个页面并没有显示出来，于是决定使用recycleview来实现。
 也下载了别人的源码，发现是通过横向的LinearLayout来实现布局，通过将getItemCount设置为Integer.MAX_VALUE来实现无限循">
 <meta property="og:image" content="https://chanchangxing.me/2017/03/05/法在/banner.png">
-<meta property="og:updated_time" content="2017-03-15T09:59:13.000Z">
+<meta property="og:updated_time" content="2017-03-17T07:37:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="法在用户端">
 <meta name="twitter:description" content="在首页的页面绘制的时候，遇到了一个banner图的效果类似下图
@@ -52,7 +52,7 @@
   </nav>
   <nav id="sub-nav">
     
-      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS"></a>
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
     
   </nav>
 </header>
@@ -81,6 +81,11 @@
 <p>在修改recycleviewBanner的时候发现旁边两张页面的缩小很难实现，原因<strong>第一</strong>是无法在adapter中筛选出目前的图片，<strong>第二</strong>是小图到大图的过渡的动画比较难以实现。再考虑到时间的问题上，决定放弃。</p>
 <p>接着在网上看到鸿洋大神的github的<a href="https://github.com/hongyangAndroid/MagicViewPager/" target="_blank" rel="external">MagicViewPager</a>，通过系统的viewPager实现了上面的效果。于是决定将本来使用的<a href="https://github.com/saiwu-bigkoo/Android-ConvenientBanner" target="_blank" rel="external">ConvenientBanner</a>来进行修改，发现ConvenientBanner的内部布局有点问题，修改了一点布局。</p>
 <p>最后出现了问题，如果设置ImageView<code>android:scaleType=&quot;centerCrop&quot;</code>，旁边的小图会填充满。</p>
+<p>搭建界面的时候发现设计图中有很多模块是相似的，于是使用了<code>&lt;include&gt;</code>来进行控件复用。</p>
+<p>父布局的管理使用了<code>ConstraintLayout</code>，该布局的特点是父控件和子控件，子控件和子控件的约束，识别控件是通过<code>id</code>来识别的。</p>
+<p>但是这里就有了一个使代码变得繁琐的一个坑，<code>&lt;include&gt;</code>设置了<code>id</code>之后就不能识别<code>&lt;include&gt;</code>里面的控件<code>id</code>，导致需要在程序中做下面的工作</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">View layout = getLayoutInflater().inflate(R.layout.include, <span class="keyword">null</span>);</div></pre></td></tr></table></figure>
+<p>这无形之中增加了代码的繁琐程度，而且<code>&lt;include&gt;</code>中的控件还需要通过<code>findViewById</code>来获得。以此为戒。</p>
 
       
     </div>
@@ -104,7 +109,7 @@
 <nav id="article-nav" class="article-nav">
   
     <a href="/2017/03/07/kotlin/" id="article-nav-newer" class="article-nav-link-wrap newer">
-      <strong class="article-nav-caption">Nuevo</strong>
+      <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
           kotlin
@@ -114,7 +119,7 @@
   
   
     <a href="/2017/03/03/go-project/" id="article-nav-older" class="article-nav-link-wrap older">
-      <strong class="article-nav-caption">Viejo</strong>
+      <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">go-project</div>
     </a>
   
