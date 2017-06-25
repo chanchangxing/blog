@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>kotlin心得 | Flog&#39;blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="从0开始到现在，接触kotlin也已经有4个月有余了。从刚开始的盲人摸象，到现在的照葫芦画瓢，不能说对kotlin有很深层次的理解，但是也算是摸索着做完了一个app。
+使用kotlin刚开始肯定是需要一个适应期和磨合期，虽说是对JAVA有着很棒的兼容性，但也会遇到一些比较棘手的问题例如static的问题。如果没有充足的准备时间还是小心为妙。
+在今年的IO大会上google将kotlin作为一门an">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kotlin心得">
+<meta property="og:url" content="https://chanchangxing.me/2017/06/25/kotlin/index.html">
+<meta property="og:site_name" content="Flog'blog">
+<meta property="og:description" content="从0开始到现在，接触kotlin也已经有4个月有余了。从刚开始的盲人摸象，到现在的照葫芦画瓢，不能说对kotlin有很深层次的理解，但是也算是摸索着做完了一个app。
+使用kotlin刚开始肯定是需要一个适应期和磨合期，虽说是对JAVA有着很棒的兼容性，但也会遇到一些比较棘手的问题例如static的问题。如果没有充足的准备时间还是小心为妙。
+在今年的IO大会上google将kotlin作为一门an">
+<meta property="og:updated_time" content="2017-06-25T08:07:31.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="kotlin心得">
+<meta name="twitter:description" content="从0开始到现在，接触kotlin也已经有4个月有余了。从刚开始的盲人摸象，到现在的照葫芦画瓢，不能说对kotlin有很深层次的理解，但是也算是摸索着做完了一个app。
+使用kotlin刚开始肯定是需要一个适应期和磨合期，虽说是对JAVA有着很棒的兼容性，但也会遇到一些比较棘手的问题例如static的问题。如果没有充足的准备时间还是小心为妙。
+在今年的IO大会上google将kotlin作为一门an">
+  
+    <link rel="alternate" href="/atom.xml" title="Flog&#39;blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+</head>
+
+  
+    <body>
+  
+      <div id="container" class="container">
+        <article id="post-kotlin" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav id="main-nav" class="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+    
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      kotlin心得
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <p>从0开始到现在，接触kotlin也已经有4个月有余了。从刚开始的盲人摸象，到现在的照葫芦画瓢，不能说对kotlin有很深层次的理解，但是也算是摸索着做完了一个app。</p>
+<p>使用kotlin刚开始肯定是需要一个适应期和磨合期，虽说是对JAVA有着很棒的兼容性，但也会遇到一些比较棘手的问题例如static的问题。如果没有充足的准备时间还是小心为妙。</p>
+<p>在今年的IO大会上google将kotlin作为一门android开发的官方语言之后，kotlin一下子在android圈中爆发了，很多人都急于学习和掌握kotlin。很多人因为kotlin和java兼容就想直接写出kotlin代码，以至于问出比较基础的问题，让人诧异。</p>
+<p>虽说kotlin和java有很好的兼容性，但是她也是一门新的语言，也需要认真阅读官方文档和源码来花费时间学习，官方文档也已经有了很多的中文翻译网站，翻译得也非常清楚明白。</p>
+<p>kotlin相觉于java会有一些优势例如空指针安全。空指针安全的加入会让我们的代码避免空指针问题，当变量为空时就不会执行它的方法，当一个可能为空的变量被传入一个不允许为空的方法中需要强制执行Elvis操作符，这些都能让我们的代码免遭空指针灾难。</p>
+<p>但是我并不认为避免空指针是一个只有好处没有坏处的做法，避免了空指针会蒙蔽很多本来需要暴露出来的bug，毕竟人类才是计算机世界最大的bug。所以什么情况下需要空指针安全，什么情况下需要使用!!来暴露真正的问题，是我在写kotlin中一直思考，但是一直存疑的一个地方。</p>
+<p>另一个会使刚开始的使用者头疼的是使用目前流行的框架或者第三方服务出现的问题。</p>
+<p>当我在以前熟悉使用butterknife+plugin来代替findViewById，后来找到kotterknife，再后来才找到kotlin-extensions。</p>
+<p>找到Rxkotlin来代替Rxjava，使用起来也能感受到kotlin语法糖的甜。</p>
+<p>而接入ARoute的时候不知道annotation需要使用kapt而浪费了很多时间。</p>
+<p>还有接入融云的问题：融云的ConversationList是通过调用setUri来获取会话列表，而融云需要的uri后面的键值对全部需要小写，但是融云的ConversationType是一个枚举类，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//java code</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">enum</span> ConversationType &#123;</div><div class="line">        NONE(<span class="number">0</span>, <span class="string">"none"</span>),</div><div class="line">        PRIVATE(<span class="number">1</span>, <span class="string">"private"</span>),</div><div class="line">        DISCUSSION(<span class="number">2</span>, <span class="string">"discussion"</span>),</div><div class="line">        GROUP(<span class="number">3</span>, <span class="string">"group"</span>),</div><div class="line">        CHATROOM(<span class="number">4</span>, <span class="string">"chatroom"</span>),</div><div class="line">        CUSTOMER_SERVICE(<span class="number">5</span>, <span class="string">"customer_service"</span>),</div><div class="line">        SYSTEM(<span class="number">6</span>, <span class="string">"system"</span>),</div><div class="line">        APP_PUBLIC_SERVICE(<span class="number">7</span>, <span class="string">"app_public_service"</span>),</div><div class="line">        PUBLIC_SERVICE(<span class="number">8</span>, <span class="string">"public_service"</span>),</div><div class="line">        PUSH_SERVICE(<span class="number">9</span>, <span class="string">"push_service"</span>);</div><div class="line">  </div><div class="line">  		<span class="comment">//省略没必要的代码...</span></div><div class="line">        <span class="function"><span class="keyword">private</span> <span class="title">ConversationType</span><span class="params">(<span class="keyword">int</span> value, String name)</span> </span>&#123;</div><div class="line">            <span class="keyword">this</span>.value = value;</div><div class="line">            <span class="keyword">this</span>.name = name;</div><div class="line">        &#125;</div><div class="line">  </div><div class="line">  		<span class="comment">//省略没必要的代码...</span></div><div class="line">        <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.name;</div><div class="line">        &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>而融云文档上提供的实例代码是这样的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Uri uri = Uri.parse(<span class="string">"rong://"</span> + getApplicationInfo().packageName).buildUpon()</div><div class="line">                      .appendPath(<span class="string">"conversationlist"</span>)</div><div class="line">                      .appendQueryParameter(Conversation.ConversationType.PRIVATE.getName(), <span class="string">"true"</span>) <span class="comment">//设置私聊会话，该会话聚合显示</span></div><div class="line">                      .appendQueryParameter(Conversation.ConversationType.GROUP.getName(), <span class="string">"false"</span>)<span class="comment">//设置群组会话，该会话非聚合显示</span></div><div class="line">                      .build();</div></pre></td></tr></table></figure>
+<p>单单看上面的代码，我们会轻易地把</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Conversation.ConversationType.PRIVATE.getName() 写成</span></div><div class="line">Conversation.COnversationType.PRIVATE.name</div></pre></td></tr></table></figure>
+<p>但是如果是这么写的话，我们得到的是枚举的命字，也就是<code>PRIVATE</code></p>
+<p>而融云需要的是<code>private</code>，所以你会看到枚举类的代码有<code>setName</code>的方法，获取的是每个枚举的值。</p>
+<p>这个问题藏的很浅，在融云最外层的代码中就能找到原因，但是却很难发现，特别是第三方的服务，里面藏着太多的不确定因素。这就是在java大环境的情况下，使用kotlin会带来的问题，如果是一个刚上路的新手遇到这个问题，我想耗费的时间肯定不只是一点点了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2017/06/25/kotlin/" class="article-date">
+  <time datetime="2017-06-25T08:06:44.000Z" itemprop="datePublished">2017-06-25</time>
+</a>
+
+        </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/kotlin/">kotlin</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+  
+  
+    <a href="/2017/01/05/ConstraintLayout/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">ConstraintLayout（约束布局）</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这家伙很懒，什么都没有留下</p>
+
+
+      </div>
+    </footer>
+
+      
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
