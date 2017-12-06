@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>Rxjava2 | Flog&#39;blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Rxjava使用的是观察者模式，Observable和Observer是最重要的两个元素。
+Observer是观察者，Observable是发布者，也可以说是被观察者。
+这里先从最简单的流程开始分析。
+123Observable				-&amp;gt; create				-&amp;gt; subscribe
+先来分析Observable.create()
+12345678@CheckReturnValue@">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rxjava2">
+<meta property="og:url" content="https://chanchangxing.me/2017/12/05/Rxjava2/index.html">
+<meta property="og:site_name" content="Flog'blog">
+<meta property="og:description" content="Rxjava使用的是观察者模式，Observable和Observer是最重要的两个元素。
+Observer是观察者，Observable是发布者，也可以说是被观察者。
+这里先从最简单的流程开始分析。
+123Observable				-&amp;gt; create				-&amp;gt; subscribe
+先来分析Observable.create()
+12345678@CheckReturnValue@">
+<meta property="og:updated_time" content="2017-12-06T07:53:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rxjava2">
+<meta name="twitter:description" content="Rxjava使用的是观察者模式，Observable和Observer是最重要的两个元素。
+Observer是观察者，Observable是发布者，也可以说是被观察者。
+这里先从最简单的流程开始分析。
+123Observable				-&amp;gt; create				-&amp;gt; subscribe
+先来分析Observable.create()
+12345678@CheckReturnValue@">
+  
+    <link rel="alternate" href="/atom.xml" title="Flog&#39;blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+</head>
+
+  
+    <body>
+  
+      <div id="container" class="container">
+        <article id="post-Rxjava2" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav id="main-nav" class="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS"></a>
+    
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Rxjava2
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <p>Rxjava使用的是观察者模式，Observable和Observer是最重要的两个元素。</p>
+<p>Observer是观察者，Observable是发布者，也可以说是被观察者。</p>
+<p>这里先从最简单的流程开始分析。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Observable</div><div class="line">				-&gt; create</div><div class="line">				-&gt; subscribe</div></pre></td></tr></table></figure>
+<p>先来分析Observable.create()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@CheckReturnValue</span></div><div class="line"><span class="meta">@SchedulerSupport</span>(SchedulerSupport.NONE)</div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; <span class="function">Observable&lt;T&gt; <span class="title">create</span><span class="params">(ObservableOnSubscribe&lt;T&gt; source)</span> </span>&#123;</div><div class="line">	ObjectHelper.requireNonNull(source, <span class="string">"source is null"</span>);</div><div class="line">  	<span class="comment">//主要是分析ObservableCreate()，将外部的内部类放到这个ObservableCreate中,而</span></div><div class="line">  	<span class="comment">//RxJavaPlugins.onAssembly()返回的就是ObservableCreate()</span></div><div class="line">	<span class="keyword">return</span> RxJavaPlugins.onAssembly(<span class="keyword">new</span> ObservableCreate&lt;T&gt;(source));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>ObservableCreate是一个Observable，至此一个发布者（被观察者）诞生了。</p>
+<p>ok，这里是对create的分析，接下来进入subscribe阶段。</p>
+<p>注意，在create阶段结束之后返回的是就是ObservableCreate类。</p>
+<p>所以subscribe方法是ObservableCreate.subscribe。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Observable.java</span></div><div class="line"></div><div class="line"><span class="meta">@CheckReturnValue</span></div><div class="line"><span class="meta">@SchedulerSupport</span>(SchedulerSupport.NONE)</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Disposable <span class="title">subscribe</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> T&gt; onNext, Consumer&lt;? <span class="keyword">super</span> Throwable&gt; onError, Action onComplete)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> subscribe(onNext, onError,onComplete,Functions.emptyConsumer());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>下面看方法里的<code>subscribe</code>方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@CheckReturnValue</span></div><div class="line"><span class="meta">@SchedulerSupport</span>(SchedulerSupport.NONE)</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> Disposable <span class="title">subscribe</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> T&gt; onNext, Consumer&lt;? <span class="keyword">super</span> Throwable&gt; onError, Action onComplete, Consumer&lt;? <span class="keyword">super</span> Disposable&gt; onSubscribe)</span> </span>&#123;</div><div class="line">		ObjectHelper.requireNonNull(onNext, <span class="string">"onNext is null"</span>);</div><div class="line">		ObjectHelper.requireNonNull(onError, <span class="string">"onError is null"</span>);</div><div class="line">		ObjectHelper.requireNonNull(onComplete, <span class="string">"onComplete is null"</span>);</div><div class="line">		ObjectHelper.requireNonNull(onSubscribe, <span class="string">"onSubscribe is null"</span>);</div><div class="line"></div><div class="line">  		<span class="comment">//将onXXX方法放入Observer中。</span></div><div class="line">		LambdaObserver&lt;T&gt; ls = <span class="keyword">new</span> LambdaObserver&lt;T&gt;(onNext,onError,onComplete, onSubscribe);</div><div class="line">		<span class="comment">//下面会进入这个方法</span></div><div class="line">		subscribe(ls);</div><div class="line"></div><div class="line">		<span class="keyword">return</span> ls;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里将<code>onXXX()</code>放到一个<code>LambdaObserver</code>中。我们来看看<code>LambdaObserver</code>是什么</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">LambdaObserver</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">AtomicReference</span>&lt;<span class="title">Disposable</span>&gt; <span class="keyword">implements</span> <span class="title">Observer</span>&lt;<span class="title">T</span>&gt;, <span class="title">Disposable</span> </span>&#123;</div><div class="line">      <span class="function"><span class="keyword">public</span> <span class="title">LambdaObserver</span><span class="params">(</span></span></div><div class="line">        Consumer&lt;? <span class="keyword">super</span> T&gt; onNext,</div><div class="line">        Consumer&lt;? <span class="keyword">super</span> Throwable&gt; onError,</div><div class="line">        Action onComplete,</div><div class="line">        Consumer&lt;? <span class="keyword">super</span> Disposable&gt; onSubscribe) &#123;</div><div class="line">        	<span class="keyword">super</span>();</div><div class="line">        	<span class="keyword">this</span>.onNext = onNext;</div><div class="line">        	<span class="keyword">this</span>.onError = onError;</div><div class="line">        	<span class="keyword">this</span>.onComplete = onComplete;</div><div class="line">        	<span class="keyword">this</span>.onSubscribe = onSubscribe;</div><div class="line">    	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>很明显<code>LambdaObserver</code>是一个Observer，所以Observer观察者找到了。</p>
+<p>然后再回看👆的代码，我们再进入<code>subscribe(ls)</code> 方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Observable.java</span></div><div class="line"></div><div class="line"><span class="meta">@SchedulerSupport</span>(SchedulerSupport.NONE)</div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(Observer&lt;? <span class="keyword">super</span> T&gt; observer)</span> </span>&#123;</div><div class="line">	ObjectHelper.requireNonNull(observer, <span class="string">"observer is null"</span>);</div><div class="line">  	<span class="keyword">try</span> &#123;</div><div class="line">		observer = RxJavaPlugins.onSubscribe(<span class="keyword">this</span>, observer);</div><div class="line">		</div><div class="line">		ObjectHelper.requireNonNull(observer, <span class="string">"Plugin returned null Observer"</span>);</div><div class="line">		</div><div class="line">		<span class="comment">//这是Observable抽象类的抽象方法，具体实现要分析具体的Observable子类。</span></div><div class="line">		subscribeActual(observer);</div><div class="line">	&#125; <span class="keyword">catch</span> (NullPointerException e) &#123; <span class="comment">// NOPMD</span></div><div class="line">		<span class="keyword">throw</span> e;</div><div class="line">	&#125; <span class="keyword">catch</span> (Throwable e) &#123;</div><div class="line">		Exceptions.throwIfFatal(e);</div><div class="line">		RxJavaPlugins.onError(e);</div><div class="line">      </div><div class="line">		NullPointerException npe = <span class="keyword">new</span> NullPointerException(<span class="string">"Actually not, but can't throw other exceptions due to RS"</span>);</div><div class="line">		npe.initCause(e);</div><div class="line">		<span class="keyword">throw</span> npe;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>看到上面的注释，subscribeActual调用的就是ObservableCreate.subscribeActual。所以我们接下来看ObservableCreate.subscribeActual</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ObservableCreate</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">Observable</span>&lt;<span class="title">T</span>&gt; </span>&#123;</div><div class="line">	<span class="keyword">final</span> ObservableOnSubscribe&lt;T&gt; source;</div><div class="line"></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">ObservableCreate</span><span class="params">(ObservableOnSubscribe&lt;T&gt; source)</span> </span>&#123;</div><div class="line">		<span class="keyword">this</span>.source = source;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">subscribeActual</span><span class="params">(Observer&lt;? <span class="keyword">super</span> T&gt; observer)</span> </span>&#123;</div><div class="line">		<span class="comment">//CreateEmitter是一个Disposable的实现类，代码在👇</span></div><div class="line">		CreateEmitter&lt;T&gt; parent = <span class="keyword">new</span> CreateEmitter&lt;T&gt;(observer);</div><div class="line"></div><div class="line">		<span class="comment">//通过前面的分析我们知道这个observer是LambdaObserver类，所以接下来看该类的实现方法</span></div><div class="line">		observer.onSubscribe(parent);</div><div class="line"></div><div class="line">		<span class="keyword">try</span> &#123;</div><div class="line">			source.subscribe(parent);</div><div class="line">		&#125; <span class="keyword">catch</span> (Throwable ex) &#123;</div><div class="line">			Exceptions.throwIfFatal(ex);</div><div class="line">			parent.onError(ex);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//ObservableCreate.java</span></div><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">CreateEmitter</span>&lt;<span class="title">T</span>&gt; <span class="keyword">extends</span> <span class="title">AtomicReference</span>&lt;<span class="title">Disposable</span>&gt; <span class="keyword">implements</span> <span class="title">ObservableEmitter</span>&lt;<span class="title">T</span>&gt;, <span class="title">Disposable</span> </span>&#123;</div><div class="line">	<span class="keyword">final</span> Observer&lt;? <span class="keyword">super</span> T&gt; observer;</div><div class="line">	CreateEmitter(Observer&lt;? <span class="keyword">super</span> T&gt; observer) &#123;</div><div class="line">		<span class="keyword">this</span>.observer = observer;</div><div class="line">	&#125;</div><div class="line">  </div><div class="line"> 	<span class="comment">//这个类下面还有实现了onXXX方法，具体调用的是observer中的onXXX方法</span></div><div class="line">	<span class="meta">@Override</span></div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(T t)</span> </span>&#123;</div><div class="line">		<span class="comment">//省略部分代码</span></div><div class="line">		<span class="keyword">if</span> (!isDisposed()) &#123;</div><div class="line">			observer.onNext(t);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">  	...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>能够感受到这个里面包含一种设计模式，但是却不知道是哪一种，感觉设计模式之间参透不了其中的精髓，还是接着先看observer.onSubscribe(parent)吧。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//LambdaObserver.java</span></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onSubscribe</span><span class="params">(Disposable s)</span> </span>&#123;</div><div class="line">  	</div><div class="line">	<span class="function"><span class="keyword">public</span> <span class="title">LambdaObserver</span><span class="params">(Consumer&lt;? <span class="keyword">super</span> T&gt; onNext,</span></span></div><div class="line">                          Consumer&lt;? <span class="keyword">super</span> Throwable&gt; onError,</div><div class="line">            		     Action onComplete,</div><div class="line">            		     Consumer&lt;? <span class="keyword">super</span> Disposable&gt; onSubscribe) &#123;</div><div class="line">        <span class="keyword">super</span>();</div><div class="line">        <span class="keyword">this</span>.onNext = onNext;</div><div class="line">        <span class="keyword">this</span>.onError = onError;</div><div class="line">        <span class="keyword">this</span>.onComplete = onComplete;</div><div class="line">        <span class="keyword">this</span>.onSubscribe = onSubscribe;</div><div class="line">    &#125;</div><div class="line">  	<span class="comment">//这个判断我目前搞不清楚是什么意思...</span></div><div class="line">	<span class="keyword">if</span> (DisposableHelper.setOnce(<span class="keyword">this</span>, s)) &#123;</div><div class="line">		<span class="keyword">try</span> &#123;</div><div class="line">			<span class="comment">//这个onSubscribe是构造函数里传进来的，而这个方法就是我们自己在					subscribe实现的匿名内部类中的onSubscribe方法</span></div><div class="line">			onSubscribe.accept(<span class="keyword">this</span>);</div><div class="line">		&#125; <span class="keyword">catch</span> (Throwable ex) &#123;</div><div class="line">			Exceptions.throwIfFatal(ex);</div><div class="line">			onError(ex);</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们再回到subscribeActual方法，来看看他下面的source.subscribe(parent);这个方法。</p>
+<p>source就是构造方法传进来的ObservableOnSubscribe，而这个东西就是我们在外部create中创建的匿名内部类。</p>
+<p>所以<code>source.subscribe(parent);</code>是绑定观察者和发布者的方法，而这样也确定了Rxjava2最基本的流程。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Observable</div><div class="line">				-&gt; create</div><div class="line">				-&gt; subscribe</div></pre></td></tr></table></figure>
+<p>第二部我们增加一个流程，加入一个map流程</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Observable</div><div class="line">				-&gt; create</div><div class="line">				-&gt; map</div><div class="line">				-&gt; subscribe</div></pre></td></tr></table></figure>
+<p>照着前面的第一步，我们可以知道create之后返回的是ObservableCreate，所以在我们心中是ObservableCreate.map方法，我们直接从这里开始分析。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//Observable.java</span></div><div class="line"></div><div class="line"><span class="meta">@CheckReturnValue</span></div><div class="line"><span class="meta">@SchedulerSupport</span>(SchedulerSupport.NONE)</div><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> &lt;R&gt; <span class="function">Observable&lt;R&gt; <span class="title">map</span><span class="params">(Function&lt;? <span class="keyword">super</span> T, ? extends R&gt; mapper)</span> </span>&#123;</div><div class="line">	ObjectHelper.requireNonNull(mapper, <span class="string">"mapper is null"</span>);</div><div class="line">	<span class="comment">//传入的是map的方法，这里和create一样，所以我们直接看ObservableMap</span></div><div class="line">  	<span class="comment">//在这里构造方法传入了两个参数，第二个就不解释了，这第一个传入的是this，从前面我们心中已经标记了他是</span></div><div class="line">  	<span class="comment">//ObservableCreate.map,所以这个this就是ObservableCreate</span></div><div class="line">	<span class="keyword">return</span> RxJavaPlugins.onAssembly(<span class="keyword">new</span> ObservableMap&lt;T, R&gt;(<span class="keyword">this</span>, mapper));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>接下来看看ObservableMap类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ObservableMap</span>&lt;<span class="title">T</span>, <span class="title">U</span>&gt; <span class="keyword">extends</span> <span class="title">AbstractObservableWithUpstream</span>&lt;<span class="title">T</span>, <span class="title">U</span>&gt; </span>&#123;</div><div class="line">	<span class="keyword">final</span> Function&lt;? <span class="keyword">super</span> T, ? extends U&gt; function;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ObservableMap</span><span class="params">(ObservableSource&lt;T&gt; source, Function&lt;? <span class="keyword">super</span> T, ? extends U&gt; function)</span> </span>&#123;</div><div class="line">		<span class="comment">//这里的super构造方法是把ObservableCreate放到了全局变量中</span></div><div class="line">		<span class="keyword">super</span>(source);</div><div class="line">		<span class="keyword">this</span>.function = function;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>接下来就关键了，我们要开始分析下一步也就是map之后subscribe了。</p>
+<p>这里中间直接用文字略述一下不需要细究的过程，ObservableMap的父类也是一个Observable类，该类也是实现了subscribeActual方法，而前面我们知道subscribe方法就是调用了该Observable类的subscribeActual方法，所以呢我们就可以直接进入ObservableMap.subscribeActual方法了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//ObservableMap.java</span></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">subscribeActual</span><span class="params">(Observer&lt;? <span class="keyword">super</span> U&gt; t)</span> </span>&#123;</div><div class="line">  	<span class="comment">//结合上一段代码的source，这里的source是ObservableCreate类，</span></div><div class="line">  	<span class="comment">//推导一下那就是ObservableMap.subscribeActual调用了ObservableCreate.subscribeActual</span></div><div class="line">  	<span class="comment">//感觉这个链，一下子就连起来了</span></div><div class="line">	source.subscribe(<span class="keyword">new</span> MapObserver&lt;T, U&gt;(t, function));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>来看看这个MapObserver类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">MapObserver</span>&lt;<span class="title">T</span>, <span class="title">U</span>&gt; <span class="keyword">extends</span> <span class="title">BasicFuseableObserver</span>&lt;<span class="title">T</span>, <span class="title">U</span>&gt; </span>&#123;</div><div class="line">	<span class="keyword">final</span> Function&lt;? <span class="keyword">super</span> T, ? extends U&gt; mapper;</div><div class="line"></div><div class="line">	MapObserver(Observer&lt;? <span class="keyword">super</span> U&gt; actual, Function&lt;? <span class="keyword">super</span> T, ? extends U&gt; mapper) &#123;</div><div class="line">		<span class="comment">//这里父类的构造函数把传进来的actual给了一个全局变量</span></div><div class="line">		<span class="keyword">super</span>(actual);</div><div class="line">		<span class="keyword">this</span>.mapper = mapper;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>接着我们需要回去再看看ObservableCreate的subscribeActual方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//ObservableCreate.java</span></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">subscribeActual</span><span class="params">(Observer&lt;? <span class="keyword">super</span> T&gt; observer)</span> </span>&#123;</div><div class="line">	<span class="comment">//这里的observer是MapObserver了</span></div><div class="line">	CreateEmitter&lt;T&gt; parent = <span class="keyword">new</span> CreateEmitter&lt;T&gt;(observer);</div><div class="line">  	<span class="comment">//我们要进入MapObserver来看看onSubscribe是如何实现的</span></div><div class="line">	observer.onSubscribe(parent);</div><div class="line"></div><div class="line">	<span class="keyword">try</span> &#123;</div><div class="line">		source.subscribe(parent);</div><div class="line">	&#125; <span class="keyword">catch</span> (Throwable ex) &#123;</div><div class="line">		Exceptions.throwIfFatal(ex);</div><div class="line">		parent.onError(ex);</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>MapObserver的onSubscribe实现方法在他的父类BasicFuseableObserver中，我们来看看具体代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//BasicFuseableObserver.java</span></div><div class="line"></div><div class="line"><span class="meta">@SuppressWarnings</span>(<span class="string">"unchecked"</span>)</div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">onSubscribe</span><span class="params">(Disposable s)</span> </span>&#123;</div><div class="line">	<span class="keyword">if</span> (DisposableHelper.validate(<span class="keyword">this</span>.s, s)) &#123;</div><div class="line"></div><div class="line">		<span class="keyword">this</span>.s = s;</div><div class="line">		<span class="keyword">if</span> (s <span class="keyword">instanceof</span> QueueDisposable) &#123;</div><div class="line">			<span class="keyword">this</span>.qs = (QueueDisposable&lt;T&gt;)s;</div><div class="line">		&#125;</div><div class="line"></div><div class="line">		<span class="keyword">if</span> (beforeDownstream()) &#123;</div><div class="line">			<span class="comment">//这里的actual正好是前面说略述被略过的，根据第一部里的分析，这个actual就是LambdaObserver</span></div><div class="line">			<span class="comment">//终于在这里，完成了create-&gt;map-&gt;subscribe的连线</span></div><div class="line">			actual.onSubscribe(<span class="keyword">this</span>);</div><div class="line"></div><div class="line">			afterDownstream();</div><div class="line">		&#125;</div><div class="line"></div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>至此，完成了第二部分的分析，Rxjava的源码并不算难懂，命名非常有自己的特点，可以很快地通过方法名来知道这个方法的大概用途，而且她也使用了很多设计模式，让原本的复杂的、感觉上耦合很高的代码变得清晰，在这里要重新学习一下设计模式，才能感受到Rxjava代码的魅力</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2017/12/05/Rxjava2/" class="article-date">
+  <time datetime="2017-12-05T08:12:57.000Z" itemprop="datePublished">2017-12-05</time>
+</a>
+
+        </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+  
+  
+    <a href="/2017/11/28/Glide缓存机制/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Viejo</strong>
+      <div class="article-nav-title">Glide缓存机制</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这家伙很懒，什么都没有留下</p>
+
+
+      </div>
+    </footer>
+
+      
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
