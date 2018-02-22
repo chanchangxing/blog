@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>react随手记 | Flog&#39;blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="一个看项目代码时的随心纪录。
+1.bool &amp;amp;&amp;amp; function() {}
+12callback = () =&amp;gt; &amp;#123;&amp;#125;callback &amp;amp;&amp;amp; callback()
+js在判断中，如果该变量为null或者undefined，第一个判断为false，第二个方法也就不会执行了。这种写法是一种比较优雅的非空判断
+2.style={[]}
+styl">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react随手记">
+<meta property="og:url" content="https://chanchangxing.me/2018/02/10/react/index.html">
+<meta property="og:site_name" content="Flog'blog">
+<meta property="og:description" content="一个看项目代码时的随心纪录。
+1.bool &amp;amp;&amp;amp; function() {}
+12callback = () =&amp;gt; &amp;#123;&amp;#125;callback &amp;amp;&amp;amp; callback()
+js在判断中，如果该变量为null或者undefined，第一个判断为false，第二个方法也就不会执行了。这种写法是一种比较优雅的非空判断
+2.style={[]}
+styl">
+<meta property="og:updated_time" content="2018-02-11T06:52:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="react随手记">
+<meta name="twitter:description" content="一个看项目代码时的随心纪录。
+1.bool &amp;amp;&amp;amp; function() {}
+12callback = () =&amp;gt; &amp;#123;&amp;#125;callback &amp;amp;&amp;amp; callback()
+js在判断中，如果该变量为null或者undefined，第一个判断为false，第二个方法也就不会执行了。这种写法是一种比较优雅的非空判断
+2.style={[]}
+styl">
+  
+    <link rel="alternate" href="/atom.xml" title="Flog&#39;blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+</head>
+
+  
+    <body>
+  
+      <div id="container" class="container">
+        <article id="post-react" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav id="main-nav" class="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+    
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      react随手记
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <p>一个看项目代码时的随心纪录。</p>
+<p>1.<code>bool &amp;&amp; function() {}</code></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">callback = <span class="function"><span class="params">()</span> =&gt;</span> &#123;&#125;</div><div class="line">callback &amp;&amp; callback()</div></pre></td></tr></table></figure>
+<p>js在判断中，如果该变量为null或者undefined，第一个判断为false，第二个方法也就不会执行了。这种写法是一种比较优雅的非空判断</p>
+<p>2.<code>style={[]}</code></p>
+<p>style可以传入array。</p>
+<p>3.<code>()=&gt;{}</code></p>
+<p>ES6加入箭头函数<code>()=&gt;{}</code>,它最大的作用就是将this的指向统一了，this不像function一样按照情况指向了，而是指向最外层的类中</p>
+<p>4.<code>在一个方法中，同名的实参，形参和变量之间是引用关系，也就是JS引擎的处理是同名变量和形参都引用同一个内存地址</code></p>
+<p><code>JS引擎变量查找规则，首先在当前执行环境的 ActiveObject 中寻找，没找到，则顺着执行环境中属性 ScopeChain 指向的 ActiveObject 中寻找，一直到 Global Object（window）</code></p>
+<p><a href="http://js8.in/2011/08/15/javascript%E7%9A%84%E8%AF%8D%E6%B3%95%E4%BD%9C%E7%94%A8%E5%9F%9F/" target="_blank" rel="external">http://js8.in/2011/08/15/javascript%E7%9A%84%E8%AF%8D%E6%B3%95%E4%BD%9C%E7%94%A8%E5%9F%9F/</a></p>
+<p>5.<code>()=&gt;{}箭头函数本身没有this，这个this只是通过外部传入的</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//ES6</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'id:'</span>, <span class="keyword">this</span>.id);</div><div class="line">  &#125;, <span class="number">100</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// ES5</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> _this = <span class="keyword">this</span>;</div><div class="line"></div><div class="line">  setTimeout(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'id:'</span>, _this.id);</div><div class="line">  &#125;, <span class="number">100</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以看到ES6其实真的只是一个语法糖，只是把this的指向做了简化，所以还是要学习function的this的指向</p>
+<p>6.<code>js的function的this的指向有四种情况，一、纯粹的函数调用 二、作为对象方法的调用 三、作为构造函数调用 四、apply调用</code>  </p>
+<p><code>随着函数使用场合的不同，this的值会发生变化。但是有一个总的原则，那就是this指的是，调用函数的那个对象。</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 纯粹的函数调用</div><div class="line"> */</div><div class="line"><span class="keyword">var</span> a = <span class="number">1</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(a)</div><div class="line">&#125;;</div><div class="line"></div><div class="line">func(); <span class="comment">//1</span></div><div class="line">========================</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 作为对象方法的调用</div><div class="line"> */</div><div class="line"><span class="keyword">var</span> a = <span class="number">1</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(a)</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> o = <span class="keyword">new</span> O();</div><div class="line">o.a = <span class="number">2</span>;</div><div class="line">o.func = func</div><div class="line">o.func()<span class="comment">//2</span></div><div class="line">========================</div><div class="line"><span class="comment">/**</span></div><div class="line"> * 作为构造函数调用</div><div class="line"> */</div><div class="line"><span class="keyword">var</span> x = <span class="number">2</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>) </span>&#123;</div><div class="line">	<span class="keyword">this</span>.x = <span class="number">1</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> o = <span class="keyword">new</span> func()</div><div class="line"><span class="built_in">console</span>.log(x)<span class="comment">//2，并没有被func改变x</span></div><div class="line">========================</div><div class="line"><span class="keyword">var</span> x = <span class="number">2</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">func</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.x = <span class="number">1</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> o = <span class="keyword">new</span> O();</div><div class="line">o.func = func();</div><div class="line">o.func.apply();</div><div class="line"><span class="built_in">console</span>.log(x)<span class="comment">//2 apply()不传参数就代表this指向全局</span></div></pre></td></tr></table></figure>
+<p>7.<code>Promise只是一个JS异步回调地狱的解决方法，rn的fetch就是使用的是Promise。如果是成功的话，调用resolve，失败的话调用reject。使用Promise的话直接new，并传入他的构造函数(resolve, reject) =&gt; {}，这个函数被称为execute，execute会在Promise初始化的时候直接调用，我想我们就是在这里面做异步操作</code></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2018/02/10/react/" class="article-date">
+  <time datetime="2018-02-10T02:49:01.000Z" itemprop="datePublished">2018-02-10</time>
+</a>
+
+        </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react/">react</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+  
+  
+    <a href="/2017/12/20/java注解/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">java注解</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这家伙很懒，什么都没有留下</p>
+
+
+      </div>
+    </footer>
+
+      
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
