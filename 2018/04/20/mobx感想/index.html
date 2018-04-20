@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  <title>mobx感想 | Flog&#39;blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="mobx在介绍中的定义是这样的：简单、可扩展的状态管理，用处是它通过透明的函数响应式编程使得状态管理变得简单和可扩展
+具体的说法应该是这样的，mobx储存着state，当用户去做动作的时候（类似下拉刷新…）， 是对应mobx的action函数，action之后会改变state，当state改变之后会去响应式调用observer范围的函数（computed，autorun…类似reaction和@o">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mobx感想">
+<meta property="og:url" content="https://chanchangxing.me/2018/04/20/mobx感想/index.html">
+<meta property="og:site_name" content="Flog'blog">
+<meta property="og:description" content="mobx在介绍中的定义是这样的：简单、可扩展的状态管理，用处是它通过透明的函数响应式编程使得状态管理变得简单和可扩展
+具体的说法应该是这样的，mobx储存着state，当用户去做动作的时候（类似下拉刷新…）， 是对应mobx的action函数，action之后会改变state，当state改变之后会去响应式调用observer范围的函数（computed，autorun…类似reaction和@o">
+<meta property="og:updated_time" content="2018-04-20T17:40:15.424Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mobx感想">
+<meta name="twitter:description" content="mobx在介绍中的定义是这样的：简单、可扩展的状态管理，用处是它通过透明的函数响应式编程使得状态管理变得简单和可扩展
+具体的说法应该是这样的，mobx储存着state，当用户去做动作的时候（类似下拉刷新…）， 是对应mobx的action函数，action之后会改变state，当state改变之后会去响应式调用observer范围的函数（computed，autorun…类似reaction和@o">
+  
+    <link rel="alternate" href="/atom.xml" title="Flog&#39;blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+</head>
+
+  
+    <body>
+  
+      <div id="container" class="container">
+        <article id="post-mobx感想" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav id="main-nav" class="main-nav">
+    
+      <a class="main-nav-link" href="/">Home</a>
+    
+      <a class="main-nav-link" href="/archives">Archives</a>
+    
+      <a class="main-nav-link" href="/about">About</a>
+    
+  </nav>
+  <nav id="sub-nav">
+    
+      <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS"></a>
+    
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      mobx感想
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <p>mobx在介绍中的定义是这样的：<em>简单、可扩展的状态管理</em>，用处是<em>它通过透明的函数响应式编程使得状态管理变得简单和可扩展</em></p>
+<p>具体的说法应该是这样的，mobx储存着state，当用户去做动作的时候（类似下拉刷新…）， 是对应mobx的action函数，action之后会改变state，当state改变之后会去响应式调用observer范围的函数（computed，autorun…类似reaction和@observer都是语法糖啦，最重要的还是computed和autorun）。</p>
+<p>其实到了observer这里mobx的东西其实就应该是结束了，什么显示在界面上的事情都包含在observer中了。</p>
+<p>所以总的来说mobx可以分为三块：action（动作），observable（被观察者），observer（观察者）。</p>
+<p>action主要有两大部分，关键点就是操作是不是异步的，主要还是涉及到网络请求这方面的东西。</p>
+<p>接下来是observable，observable的主要问题在于observable何时会产生作用，在mobx中，所有的被观察者都是observable类的（虽然在JS中我很不喜欢用类这个词，但是确实没有找到其他更好的说辞），而改变数据的方式多种多样，有些改变方式可能就会遇到observable的坑。</p>
+<p>最后一块应该也是mobx自认为最关键一点observer，observer延伸出了两大块，computed和autorun，computed是在获取到某个被观察的值发生变化而需要通过计算（compute）而去改变另一个值的方法，autorun则是根据被观察的值来做一些反应（类似console.log，或者网络请求等），在mobx中，对于这两个observer的使用场景区别有如下说法<em>如果你想响应式的产生一个可以被其它 observer 使用的<strong>值</strong>，请使用 <code>@computed</code>，如果你不想产生一个新值，而想要达到一个<strong>效果</strong>，请使用 <code>autorun</code></em></p>
+<p>observer还有一个点就是和react的使用，mobx的状态管理很好的取代了state（其实不应该是取代，但是我觉得mobx在react的优点真的可以取代state）。observer在react可以真正的实现单一组件的刷新，而不是像diff算法一样最少刷新同一级。</p>
+<p>也说不上总结吧，mobx是一个非常优秀的框架（虽然文档里他不承认自己是框架，而我也对框架这个词不是有很清晰的定义，姑且称他为框架吧），在业务中使用也是非常优秀的，而且现在有一个大胆的想法，是不是mobx可以作为类似高阶组件一样进行高阶通用，打到子组件可拔插的效果，只是想法，需要到代码中真正的做尝试。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2018/04/20/mobx感想/" class="article-date">
+  <time datetime="2018-04-20T07:21:09.000Z" itemprop="datePublished">2018-04-20</time>
+</a>
+
+        </li>
+        
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+  
+  
+    <a href="/2018/04/20/浅比较和深比较/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Viejo</strong>
+      <div class="article-nav-title">浅比较和深比较</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这家伙很懒，什么都没有留下</p>
+
+
+      </div>
+    </footer>
+
+      
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
