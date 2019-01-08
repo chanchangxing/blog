@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>android内存管理 | Flog&#39;blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="####ComponentCallbacks2的onTrimMemory检测内存情况
+实现ComponentCallbacks2的onTrimMemory方法，该方法提供的值为程序员提供了内存管理的提示：
+1、当App处于在前台的时候
+TRIM_MEMORY_RUNNING_MODERATE：设备开始内存较低，App正在运行不会被杀死。 
+TRIM_MEMORY_RUNNING_LOW：设备内存处">
+<meta property="og:type" content="article">
+<meta property="og:title" content="android内存管理">
+<meta property="og:url" content="https://chanchangxing.me/2018/09/25/android内存管理/index.html">
+<meta property="og:site_name" content="Flog'blog">
+<meta property="og:description" content="####ComponentCallbacks2的onTrimMemory检测内存情况
+实现ComponentCallbacks2的onTrimMemory方法，该方法提供的值为程序员提供了内存管理的提示：
+1、当App处于在前台的时候
+TRIM_MEMORY_RUNNING_MODERATE：设备开始内存较低，App正在运行不会被杀死。 
+TRIM_MEMORY_RUNNING_LOW：设备内存处">
+<meta property="og:updated_time" content="2018-09-28T13:15:11.216Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="android内存管理">
+<meta name="twitter:description" content="####ComponentCallbacks2的onTrimMemory检测内存情况
+实现ComponentCallbacks2的onTrimMemory方法，该方法提供的值为程序员提供了内存管理的提示：
+1、当App处于在前台的时候
+TRIM_MEMORY_RUNNING_MODERATE：设备开始内存较低，App正在运行不会被杀死。 
+TRIM_MEMORY_RUNNING_LOW：设备内存处">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  <link rel="stylesheet" href="/css/donate.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body class="dark">
+    
+  
+      <div id="container" class="container">
+        <article id="post-android内存管理" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav class="mobile-nav">
+    <h1 class="nickname">NickName</h1>
+    <ul class="mobile-nav-menu">
+      <label for="mobile-menu-toggle"><a>&#9776; Menu</a></label>
+      <input type="checkbox" id="mobile-menu-toggle"/>
+      <ul class="mobile-nav-link">
+        
+        <a href="/">Home</a>
+        
+        <a href="/archives">Archives</a>
+        
+        <a href="/about">About</a>
+        
+      </ul>
+    </ul>
+  </nav>
+	
+		<nav id="main-nav" class="main-nav nav-left">
+	
+	
+	  <a class="main-nav-link" href="/">Home</a>
+	
+	  <a class="main-nav-link" href="/archives">Archives</a>
+	
+	  <a class="main-nav-link" href="/about">About</a>
+	
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      android内存管理
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <p>####ComponentCallbacks2的onTrimMemory检测内存情况</p>
+<p>实现ComponentCallbacks2的onTrimMemory方法，该方法提供的值为程序员提供了内存管理的提示：</p>
+<p>1、当App处于在前台的时候</p>
+<p><code>TRIM_MEMORY_RUNNING_MODERATE</code>：设备开始内存较低，App正在运行不会被杀死。 </p>
+<p><code>TRIM_MEMORY_RUNNING_LOW</code>：设备内存处于非常的低的状态，App正在运行不会被杀死，但是需要释放一些没有的资源来提升系统性能（同时也会提升App的性能）</p>
+<p><code>TRIM_MEMORY_RUNNING_CRITICAL</code>：设备内存处于极低的状态，App不会被杀死，如果你不释放一些内存的话后台进程可能会被杀掉，所以需要释放一些资源以防止性能下降</p>
+<p>2、当App切换到后台时：</p>
+<p><code>[TRIM_MEMORY_UI_HIDDEN]</code>：这里可以释放一些仅仅用在UI上的大的资源</p>
+<p>3、当App进程处于后台的LRU列表中</p>
+<p><code>TRIM_MEMORY_BACKGROUND</code>：设备处于低内存的情况，你的App进程可能处于LRU列表的开头，虽然App并没多大被杀死的风险，但是系统可能已经在杀死LRU列表中的进程了，所以你应该释放内存这样可以让App保存在LRU列表中并且在用户使用的时候可以快速回复</p>
+<p><code>TRIM_MEMORY_MODERATE</code>：设备正在低内存的情况下而且App已经处于LRU列表的中间了，如果系统的低内存情况没有缓解，那么App可能就会被杀死</p>
+<p><code>TRIM_MEMORY_COMPLETE</code>：设备处于低内存情况而且如果低内存情况没有缓解那么App正处于优先被删除的境况下。你需要释放所有不重要的内存。</p>
+<p>可能App处于LRU列表的开始阶段，而LRU列表是自下而上删除的，但是可能也会根据App占用内存的大小进行删除，所以竟可能的减小App占用的内存可以让App尽量保存在LRU列表中</p>
+<h4 id="MemoryInfo获取系统分配的内存总量和可用余额"><a href="#MemoryInfo获取系统分配的内存总量和可用余额" class="headerlink" title="MemoryInfo获取系统分配的内存总量和可用余额"></a>MemoryInfo获取系统分配的内存总量和可用余额</h4><p>通过context.getSystemService(ACTIVITY_SERVICE)得到ActivityManager，MemoryInfo获得总量内存和剩余内存</p>
+<h4 id="用jobScheduler代替service"><a href="#用jobScheduler代替service" class="headerlink" title="用jobScheduler代替service"></a>用jobScheduler代替service</h4><h4 id="用Android提供的容器"><a href="#用Android提供的容器" class="headerlink" title="用Android提供的容器"></a>用Android提供的容器</h4><p>使用SparseArray来取代Hashmap。比如SparseArray类避免了系统对key和一些value的自动转换</p>
+<h4 id="注意代码抽象"><a href="#注意代码抽象" class="headerlink" title="注意代码抽象"></a>注意代码抽象</h4><p>代码抽象会增加class文件的数量导致RAM的增加。</p>
+<h4 id="用nano-protobufs替换"><a href="#用nano-protobufs替换" class="headerlink" title="用nano protobufs替换"></a>用nano protobufs替换</h4><h4 id="避免内存流失"><a href="#避免内存流失" class="headerlink" title="避免内存流失"></a>避免内存流失</h4><p>如果一次性要回收的类太多，那么系统会把更多时间给到垃圾回收，这样我们的App性能就会变得更差。</p>
+<p>比如说在每次for循环里创建类，再比如在onDraw中创建Bitmap。这些都会引起短时间大量内存占用。</p>
+<h4 id="如果要用依赖注入，尽量使用dagger。"><a href="#如果要用依赖注入，尽量使用dagger。" class="headerlink" title="如果要用依赖注入，尽量使用dagger。"></a>如果要用依赖注入，尽量使用dagger。</h4><p>dagger看Processon</p>
+<h4 id="把一些没用的第三方lib删除"><a href="#把一些没用的第三方lib删除" class="headerlink" title="把一些没用的第三方lib删除"></a>把一些没用的第三方lib删除</h4>
+      
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2018/09/25/android内存管理/" class="article-date">
+  <time datetime="2018-09-25T02:19:03.000Z" itemprop="datePublished">2018-09-25</time>
+</a>
+
+        </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <a href="/2019/01/08/爬楼梯/" id="article-nav-newer" class="article-nav-link-wrap newer">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          爬楼梯
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/09/03/fridge/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">fridge</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/geekplux/hexo-theme-typing"><span class="fa fa-globe"></span></a></li>
+          
+            <li><a href="https://twitter.com/"><span class="fa fa-twitter"></span></a></li>
+          
+            <li><a href="https://github.com/"><span class="fa fa-github-alt"></span></a></li>
+          
+            <li><a href="https://www.youtube.com/"><span class="fa fa-youtube-play"></span></a></li>
+          
+            <li><a href="https://stackoverflow.com/"><span class="fa fa-stack-overflow"></span></a></li>
+          
+            <li><a href="https://plus.google.com/"><span class="fa fa-google-plus"></span></a></li>
+          
+            <li><a href="/atom.xml"><span class="fa fa-rss"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>ipsum dolor sit amet, <strong>consectetur adipiscing elit.</strong> Fusce eget urna vitae velit <em>eleifend interdum at ac nisi. In nec ligula lacus. Cum sociis natoque</em> penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eu cursus erat, ut dapibus quam. Post</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3/dist/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>fridge | Flog&#39;blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Directory指的是运行的文件目录，Output directory指的是运行完的二进制文件的输出目录
+Sequel sql在创建VARCHAR字段时，Encoding默认为一个神奇的东西，导致中文无法导入，会出现错误，需要将Encoding改为UTF-8
+createTime和validTime设置为timestamp类型，在go中使用time.Time来进行获取却一直得到00：00：0">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fridge">
+<meta property="og:url" content="https://chanchangxing.me/2018/09/03/fridge/index.html">
+<meta property="og:site_name" content="Flog'blog">
+<meta property="og:description" content="Directory指的是运行的文件目录，Output directory指的是运行完的二进制文件的输出目录
+Sequel sql在创建VARCHAR字段时，Encoding默认为一个神奇的东西，导致中文无法导入，会出现错误，需要将Encoding改为UTF-8
+createTime和validTime设置为timestamp类型，在go中使用time.Time来进行获取却一直得到00：00：0">
+<meta property="og:updated_time" content="2018-09-20T08:35:14.238Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="fridge">
+<meta name="twitter:description" content="Directory指的是运行的文件目录，Output directory指的是运行完的二进制文件的输出目录
+Sequel sql在创建VARCHAR字段时，Encoding默认为一个神奇的东西，导致中文无法导入，会出现错误，需要将Encoding改为UTF-8
+createTime和validTime设置为timestamp类型，在go中使用time.Time来进行获取却一直得到00：00：0">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  <link rel="stylesheet" href="/css/donate.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body class="dark">
+    
+  
+      <div id="container" class="container">
+        <article id="post-fridge" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav class="mobile-nav">
+    <h1 class="nickname">NickName</h1>
+    <ul class="mobile-nav-menu">
+      <label for="mobile-menu-toggle"><a>&#9776; Menu</a></label>
+      <input type="checkbox" id="mobile-menu-toggle"/>
+      <ul class="mobile-nav-link">
+        
+        <a href="/">Home</a>
+        
+        <a href="/archives">Archives</a>
+        
+        <a href="/about">About</a>
+        
+      </ul>
+    </ul>
+  </nav>
+	
+		<nav id="main-nav" class="main-nav nav-left">
+	
+	
+	  <a class="main-nav-link" href="/">Home</a>
+	
+	  <a class="main-nav-link" href="/archives">Archives</a>
+	
+	  <a class="main-nav-link" href="/about">About</a>
+	
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      fridge
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+         
+<p>Directory指的是运行的文件目录，Output directory指的是运行完的二进制文件的输出目录</p>
+<p>Sequel sql在创建VARCHAR字段时，Encoding默认为一个神奇的东西，导致中文无法导入，会出现错误，需要将Encoding改为UTF-8</p>
+<p>createTime和validTime设置为timestamp类型，在go中使用time.Time来进行获取却一直得到00：00：00</p>
+<p>需要在dataSourceName中加入parseTime=true，其他参数要看<a href="https://github.com/go-sql-driver/mysql#timetime-support。" target="_blank" rel="external">https://github.com/go-sql-driver/mysql#timetime-support。</a></p>
+<p>使用上述方法发现仍然有问题，时间戳貌似是有问题的。现在的解决方案是将createTime和validTime设置为varchar(256)，然后通过int32(time.Time.Unix())直接写入sql。得到的是单位为秒的时间戳</p>
+<p>使用delete关键字删除的时候发现id仍然继续跟着上面递增的，用truncate能够解决这个问题</p>
+<p>在启动sql的时候遇到了一个神奇的问题，发现mysql启动不起来了，一直报找不到什么PID文件的。</p>
+<p>最后是从sql的err类型的文件中找到是因为tmp中有个sql,sock的东西在搞鬼，删除之后就好了。</p>
+<p>####记住以后有什么问题都要找错误日志。</p>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2018/09/03/fridge/" class="article-date">
+  <time datetime="2018-09-03T03:35:14.000Z" itemprop="datePublished">2018-09-03</time>
+</a>
+
+        </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/go/">go</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <a href="/2018/09/25/android内存管理/" id="article-nav-newer" class="article-nav-link-wrap newer">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          android内存管理
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/05/11/使用RN感想/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">RN新项目完成</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/geekplux/hexo-theme-typing"><span class="fa fa-globe"></span></a></li>
+          
+            <li><a href="https://twitter.com/"><span class="fa fa-twitter"></span></a></li>
+          
+            <li><a href="https://github.com/"><span class="fa fa-github-alt"></span></a></li>
+          
+            <li><a href="https://www.youtube.com/"><span class="fa fa-youtube-play"></span></a></li>
+          
+            <li><a href="https://stackoverflow.com/"><span class="fa fa-stack-overflow"></span></a></li>
+          
+            <li><a href="https://plus.google.com/"><span class="fa fa-google-plus"></span></a></li>
+          
+            <li><a href="/atom.xml"><span class="fa fa-rss"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>ipsum dolor sit amet, <strong>consectetur adipiscing elit.</strong> Fusce eget urna vitae velit <em>eleifend interdum at ac nisi. In nec ligula lacus. Cum sociis natoque</em> penatibus et magnis dis parturient montes, nascetur ridiculus mus. Sed eu cursus erat, ut dapibus quam. Post</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3/dist/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
