@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>RN与android通讯 | Flog&#39;blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="最开始一些无关紧要的操作。MainActivity extend ReactActivity。ReactActivity.onCreate()的操作都是调用ReactActivityDelegate，ReactActivityDelegate是 委派模式，这个东西以后再去分析。
+ReactActivityDelegate最后是调用loadApp()方法，这个方法干了三个事情：
+
+createRoo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RN与android通讯">
+<meta property="og:url" content="https://chanchangxing.me/2019/01/08/RN与android通讯/index.html">
+<meta property="og:site_name" content="Flog'blog">
+<meta property="og:description" content="最开始一些无关紧要的操作。MainActivity extend ReactActivity。ReactActivity.onCreate()的操作都是调用ReactActivityDelegate，ReactActivityDelegate是 委派模式，这个东西以后再去分析。
+ReactActivityDelegate最后是调用loadApp()方法，这个方法干了三个事情：
+
+createRoo">
+<meta property="og:updated_time" content="2019-01-08T14:23:39.332Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RN与android通讯">
+<meta name="twitter:description" content="最开始一些无关紧要的操作。MainActivity extend ReactActivity。ReactActivity.onCreate()的操作都是调用ReactActivityDelegate，ReactActivityDelegate是 委派模式，这个东西以后再去分析。
+ReactActivityDelegate最后是调用loadApp()方法，这个方法干了三个事情：
+
+createRoo">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  <link rel="stylesheet" href="/css/donate.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body class="dark">
+    
+  
+      <div id="container" class="container">
+        <article id="post-RN与android通讯" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav class="mobile-nav">
+    <h1 class="nickname">铲昶行的智障空间</h1>
+    <ul class="mobile-nav-menu">
+      <label for="mobile-menu-toggle"><a>&#9776; Menu</a></label>
+      <input type="checkbox" id="mobile-menu-toggle"/>
+      <ul class="mobile-nav-link">
+        
+        <a href="/">Home</a>
+        
+        <a href="/archives">Archives</a>
+        
+      </ul>
+    </ul>
+  </nav>
+	
+		<nav id="main-nav" class="main-nav nav-left">
+	
+	
+	  <a class="main-nav-link" href="/">Home</a>
+	
+	  <a class="main-nav-link" href="/archives">Archives</a>
+	
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      RN与android通讯
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <h4 id="最开始一些无关紧要的操作。"><a href="#最开始一些无关紧要的操作。" class="headerlink" title="最开始一些无关紧要的操作。"></a>最开始一些无关紧要的操作。</h4><p><code>MainActivity extend ReactActivity</code>。<code>ReactActivity.onCreate()</code>的操作都是调用ReactActivityDelegate，ReactActivityDelegate是 <em>委派模式</em>，这个东西以后再去分析。</p>
+<p>ReactActivityDelegate最后是调用loadApp()方法，这个方法干了三个事情：</p>
+<ol>
+<li><p><code>createRootView</code>: 创建了<code>ReactRootView</code>，<code>ReactRootView</code>用来渲染JS所描述的界面。 </p>
+</li>
+<li><ul>
+<li><code>ReactRootView.startReactApplication()</code>: 这个方法的作用是安排react组件的渲染，通过JS module里面的JS application。<br>之后做了两个事情，一个是创建Java，cpp和js的线程（这个操作每个react app只创建一次）。</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li><code>ReactInstanceManager.createReactContextInBackground()</code>: 在后台异步任务中异步初始化react上下文。这个使app预加载JS，在<code>ReactRootView</code>可以使用和测量（measured），这个方法只能有在app第一次启动的时候调用。</li>
+<li><code>ReactInstanceManager.recreateReactContextInBackgroundInner()</code>: 这个方法源码里面没有说明，我自己来简单解释一下吧，首先判断目前的运行状态是否为调试状态，我们就分析不是调试状态，那么他就直接一系列的方法。</li>
+<li>之后会判断<code>mCreateReactContextThread</code>是否为空，如果是空的话就创建一个。那么这个<code>mCreateReactContextThread</code>是个什么东西呢？其实是一个Thread，一个线程。所以之后RN就会去创建这个线程</li>
+<li>创建<code>mCreateReactContextThread</code>的方法是<code>runCreateReactContextOnNewThread()</code>。如果<code>mCurrentReactContext</code>不为空的话，那么就要拆除这个ReactContext，拆除这个ReactContext等于是把里面所有的View全都remove掉了。之后就创建了Thread，并直接执行了<code>start()</code>方法。所以我们要关注Thread这个线程到底跑了啥。</li>
+<li>下面总结一下如果<code>ReactInstanceManager</code>正在开始Destroy所有东西的时候，也就是<code>mHasStartedDestroying</code>为<code>true</code>的话，这个线程被挂起，等到这个那边Destroy结束后再往下执行。</li>
+</ul>
+<ol>
+<li>创建ReactApplicationContext。</li>
+<li>解析所有的Package。返回在一个<code>NativeModuleRegistry</code>中。</li>
+<li>创建一个<code>CatalystInstanceImpl</code>的建造者，并建造<code>CatalystInstanceImpl</code>。在创建<code>CatalystInstanceImpl</code>里面做了很多操作。<br><strong>第一</strong>：创建了<code>Hybird()</code>。据网上说用来初始化JNI相关状态，并不知道是什么意思。<br><strong>第二</strong>：创建了<code>ReactQueueConfiguration</code>,在创建它的时候同时创建了两个Looper，加上UI线程，RN总共有三个Looper，UILooper，JSLooper，NativeLooper。<br><strong>第三</strong>：调用了<code>initializeBridge</code>，这个是用来初始化桥接，<code>Java CatalystInstanceImpl -&gt; C++ CatalystInstanceImpl -&gt; Bridge -&gt; Bridge::Callback --weak -&gt; ReactCallback -&gt; Java CatalystInstanceImpl</code></li>
+<li>调用<code>CatalystInstanceImpl</code>的<code>runJSBundle()</code>方法，用来开始加载JS。加载脚本，返回其加载的源的URL。</li>
+<li>最后将UILooper、JSLooper和CppLooper加入到ReactApplicationContext中</li>
+</ol>
+<p>创建两个Runnable，一个用来在新的线程中重新跑创建ReactContext。另一个用来重新设置ReactContext。</p>
+<ol>
+<li>获得CatalystInstanceImpl，并进行初始化。CatalystInstanceImpl初始化做的事情就是调用所有NativeModule的initialize方法。</li>
+<li>之后试图获取mAttachedRootViews的锁，将所有View加入，并且开始运行React application。具体的操作如下<br><strong>第一</strong>：给rootView定义一个tag。<br><strong>第二</strong>：然后直接通过AppRegistry来运行React application，这里在Java端的AppRegistry内容只是一个接口，这是一个桥接到JS端的动作，具体执行代码在AppRegistry.js这里。在js端的runApplication方法就先不具体分析的，该方法的注释意思是<code>Loads the JavaScript bundle and runs the app.</code>，翻译过来就是加载JS bundle并且运行app。</li>
+</ol>
+<p>之后<code>setupReactContextRunnable</code>在CppLooper中跑这个runable，并且把它放在CppLooper MessageQueue的尾部。</p>
+<ol>
+<li>回到startReactApplication，上面的异步有些还是处于没有锁的状态，所以现在要进入最后一个方法了，attachToReactInstanceManager。这个方法主要是通过ReactInstanceManager将RootView干嘛呢，拭目以待。</li>
+</ol>
+<ul>
+<li><code>ReactInstanceManager.attachRootView()</code>，你这个方法就是到了最后走了<code>attachRootViewToInstance()</code>.  让人糊涂</li>
+</ul>
+<p><a href="https://www.jianshu.com/p/02be425d7b13" target="_blank" rel="external">https://www.jianshu.com/p/02be425d7b13</a><br>这篇文章讲了AppRegistry.java到AppRegistry.js的流程。我们就举个具体的例子，runApplication。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">catalystInstance.getJSModule(AppRegistry.class).runApplication(jsAppModuleName, appParams);</div></pre></td></tr></table></figure></p>
+<p>这段代码在app执行到这段代码的时候会走一个动态代理。动态代理会把这个操作引到cpp端做处理，cpp端会把这个请求再走到js.</p>
+<p>大致了解了一下从js到java端的大体流程。我们用一个ToastExample来讲解。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> &#123;NativeModules&#125; <span class="keyword">from</span> <span class="string">'react-native'</span></div><div class="line">NativeModules.ToastExample.show(<span class="string">"Awesome"</span>, ToastExample.SHORT);</div></pre></td></tr></table></figure></p>
+<p>其实呢，在js上根本就没有ToastExample这个东西，我们来看NativeModules这个东西。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> NativeModules: &#123;[moduleName: string]: <span class="built_in">Object</span>&#125; = &#123;&#125;;</div></pre></td></tr></table></figure></p>
+<p>其实呢，NativeModules是一个空的map。所以我们在用<code>NativeModules.ToastExample</code>其实是看有没有这个map的value。中间最重要的环节就是通过genModule来和cpp交互。genModule方法的意思是<code>生成模块</code>。而genModule中最重要的环节是调用了<code>BatchedBridge.enqueueNativeCall</code>。这个方法就进入了cpp的代码了。进入了JSCExecutor::nativeFlushQueueImmediate()，而这个方法调用了这个，m_delegate-&gt;callNativeModules，<br>而这个m_delegate是ExecutorDelegate的子类，m_delegate属于JsToNativeBridge，</p>
+<p>JsToNativeBridge的callNativeModules最重要的是调用了<br>ModuleRegistry.callNativeMethod<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">callNativeModules</span><span class="params">(JSExecutor&amp; executor, folly::dynamic&amp;&amp; calls, <span class="keyword">bool</span> isEndOfBatch)</span> override </span>&#123;</div><div class="line">...</div><div class="line"><span class="keyword">for</span> (<span class="keyword">auto</span>&amp; call : parseMethodCalls(<span class="built_in">std</span>::move(calls))) &#123;</div><div class="line">m_registry-&gt;callNativeMethod(call.moduleId, call.methodId, <span class="built_in">std</span>::move(call.arguments), call.callId);</div><div class="line">&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>在这个方法里调用了ModuleRegistry::callNativeMethod<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> ModuleRegistry::callNativeMethod(<span class="keyword">unsigned</span> <span class="keyword">int</span> moduleId, <span class="keyword">unsigned</span> <span class="keyword">int</span> methodId, folly::dynamic&amp;&amp; params, <span class="keyword">int</span> callId) &#123;</div><div class="line">...</div><div class="line">modules_[moduleId]-&gt;invoke(methodId, <span class="built_in">std</span>::move(params), callId);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>而这个invoke是调用的是JavaNativeModule::invoke，中间这个代码就通过jni走了java端的代码。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> JavaNativeModule::invoke(<span class="keyword">unsigned</span> <span class="keyword">int</span> reactMethodId, folly::dynamic&amp;&amp; params, <span class="keyword">int</span> callId) &#123;</div><div class="line">    messageQueueThread_-&gt;runOnQueue([<span class="keyword">this</span>, reactMethodId, params=<span class="built_in">std</span>::move(params), callId] &#123;</div><div class="line">        <span class="keyword">static</span> <span class="keyword">auto</span> invokeMethod = wrapper_-&gt;getClass()-&gt;getMethod&lt;<span class="keyword">void</span>(jint, ReadableNativeArray::javaobject)&gt;(<span class="string">"invoke"</span>);</div><div class="line">        ...</div><div class="line">    &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>通过JavaMethodWrapper.invoke调用了我们想要请求的method.invoke<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JavaMethodWrapper</span> <span class="keyword">implements</span> <span class="title">NativeModule</span>.<span class="title">NativeMethod</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">invoke</span><span class="params">(JSInstance jsInstance, ReadableNativeArray parameters)</span> </span>&#123;</div><div class="line">        ...</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            mMethod.invoke(mModuleWrapper.getModule(), mArguments);</div><div class="line">        &#125; <span class="keyword">catch</span> () &#123;</div><div class="line">            ...</div><div class="line">        &#125; <span class="keyword">finally</span> &#123;</div><div class="line">            ...</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2019/01/08/RN与android通讯/" class="article-date">
+  <time datetime="2019-01-08T14:16:26.000Z" itemprop="datePublished">2019-01-08</time>
+</a>
+
+        </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/reactnative/">reactnative</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+  
+  
+    <a href="/2019/01/08/爬楼梯/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">爬楼梯</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/chanchangxing"><span class="fa fa-globe"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这篇写完就删站</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3/dist/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
