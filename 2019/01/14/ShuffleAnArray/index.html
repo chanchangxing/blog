@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>ShuffleAnArray | chanchangxing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Shuffle an Array打乱一个没有重复元素的数组。
+示例:123456789101112// 以数字集合 1, 2 和 3 初始化数组。int[] nums = &amp;#123;1,2,3&amp;#125;;Solution solution = new Solution(nums);// 打乱数组 [1,2,3] 并返回结果。任何 [1,2,3]的排列返回的概率应该相同。solution.shu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ShuffleAnArray">
+<meta property="og:url" content="https://chanchangxing.me/2019/01/14/ShuffleAnArray/index.html">
+<meta property="og:site_name" content="chanchangxing">
+<meta property="og:description" content="Shuffle an Array打乱一个没有重复元素的数组。
+示例:123456789101112// 以数字集合 1, 2 和 3 初始化数组。int[] nums = &amp;#123;1,2,3&amp;#125;;Solution solution = new Solution(nums);// 打乱数组 [1,2,3] 并返回结果。任何 [1,2,3]的排列返回的概率应该相同。solution.shu">
+<meta property="og:updated_time" content="2019-01-14T04:36:28.635Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ShuffleAnArray">
+<meta name="twitter:description" content="Shuffle an Array打乱一个没有重复元素的数组。
+示例:123456789101112// 以数字集合 1, 2 和 3 初始化数组。int[] nums = &amp;#123;1,2,3&amp;#125;;Solution solution = new Solution(nums);// 打乱数组 [1,2,3] 并返回结果。任何 [1,2,3]的排列返回的概率应该相同。solution.shu">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  <link rel="stylesheet" href="/css/donate.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body class="dark">
+    
+  
+      <div id="container" class="container">
+        <article id="post-ShuffleAnArray" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav class="mobile-nav">
+    <h1 class="nickname">铲昶行的智障空间</h1>
+    <ul class="mobile-nav-menu">
+      <label for="mobile-menu-toggle"><a>&#9776; Menu</a></label>
+      <input type="checkbox" id="mobile-menu-toggle"/>
+      <ul class="mobile-nav-link">
+        
+        <a href="/">首页</a>
+        
+        <a href="/archives">文章</a>
+        
+        <a href="/tags/android">Android</a>
+        
+        <a href="/tags/reactnative/">ReactNative</a>
+        
+        <a href="/tags/leetcode">Leetcode</a>
+        
+      </ul>
+    </ul>
+  </nav>
+	
+		<nav id="main-nav" class="main-nav nav-left">
+	
+	
+	  <a class="main-nav-link" href="/">首页</a>
+	
+	  <a class="main-nav-link" href="/archives">文章</a>
+	
+	  <a class="main-nav-link" href="/tags/android">Android</a>
+	
+	  <a class="main-nav-link" href="/tags/reactnative/">ReactNative</a>
+	
+	  <a class="main-nav-link" href="/tags/leetcode">Leetcode</a>
+	
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      ShuffleAnArray
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <h4 id="Shuffle-an-Array"><a href="#Shuffle-an-Array" class="headerlink" title="Shuffle an Array"></a>Shuffle an Array</h4><p>打乱一个没有重复元素的数组。</p>
+<p>示例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">// 以数字集合 1, 2 和 3 初始化数组。</div><div class="line">int[] nums = &#123;1,2,3&#125;;</div><div class="line">Solution solution = new Solution(nums);</div><div class="line"></div><div class="line">// 打乱数组 [1,2,3] 并返回结果。任何 [1,2,3]的排列返回的概率应该相同。</div><div class="line">solution.shuffle();</div><div class="line"></div><div class="line">// 重设数组到它的初始状态[1,2,3]。</div><div class="line">solution.reset();</div><div class="line"></div><div class="line">// 随机返回数组[1,2,3]打乱后的结果。</div><div class="line">solution.shuffle();</div></pre></td></tr></table></figure></p>
+<hr>
+<p>看了一点点别人对答案的提示做出来的，我的思路是这样的，创建一个工作的数组，创建出来的话每个数组全都是0，所以循环的时候判断是否为0，如果不为0，将他的所在的位置进行随机，如果随机出来的位置对应的工作的数组为0的话，那么就将其替换。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] shuffle() &#123;</div><div class="line">    <span class="keyword">int</span>[] tmp = <span class="keyword">new</span> <span class="keyword">int</span>[mNums.length];</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = tmp.length; i &gt; <span class="number">0</span>; ) &#123;</div><div class="line">        <span class="keyword">if</span> (mNums[i - <span class="number">1</span>] != <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">int</span> index = random.nextInt(mNums.length);</div><div class="line">            <span class="keyword">if</span> (tmp[index] == <span class="number">0</span>) &#123;</div><div class="line">                tmp[index] = mNums[i - <span class="number">1</span>];</div><div class="line">                i--;</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            i--;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> tmp;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>最佳答案的话工作数组复制传入的数组，然后工作的数组随机到的话将随机后的位置和要随机的位置的数字进行转换，而且他只是在构造函数中进行复制，而第二次的话直接在上一次随机之后直接进行转换。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** Returns a random shuffling of the array. */</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">int</span>[] shuffle() &#123;</div><div class="line">    <span class="keyword">int</span> rightEnd = values.length -<span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> r;</div><div class="line">    <span class="keyword">while</span> (rightEnd &gt;<span class="number">0</span>) &#123;</div><div class="line">        r = random.nextInt(rightEnd + <span class="number">1</span>);</div><div class="line">        <span class="keyword">if</span>(r != rightEnd)</div><div class="line">            swap(values,r,rightEnd);</div><div class="line">        rightEnd--; </div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> values;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2019/01/14/ShuffleAnArray/" class="article-date">
+  <time datetime="2019-01-14T04:34:36.000Z" itemprop="datePublished">2019-01-14</time>
+</a>
+
+        </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+  
+  
+    <a href="/2019/01/11/打家劫舍/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">打家劫舍</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/chanchangxing"><span class="fa fa-globe"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这篇写完就删站</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3/dist/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
