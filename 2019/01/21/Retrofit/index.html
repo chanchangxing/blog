@@ -3,24 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Glide缓存机制 | chanchangxing</title>
+  <title>Retrofit | chanchangxing</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Glide缓存分为两大类，内存缓存和磁盘缓存，具体流程如下：
-1.在SingleRequest有一个Request接口类的全局变量，在做load操作之前会先判断Status是否为COMPLETE。如果为true，那么直接使用这个Request，否则进入load操作
-在load操作中会先通过各种参数生成一个EngineKey，EngineKey分为resultKey和sourceKey，result">
+  <meta name="description" content="我们通过最简单的调用一个接口来分析Retrofit流程。
+123456789101112131415interface Api &amp;#123;    Call&amp;lt;String&amp;gt; listRepos(@Path(&quot;user&quot;) String user);&amp;#125;class Retrofit &amp;#123;    private Api retrofit;    public Retrofi">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Glide缓存机制">
-<meta property="og:url" content="https://chanchangxing.me/2017/11/28/Glide缓存机制/index.html">
+<meta property="og:title" content="Retrofit">
+<meta property="og:url" content="https://chanchangxing.me/2019/01/21/Retrofit/index.html">
 <meta property="og:site_name" content="chanchangxing">
-<meta property="og:description" content="Glide缓存分为两大类，内存缓存和磁盘缓存，具体流程如下：
-1.在SingleRequest有一个Request接口类的全局变量，在做load操作之前会先判断Status是否为COMPLETE。如果为true，那么直接使用这个Request，否则进入load操作
-在load操作中会先通过各种参数生成一个EngineKey，EngineKey分为resultKey和sourceKey，result">
-<meta property="og:updated_time" content="2017-11-28T07:45:15.000Z">
+<meta property="og:description" content="我们通过最简单的调用一个接口来分析Retrofit流程。
+123456789101112131415interface Api &amp;#123;    Call&amp;lt;String&amp;gt; listRepos(@Path(&quot;user&quot;) String user);&amp;#125;class Retrofit &amp;#123;    private Api retrofit;    public Retrofi">
+<meta property="og:updated_time" content="2019-01-21T15:33:44.796Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Glide缓存机制">
-<meta name="twitter:description" content="Glide缓存分为两大类，内存缓存和磁盘缓存，具体流程如下：
-1.在SingleRequest有一个Request接口类的全局变量，在做load操作之前会先判断Status是否为COMPLETE。如果为true，那么直接使用这个Request，否则进入load操作
-在load操作中会先通过各种参数生成一个EngineKey，EngineKey分为resultKey和sourceKey，result">
+<meta name="twitter:title" content="Retrofit">
+<meta name="twitter:description" content="我们通过最简单的调用一个接口来分析Retrofit流程。
+123456789101112131415interface Api &amp;#123;    Call&amp;lt;String&amp;gt; listRepos(@Path(&quot;user&quot;) String user);&amp;#125;class Retrofit &amp;#123;    private Api retrofit;    public Retrofi">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -38,7 +35,7 @@
     
   
       <div id="container" class="container">
-        <article id="post-Glide缓存机制" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Retrofit" class="article article-type-post" itemscope itemprop="blogPost">
   <header id="header" class="header">
   <nav class="mobile-nav">
     <h1 class="nickname">铲昶行的智障空间</h1>
@@ -86,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Glide缓存机制
+      Retrofit
     </h1>
   
 
@@ -94,14 +91,9 @@
     
     <div class="article-entry typo" itemprop="articleBody">
       
-        <p>Glide缓存分为两大类，内存缓存和磁盘缓存，具体流程如下：</p>
-<p>1.在SingleRequest有一个Request接口类的全局变量，在做load操作之前会先判断Status是否为COMPLETE。如果为true，那么直接使用这个Request，否则进入load操作</p>
-<p>在load操作中会先通过各种参数生成一个EngineKey，EngineKey分为resultKey和sourceKey，resultKey有很多参数包括图片高度宽度，而sourceKey只有一个key值和图片来源信息。我们在寻找缓存的时候使用的都是resultKey，所以width和height的改变都会重新进行缓存，而当到disk缓存的时候会分为两种，其中会返回原图，这种情况情况的话会使用到sourceKey。</p>
-<p>在load中获得activeResource中的缓存，activeResource（下面简称aR）里面有一个使用弱引用的Hashmap。</p>
-<p>aR保存的是正在使用的图片，他保存的是包装EngineResource的ResourceWeakReference类。</p>
-<p>当获取aR的时候，如果ResourceWeakReference为空，直接返回null，否则获取EngineResource。如果EngineResource为空，先清除aR中对应的ResourceWeakReference类，再将重新生成一个EngineResource，并将它放到memoryCache中，否则返回缓存。</p>
-<p>memoryCache（下面简称mC）是一个LruCache，当在mC中获得缓存之后，会removemC中的缓存，并将得到的缓存加入到aR中。</p>
-<p>当mC也没有获取到缓存，那么接下来会进入硬盘缓存，当硬盘缓存获得缓存之后，他也会放到aR中。</p>
+        <p>我们通过最简单的调用一个接口来分析Retrofit流程。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">interface</span> <span class="title">Api</span> </span>&#123;</div><div class="line">    <span class="function">Call&lt;String&gt; <span class="title">listRepos</span><span class="params">(@Path(<span class="string">"user"</span>)</span> String user)</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Retrofit</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> Api retrofit;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Retrofit</span><span class="params">()</span> </span>&#123;</div><div class="line">        retrofit = <span class="keyword">new</span> Retrofit</div><div class="line">            .Builder()</div><div class="line">            .baseUrl(<span class="string">"https://api.github.com/"</span>)</div><div class="line">            .build()</div><div class="line">            .create(Api.class);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Retrofit通过建造者来创建实例，在创建建造者的时候有一个所用平台的判断，Retrofit这里判断了三个平台，android、java8和java</p>
 
       
       
@@ -110,8 +102,8 @@
       <ul class="article-meta">
         <li>
           <span class="label">Published Date:</span>
-          <a href="/2017/11/28/Glide缓存机制/" class="article-date">
-  <time datetime="2017-11-28T06:19:10.000Z" itemprop="datePublished">2017-11-28</time>
+          <a href="/2019/01/21/Retrofit/" class="article-date">
+  <time datetime="2019-01-21T14:36:06.000Z" itemprop="datePublished">2019-01-21</time>
 </a>
 
         </li>
@@ -133,19 +125,19 @@
     
 <nav id="article-nav" class="article-nav">
   
-    <a href="/2017/12/05/Rxjava2/" id="article-nav-newer" class="article-nav-link-wrap newer">
+    <a href="/2019/01/23/位1的个数/" id="article-nav-newer" class="article-nav-link-wrap newer">
       <strong class="article-nav-caption">Nuevo</strong>
       <div class="article-nav-title">
         
-          Rxjava2
+          位1的个数
         
       </div>
     </a>
   
   
-    <a href="/2017/11/23/hashmap/" id="article-nav-older" class="article-nav-link-wrap older">
+    <a href="/2019/01/21/罗马数字转整数/" id="article-nav-older" class="article-nav-link-wrap older">
       <strong class="article-nav-caption">Viejo</strong>
-      <div class="article-nav-title">hashmap</div>
+      <div class="article-nav-title">罗马数字转整数</div>
     </a>
   
 </nav>
