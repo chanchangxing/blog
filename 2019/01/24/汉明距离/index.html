@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>汉明距离 | chanchangxing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="汉明距离两个整数之间的汉明距离指的是这两个数字对应二进制位不同的位置的数目。
+给出两个整数 x 和 y，计算它们之间的汉明距离。
+注意：0 ≤ x, y &amp;lt; 231.
+示例:12345678910输入: x = 1, y = 4输出: 2解释:1   (0 0 0 1)4   (0 1 0 0)↑   ↑上面的箭头指出了对应二进制位不同的位置。
+哈，真的是对于二进制的运算毫无想法，我的思路一">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汉明距离">
+<meta property="og:url" content="https://chanchangxing.me/2019/01/24/汉明距离/index.html">
+<meta property="og:site_name" content="chanchangxing">
+<meta property="og:description" content="汉明距离两个整数之间的汉明距离指的是这两个数字对应二进制位不同的位置的数目。
+给出两个整数 x 和 y，计算它们之间的汉明距离。
+注意：0 ≤ x, y &amp;lt; 231.
+示例:12345678910输入: x = 1, y = 4输出: 2解释:1   (0 0 0 1)4   (0 1 0 0)↑   ↑上面的箭头指出了对应二进制位不同的位置。
+哈，真的是对于二进制的运算毫无想法，我的思路一">
+<meta property="og:updated_time" content="2019-01-24T06:51:40.312Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="汉明距离">
+<meta name="twitter:description" content="汉明距离两个整数之间的汉明距离指的是这两个数字对应二进制位不同的位置的数目。
+给出两个整数 x 和 y，计算它们之间的汉明距离。
+注意：0 ≤ x, y &amp;lt; 231.
+示例:12345678910输入: x = 1, y = 4输出: 2解释:1   (0 0 0 1)4   (0 1 0 0)↑   ↑上面的箭头指出了对应二进制位不同的位置。
+哈，真的是对于二进制的运算毫无想法，我的思路一">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  <link rel="stylesheet" href="/css/donate.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body class="dark">
+    
+  
+      <div id="container" class="container">
+        <article id="post-汉明距离" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav class="mobile-nav">
+    <h1 class="nickname">铲昶行的智障空间</h1>
+    <ul class="mobile-nav-menu">
+      <label for="mobile-menu-toggle"><a>&#9776; Menu</a></label>
+      <input type="checkbox" id="mobile-menu-toggle"/>
+      <ul class="mobile-nav-link">
+        
+        <a href="/">首页</a>
+        
+        <a href="/archives">文章</a>
+        
+        <a href="/tags/android">Android</a>
+        
+        <a href="/tags/reactnative/">ReactNative</a>
+        
+        <a href="/tags/leetcode">Leetcode</a>
+        
+      </ul>
+    </ul>
+  </nav>
+	
+		<nav id="main-nav" class="main-nav nav-left">
+	
+	
+	  <a class="main-nav-link" href="/">首页</a>
+	
+	  <a class="main-nav-link" href="/archives">文章</a>
+	
+	  <a class="main-nav-link" href="/tags/android">Android</a>
+	
+	  <a class="main-nav-link" href="/tags/reactnative/">ReactNative</a>
+	
+	  <a class="main-nav-link" href="/tags/leetcode">Leetcode</a>
+	
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      汉明距离
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <h4 id="汉明距离"><a href="#汉明距离" class="headerlink" title="汉明距离"></a>汉明距离</h4><p>两个整数之间的汉明距离指的是这两个数字对应二进制位不同的位置的数目。</p>
+<p>给出两个整数 x 和 y，计算它们之间的汉明距离。</p>
+<p>注意：<br>0 ≤ x, y &lt; 231.</p>
+<p>示例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">输入: x = 1, y = 4</div><div class="line"></div><div class="line">输出: 2</div><div class="line"></div><div class="line">解释:</div><div class="line">1   (0 0 0 1)</div><div class="line">4   (0 1 0 0)</div><div class="line">↑   ↑</div><div class="line"></div><div class="line">上面的箭头指出了对应二进制位不同的位置。</div></pre></td></tr></table></figure></p>
+<p>哈，真的是对于二进制的运算毫无想法，我的思路一直都还是通过十进制来思考二进制，而不是通过二进制来思考十进制。<br>我的思路还是很暴力，将传入的值转换为二进制然后将它作为字符串来分析。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hammingDistance</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</div><div class="line">    String xx = <span class="keyword">new</span> StringBuilder(Integer.toBinaryString(x)).reverse().toString();</div><div class="line">    String yy = <span class="keyword">new</span> StringBuilder(Integer.toBinaryString(y)).reverse().toString();</div><div class="line"></div><div class="line">    System.out.println(xx + <span class="string">"  "</span> + yy);</div><div class="line"></div><div class="line">    String big = xx.length() &gt; yy.length() ? xx : yy;</div><div class="line">    String small = xx.length() &gt; yy.length() ? yy : xx;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> count = <span class="number">0</span>;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = big.length() - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</div><div class="line">        <span class="keyword">if</span> (i &gt; small.length() - <span class="number">1</span>) &#123;</div><div class="line">            <span class="keyword">char</span> c =  big.charAt(i);</div><div class="line">            <span class="keyword">if</span> (c != <span class="string">'0'</span>) &#123;</div><div class="line">                count++;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">continue</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (big.charAt(i) != small.charAt(i)) &#123;</div><div class="line">            count++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> count;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<pre><code>最佳答案还是巧妙了运用了二进制的技巧。
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hammingDistance</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> k = x ^ y;</div><div class="line">    <span class="keyword">int</span> res = <span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span> (k != <span class="number">0</span>) &#123;</div><div class="line">        <span class="keyword">if</span> ((k % <span class="number">2</span>) == <span class="number">1</span>) res++;</div><div class="line">        k = k &gt;&gt; <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line"><span class="keyword">return</span> res;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>^</code>这个操作符是<code>异或</code>，异或就是相同位置上，相同为0，不同为1，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">100 ^ 001 = 101</div></pre></td></tr></table></figure></p>
+<p>所以<code>int k = x ^ y</code>就会的到位数相同情况下为0，不同情况下为1的二进制，然后再去看这个新创建出来的有几个1，就ok了。</p>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2019/01/24/汉明距离/" class="article-date">
+  <time datetime="2019-01-24T06:48:33.000Z" itemprop="datePublished">2019-01-24</time>
+</a>
+
+        </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+  
+  
+    <a href="/2019/01/23/位1的个数/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">位1的个数</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/chanchangxing"><span class="fa fa-globe"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这篇写完就删站</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3/dist/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
