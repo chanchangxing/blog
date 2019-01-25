@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>颠倒二进制位 | chanchangxing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="颠倒二进制位颠倒给定的 32 位无符号整数的二进制位。
+示例 1：1234输入: 00000010100101000001111010011100输出: 00111001011110000010100101000000解释: 输入的二进制串 00000010100101000001111010011100 表示无符号整数 43261596，因此返回 964176192，其二进制表示形式为 0011">
+<meta property="og:type" content="article">
+<meta property="og:title" content="颠倒二进制位">
+<meta property="og:url" content="https://chanchangxing.me/2019/01/25/颠倒二进制位/index.html">
+<meta property="og:site_name" content="chanchangxing">
+<meta property="og:description" content="颠倒二进制位颠倒给定的 32 位无符号整数的二进制位。
+示例 1：1234输入: 00000010100101000001111010011100输出: 00111001011110000010100101000000解释: 输入的二进制串 00000010100101000001111010011100 表示无符号整数 43261596，因此返回 964176192，其二进制表示形式为 0011">
+<meta property="og:updated_time" content="2019-01-25T06:15:29.512Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="颠倒二进制位">
+<meta name="twitter:description" content="颠倒二进制位颠倒给定的 32 位无符号整数的二进制位。
+示例 1：1234输入: 00000010100101000001111010011100输出: 00111001011110000010100101000000解释: 输入的二进制串 00000010100101000001111010011100 表示无符号整数 43261596，因此返回 964176192，其二进制表示形式为 0011">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  <link rel="stylesheet" href="/css/donate.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body class="dark">
+    
+  
+      <div id="container" class="container">
+        <article id="post-颠倒二进制位" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav class="mobile-nav">
+    <h1 class="nickname">铲昶行的智障空间</h1>
+    <ul class="mobile-nav-menu">
+      <label for="mobile-menu-toggle"><a>&#9776; Menu</a></label>
+      <input type="checkbox" id="mobile-menu-toggle"/>
+      <ul class="mobile-nav-link">
+        
+        <a href="/">首页</a>
+        
+        <a href="/archives">文章</a>
+        
+        <a href="/tags/android">Android</a>
+        
+        <a href="/tags/reactnative/">ReactNative</a>
+        
+        <a href="/tags/leetcode">Leetcode</a>
+        
+      </ul>
+    </ul>
+  </nav>
+	
+		<nav id="main-nav" class="main-nav nav-left">
+	
+	
+	  <a class="main-nav-link" href="/">首页</a>
+	
+	  <a class="main-nav-link" href="/archives">文章</a>
+	
+	  <a class="main-nav-link" href="/tags/android">Android</a>
+	
+	  <a class="main-nav-link" href="/tags/reactnative/">ReactNative</a>
+	
+	  <a class="main-nav-link" href="/tags/leetcode">Leetcode</a>
+	
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      颠倒二进制位
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <h4 id="颠倒二进制位"><a href="#颠倒二进制位" class="headerlink" title="颠倒二进制位"></a>颠倒二进制位</h4><p>颠倒给定的 32 位无符号整数的二进制位。</p>
+<p>示例 1：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">输入: 00000010100101000001111010011100</div><div class="line">输出: 00111001011110000010100101000000</div><div class="line">解释: 输入的二进制串 00000010100101000001111010011100 表示无符号整数 43261596，</div><div class="line">因此返回 964176192，其二进制表示形式为 00111001011110000010100101000000。</div></pre></td></tr></table></figure></p>
+<p>示例 2：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">输入：11111111111111111111111111111101</div><div class="line">输出：10111111111111111111111111111111</div><div class="line">解释：输入的二进制串 11111111111111111111111111111101 表示无符号整数 4294967293，</div><div class="line">因此返回 3221225471 其二进制表示形式为 10101111110010110010011101101001。</div></pre></td></tr></table></figure></p>
+<p>提示：</p>
+<p>请注意，在某些语言（如 Java）中，没有无符号整数类型。在这种情况下，输入和输出都将被指定为有符号整数类型，并且不应影响您的实现，因为无论整数是有符号的还是无符号的，其内部的二进制表示形式都是相同的。<br>在 Java 中，编译器使用二进制补码记法来表示有符号整数。因此，在上面的 示例 2 中，输入表示有符号整数 -3，输出表示有符号整数 -1073741825。</p>
+<p>进阶:<br>如果多次调用这个函数，你将如何优化你的算法？</p>
+<hr>
+<p>这道题目给我的冲击力是非常大的，我用我的思路去解这套题目到最后一个用例就卡住了，最后一个用例输入的值和输出的值均大于<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">```java</div><div class="line">public static int reverseBits(int n) &#123;</div><div class="line">    String a = Integer.toBinaryString(n);</div><div class="line"></div><div class="line">    String b = &quot;&quot;;</div><div class="line">    for (int i = 0; i &lt; 32 - a.length(); i++) &#123;</div><div class="line">        b += &quot;0&quot;;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    a = b + a;</div><div class="line"></div><div class="line">    int result = 0;</div><div class="line">    for (int i = 0; i &lt; a.length(); i++) &#123;</div><div class="line">        result += Math.pow(2, i)  * Integer.parseInt(&quot;&quot; + a.charAt(i));</div><div class="line">    &#125;</div><div class="line">    return result;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>能计算出来的答案是使用了16进制来进行操作。先来看代码吧<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">reverseBits1</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> result = <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span> (i &lt; <span class="number">32</span>) &#123;</div><div class="line">        <span class="keyword">int</span> temp = n &amp; <span class="number">0x01</span>;</div><div class="line">        n = n &gt;&gt; <span class="number">1</span>;</div><div class="line"></div><div class="line">        result = (result &lt;&lt; <span class="number">1</span>) | temp;</div><div class="line">        i++;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p><code>i &lt; 32</code>是因为反转的时候需要补位0，之后的操作全部用二进制的操作符去处理。里面的逻辑还是比较清晰的，用temp去和n做与操作，再将他与result进行或操作，因为result为0，所以或操作其实就是将temp加入到result中。</p>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2019/01/25/颠倒二进制位/" class="article-date">
+  <time datetime="2019-01-25T06:14:25.000Z" itemprop="datePublished">2019-01-25</time>
+</a>
+
+        </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+  
+  
+    <a href="/2019/01/24/汉明距离/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">汉明距离</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/chanchangxing"><span class="fa fa-globe"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这篇写完就删站</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3/dist/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
