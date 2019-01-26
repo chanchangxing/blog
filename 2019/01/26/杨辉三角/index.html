@@ -9,7 +9,7 @@
 
 在杨辉三角中，每个数是它左上方和右上方的数的和。
 示例:123456789输入: 5输出:[[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
-这道题目啥也不用说，暴力解，头尾直接123456789101112131415161718```javapublic List&amp;lt;List">
+这道题目啥也不用说，暴力解，头尾直接123456789101112131415161718``` javapublic List&amp;lt;Lis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="杨辉三角">
 <meta property="og:url" content="https://chanchangxing.me/2019/01/26/杨辉三角/index.html">
@@ -18,16 +18,16 @@
 
 在杨辉三角中，每个数是它左上方和右上方的数的和。
 示例:123456789输入: 5输出:[[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
-这道题目啥也不用说，暴力解，头尾直接123456789101112131415161718```javapublic List&amp;lt;List">
+这道题目啥也不用说，暴力解，头尾直接123456789101112131415161718``` javapublic List&amp;lt;Lis">
 <meta property="og:image" content="https://chanchangxing.me/2019/01/26/杨辉三角/1.gif">
-<meta property="og:updated_time" content="2019-01-26T04:01:01.694Z">
+<meta property="og:updated_time" content="2019-01-26T04:02:37.380Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="杨辉三角">
 <meta name="twitter:description" content="杨辉三角给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。
 
 在杨辉三角中，每个数是它左上方和右上方的数的和。
 示例:123456789输入: 5输出:[[1],[1,1],[1,2,1],[1,3,3,1],[1,4,6,4,1]]
-这道题目啥也不用说，暴力解，头尾直接123456789101112131415161718```javapublic List&amp;lt;List">
+这道题目啥也不用说，暴力解，头尾直接123456789101112131415161718``` javapublic List&amp;lt;Lis">
 <meta name="twitter:image" content="https://chanchangxing.me/2019/01/26/杨辉三角/1.gif">
   
   
@@ -106,7 +106,7 @@
 <img src="/2019/01/26/杨辉三角/1.gif" alt="1.gif" title="">
 <p>在杨辉三角中，每个数是它左上方和右上方的数的和。</p>
 <p>示例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">输入: 5</div><div class="line">输出:</div><div class="line">[</div><div class="line">[1],</div><div class="line">[1,1],</div><div class="line">[1,2,1],</div><div class="line">[1,3,3,1],</div><div class="line">[1,4,6,4,1]</div><div class="line">]</div></pre></td></tr></table></figure></p>
-<p>这道题目啥也不用说，暴力解，头尾直接<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">```java</div><div class="line">public List&lt;List&lt;Integer&gt;&gt; generate(int numRows) &#123;</div><div class="line">    List&lt;List&lt;Integer&gt;&gt; lists = new ArrayList&lt;&gt;();</div><div class="line">    for (int i = 0; i &lt; numRows; i++) &#123;</div><div class="line">        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();</div><div class="line">        for (int j = 0; j &lt; i + 1; j++) &#123;</div><div class="line">            if (j == 0 || j == i) &#123;</div><div class="line">                list.add(1);</div><div class="line">            continue;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        list.add(lists.get(i - 1).get(j - 1) + lists.get(i - 1).get(j));</div><div class="line">        &#125;</div><div class="line">        lists.add(list);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return lists;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>这道题目啥也不用说，暴力解，头尾直接<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">``` java</div><div class="line">public List&lt;List&lt;Integer&gt;&gt; generate(int numRows) &#123;</div><div class="line">    List&lt;List&lt;Integer&gt;&gt; lists = new ArrayList&lt;&gt;();</div><div class="line">    for (int i = 0; i &lt; numRows; i++) &#123;</div><div class="line">        List&lt;Integer&gt; list = new ArrayList&lt;&gt;();</div><div class="line">        for (int j = 0; j &lt; i + 1; j++) &#123;</div><div class="line">            if (j == 0 || j == i) &#123;</div><div class="line">                list.add(1);</div><div class="line">            continue;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        list.add(lists.get(i - 1).get(j - 1) + lists.get(i - 1).get(j));</div><div class="line">        &#125;</div><div class="line">        lists.add(list);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    return lists;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
       
       
