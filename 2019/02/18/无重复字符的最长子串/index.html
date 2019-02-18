@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>无重复字符的最长子串 | chanchangxing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="无重复字符的最长子串给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
+示例 1:123输入: &amp;quot;abcabcbb&amp;quot;输出: 3 解释: 因为无重复字符的最长子串是 &amp;quot;abc&amp;quot;，所以其长度为 3。
+示例 2:123输入: &amp;quot;bbbbb&amp;quot;输出: 1解释: 因为无重复字符的最长子串是 &amp;quot;b&amp;quot;，所以其长度为 1。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="无重复字符的最长子串">
+<meta property="og:url" content="https://chanchangxing.me/2019/02/18/无重复字符的最长子串/index.html">
+<meta property="og:site_name" content="chanchangxing">
+<meta property="og:description" content="无重复字符的最长子串给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
+示例 1:123输入: &amp;quot;abcabcbb&amp;quot;输出: 3 解释: 因为无重复字符的最长子串是 &amp;quot;abc&amp;quot;，所以其长度为 3。
+示例 2:123输入: &amp;quot;bbbbb&amp;quot;输出: 1解释: 因为无重复字符的最长子串是 &amp;quot;b&amp;quot;，所以其长度为 1。">
+<meta property="og:updated_time" content="2019-02-18T04:22:02.381Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="无重复字符的最长子串">
+<meta name="twitter:description" content="无重复字符的最长子串给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。
+示例 1:123输入: &amp;quot;abcabcbb&amp;quot;输出: 3 解释: 因为无重复字符的最长子串是 &amp;quot;abc&amp;quot;，所以其长度为 3。
+示例 2:123输入: &amp;quot;bbbbb&amp;quot;输出: 1解释: 因为无重复字符的最长子串是 &amp;quot;b&amp;quot;，所以其长度为 1。">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  <link rel="stylesheet" href="/css/donate.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body class="dark">
+    
+  
+      <div id="container" class="container">
+        <article id="post-无重复字符的最长子串" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav class="mobile-nav">
+    <h1 class="nickname">铲昶行的智障空间</h1>
+    <ul class="mobile-nav-menu">
+      <label for="mobile-menu-toggle"><a>&#9776; Menu</a></label>
+      <input type="checkbox" id="mobile-menu-toggle"/>
+      <ul class="mobile-nav-link">
+        
+        <a href="/">首页</a>
+        
+        <a href="/archives">文章</a>
+        
+        <a href="/tags/android">Android</a>
+        
+        <a href="/tags/reactnative/">ReactNative</a>
+        
+        <a href="/tags/leetcode">Leetcode</a>
+        
+      </ul>
+    </ul>
+  </nav>
+	
+		<nav id="main-nav" class="main-nav nav-left">
+	
+	
+	  <a class="main-nav-link" href="/">首页</a>
+	
+	  <a class="main-nav-link" href="/archives">文章</a>
+	
+	  <a class="main-nav-link" href="/tags/android">Android</a>
+	
+	  <a class="main-nav-link" href="/tags/reactnative/">ReactNative</a>
+	
+	  <a class="main-nav-link" href="/tags/leetcode">Leetcode</a>
+	
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      无重复字符的最长子串
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <h4 id="无重复字符的最长子串"><a href="#无重复字符的最长子串" class="headerlink" title="无重复字符的最长子串"></a>无重复字符的最长子串</h4><p>给定一个字符串，请你找出其中不含有重复字符的 最长子串 的长度。</p>
+<p>示例 1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">输入: &quot;abcabcbb&quot;</div><div class="line">输出: 3 </div><div class="line">解释: 因为无重复字符的最长子串是 &quot;abc&quot;，所以其长度为 3。</div></pre></td></tr></table></figure></p>
+<p>示例 2:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">输入: &quot;bbbbb&quot;</div><div class="line">输出: 1</div><div class="line">解释: 因为无重复字符的最长子串是 &quot;b&quot;，所以其长度为 1。</div></pre></td></tr></table></figure></p>
+<p>示例 3:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">输入: &quot;pwwkew&quot;</div><div class="line">输出: 3</div><div class="line">解释: 因为无重复字符的最长子串是 &quot;wke&quot;，所以其长度为 3。</div><div class="line">请注意，你的答案必须是 子串 的长度，&quot;pwke&quot; 是一个子序列，不是子串。</div></pre></td></tr></table></figure></p>
+<hr>
+<p>想来想去最后还是用的暴力循环，最后发现最佳答案也是暴力循环。但是我在写的时候还是经过了多次调试，不知道这样解出来的题目到底对内力有没有帮助。<br>我的思路是这样的，设置三个两个标记位，一个left，用来标记有必要循环的最左测的位置，一个right，用来标记现在需要被循环的位置。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">lengthOfLongestSubstring</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (s.isEmpty()) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> result = <span class="number">1</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>, k = <span class="number">0</span> ; i &lt; s.length(); i++) &#123;</div><div class="line">        <span class="keyword">int</span> tmp = <span class="number">1</span>;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i - <span class="number">1</span>; j &gt;= k; j--) &#123;</div><div class="line">            <span class="keyword">if</span> (s.charAt(i) == s.charAt(j)) &#123;</div><div class="line">                k = j + <span class="number">1</span>;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">            tmp++;</div><div class="line">        &#125;</div><div class="line">        result = Math.max(result, tmp);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>最佳答案的思路比较厉害了，他用了个数组来记录每个字符最后出现的位置，用数组的position来标记作为字符的ascII码。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">lengthOfLongestSubstring1</span><span class="params">(String s)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span>[] vis = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">257</span>];</div><div class="line">    <span class="keyword">int</span> len = s.length();</div><div class="line">    <span class="keyword">int</span> left = -<span class="number">1</span>;</div><div class="line">    Arrays.fill(vis,-<span class="number">1</span>);</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</div><div class="line">        <span class="keyword">if</span>(vis[s.charAt(i)] &gt; left) &#123;</div><div class="line">            left = vis[s.charAt(i)];</div><div class="line">    &#125;</div><div class="line">    ans = Math.max(ans,i - left);</div><div class="line">    vis[s.charAt(i)] = i;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> ans;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2019/02/18/无重复字符的最长子串/" class="article-date">
+  <time datetime="2019-02-18T04:20:53.000Z" itemprop="datePublished">2019-02-18</time>
+</a>
+
+        </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+  
+  
+    <a href="/2019/02/13/字母异位词分组/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">字母异位词分组</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/chanchangxing"><span class="fa fa-globe"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这篇写完就删站</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3/dist/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
