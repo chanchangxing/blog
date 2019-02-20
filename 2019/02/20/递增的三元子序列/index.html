@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>递增的三元子序列 | chanchangxing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="递增的三元子序列给定一个未排序的数组，判断这个数组中是否存在长度为 3 的递增子序列。
+数学表达式如下:
+
+如果存在这样的 i, j, k,  且满足 0 ≤ i &amp;lt; j &amp;lt; k ≤ n-1，使得 arr[i] &amp;lt; arr[j] &amp;lt; arr[k] ，返回 true ; 否则返回 false 。说明: 要求算法的时间复杂度为 O(n)，空间复杂度为 O(1) 。
+
+示例 1:">
+<meta property="og:type" content="article">
+<meta property="og:title" content="递增的三元子序列">
+<meta property="og:url" content="https://chanchangxing.me/2019/02/20/递增的三元子序列/index.html">
+<meta property="og:site_name" content="chanchangxing">
+<meta property="og:description" content="递增的三元子序列给定一个未排序的数组，判断这个数组中是否存在长度为 3 的递增子序列。
+数学表达式如下:
+
+如果存在这样的 i, j, k,  且满足 0 ≤ i &amp;lt; j &amp;lt; k ≤ n-1，使得 arr[i] &amp;lt; arr[j] &amp;lt; arr[k] ，返回 true ; 否则返回 false 。说明: 要求算法的时间复杂度为 O(n)，空间复杂度为 O(1) 。
+
+示例 1:">
+<meta property="og:updated_time" content="2019-02-20T06:05:44.408Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="递增的三元子序列">
+<meta name="twitter:description" content="递增的三元子序列给定一个未排序的数组，判断这个数组中是否存在长度为 3 的递增子序列。
+数学表达式如下:
+
+如果存在这样的 i, j, k,  且满足 0 ≤ i &amp;lt; j &amp;lt; k ≤ n-1，使得 arr[i] &amp;lt; arr[j] &amp;lt; arr[k] ，返回 true ; 否则返回 false 。说明: 要求算法的时间复杂度为 O(n)，空间复杂度为 O(1) 。
+
+示例 1:">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  <link rel="stylesheet" href="/css/donate.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body class="dark">
+    
+  
+      <div id="container" class="container">
+        <article id="post-递增的三元子序列" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav class="mobile-nav">
+    <h1 class="nickname">铲昶行的智障空间</h1>
+    <ul class="mobile-nav-menu">
+      <label for="mobile-menu-toggle"><a>&#9776; Menu</a></label>
+      <input type="checkbox" id="mobile-menu-toggle"/>
+      <ul class="mobile-nav-link">
+        
+        <a href="/">首页</a>
+        
+        <a href="/archives">文章</a>
+        
+        <a href="/tags/android">Android</a>
+        
+        <a href="/tags/reactnative/">ReactNative</a>
+        
+        <a href="/tags/leetcode">Leetcode</a>
+        
+      </ul>
+    </ul>
+  </nav>
+	
+		<nav id="main-nav" class="main-nav nav-left">
+	
+	
+	  <a class="main-nav-link" href="/">首页</a>
+	
+	  <a class="main-nav-link" href="/archives">文章</a>
+	
+	  <a class="main-nav-link" href="/tags/android">Android</a>
+	
+	  <a class="main-nav-link" href="/tags/reactnative/">ReactNative</a>
+	
+	  <a class="main-nav-link" href="/tags/leetcode">Leetcode</a>
+	
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      递增的三元子序列
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <h4 id="递增的三元子序列"><a href="#递增的三元子序列" class="headerlink" title="递增的三元子序列"></a>递增的三元子序列</h4><p>给定一个未排序的数组，判断这个数组中是否存在长度为 3 的递增子序列。</p>
+<p>数学表达式如下:</p>
+<blockquote>
+<p>如果存在这样的 i, j, k,  且满足 0 ≤ i &lt; j &lt; k ≤ n-1，<br>使得 arr[i] &lt; arr[j] &lt; arr[k] ，返回 true ; 否则返回 false 。<br>说明: 要求算法的时间复杂度为 O(n)，空间复杂度为 O(1) 。</p>
+</blockquote>
+<p>示例 1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">输入: [1,2,3,4,5]</div><div class="line">输出: true</div></pre></td></tr></table></figure></p>
+<p>示例 2:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">输入: [5,4,3,2,1]</div><div class="line">输出: false</div></pre></td></tr></table></figure></p>
+<hr>
+<p>我的思路自己感觉已经是相当精彩了，设置两个值（M1，M2），M1保存最小值，M2保存目前最合理的第二个值，因为我们只需要确认了第一个和第二个值，那么只需要保存第二个值就ok了。<br>那么保存的规则就是这样的，M1保存数组里最小的值，M2通过M1和当前header指向的值进行比较，如果该值比M2要大，那么就有一个<br>递增的三元子序列，否则看是否大于M1小于M2，这样的话就将他设置为新的M2,最后再将最后一个数和M2进行比较，如果最后一个值大于M2就是递增的三元子序列。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">increasingTriplet</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (nums.length &lt; <span class="number">3</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> m1 = nums[<span class="number">0</span>];</div><div class="line">    <span class="keyword">int</span> m2 = nums[<span class="number">0</span>];</div><div class="line">    <span class="keyword">boolean</span> m2Changed = <span class="keyword">false</span>;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length - <span class="number">1</span>; i++) &#123;</div><div class="line">        <span class="keyword">if</span> (nums[i] &lt; m1 &amp;&amp; nums[i] &lt; m2) &#123;</div><div class="line">            m1 = nums[i];</div><div class="line">            <span class="keyword">continue</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (m2Changed &amp;&amp; nums[i] &gt; m1 &amp;&amp; nums[i] &lt; m2) &#123;</div><div class="line">            m2 = nums[i];</div><div class="line">            m2Changed = <span class="keyword">true</span>;</div><div class="line">            <span class="keyword">continue</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (!m2Changed &amp;&amp; nums[i] &gt; m1) &#123;</div><div class="line">            m2 = nums[i];</div><div class="line">            m2Changed = <span class="keyword">true</span>;</div><div class="line">            <span class="keyword">continue</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (m2Changed &amp;&amp; nums[i] &gt; m2) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> m2Changed &amp;&amp; m2 &lt; nums[nums.length - <span class="number">1</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>最佳答案就是我这个思路好吧。无敌！<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">increasingTriplet</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</div><div class="line">    <span class="keyword">int</span> first = Integer.MAX_VALUE,second = Integer.MAX_VALUE;</div><div class="line">    <span class="keyword">if</span>(nums.length&lt;<span class="number">3</span>)&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> num:nums)&#123;</div><div class="line">        <span class="keyword">if</span>(first&gt;num)&#123;</div><div class="line">            first = num;</div><div class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(first&lt;num &amp;&amp; second&gt;num)&#123;</div><div class="line">            second = num;</div><div class="line">        &#125;<span class="keyword">else</span> <span class="keyword">if</span>(num&gt;second)&#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2019/02/20/递增的三元子序列/" class="article-date">
+  <time datetime="2019-02-20T06:03:56.000Z" itemprop="datePublished">2019-02-20</time>
+</a>
+
+        </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+  
+  
+    <a href="/2019/02/19/最长回文子串/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">最长回文子串</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/chanchangxing"><span class="fa fa-globe"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这篇写完就删站</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3/dist/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
