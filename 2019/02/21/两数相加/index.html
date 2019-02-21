@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>两数相加 | chanchangxing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="两数相加给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。
+如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。
+您可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+示例：123输入：(2 -&amp;gt; 4 -&amp;gt; 3) + (5 -&amp;gt; 6 -&amp;gt; 4)输出：7 -&amp;gt; 0 -">
+<meta property="og:type" content="article">
+<meta property="og:title" content="两数相加">
+<meta property="og:url" content="https://chanchangxing.me/2019/02/21/两数相加/index.html">
+<meta property="og:site_name" content="chanchangxing">
+<meta property="og:description" content="两数相加给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。
+如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。
+您可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+示例：123输入：(2 -&amp;gt; 4 -&amp;gt; 3) + (5 -&amp;gt; 6 -&amp;gt; 4)输出：7 -&amp;gt; 0 -">
+<meta property="og:updated_time" content="2019-02-21T08:00:56.623Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="两数相加">
+<meta name="twitter:description" content="两数相加给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。
+如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。
+您可以假设除了数字 0 之外，这两个数都不会以 0 开头。
+示例：123输入：(2 -&amp;gt; 4 -&amp;gt; 3) + (5 -&amp;gt; 6 -&amp;gt; 4)输出：7 -&amp;gt; 0 -">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  <link rel="stylesheet" href="/css/donate.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body class="dark">
+    
+  
+      <div id="container" class="container">
+        <article id="post-两数相加" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav class="mobile-nav">
+    <h1 class="nickname">铲昶行的智障空间</h1>
+    <ul class="mobile-nav-menu">
+      <label for="mobile-menu-toggle"><a>&#9776; Menu</a></label>
+      <input type="checkbox" id="mobile-menu-toggle"/>
+      <ul class="mobile-nav-link">
+        
+        <a href="/">首页</a>
+        
+        <a href="/archives">文章</a>
+        
+        <a href="/tags/android">Android</a>
+        
+        <a href="/tags/reactnative/">ReactNative</a>
+        
+        <a href="/tags/leetcode">Leetcode</a>
+        
+      </ul>
+    </ul>
+  </nav>
+	
+		<nav id="main-nav" class="main-nav nav-left">
+	
+	
+	  <a class="main-nav-link" href="/">首页</a>
+	
+	  <a class="main-nav-link" href="/archives">文章</a>
+	
+	  <a class="main-nav-link" href="/tags/android">Android</a>
+	
+	  <a class="main-nav-link" href="/tags/reactnative/">ReactNative</a>
+	
+	  <a class="main-nav-link" href="/tags/leetcode">Leetcode</a>
+	
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      两数相加
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <h4 id="两数相加"><a href="#两数相加" class="headerlink" title="两数相加"></a>两数相加</h4><p>给出两个 非空 的链表用来表示两个非负的整数。其中，它们各自的位数是按照 逆序 的方式存储的，并且它们的每个节点只能存储 一位 数字。</p>
+<p>如果，我们将这两个数相加起来，则会返回一个新的链表来表示它们的和。</p>
+<p>您可以假设除了数字 0 之外，这两个数都不会以 0 开头。</p>
+<p>示例：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">输入：(2 -&gt; 4 -&gt; 3) + (5 -&gt; 6 -&gt; 4)</div><div class="line">输出：7 -&gt; 0 -&gt; 8</div><div class="line">原因：342 + 465 = 807</div></pre></td></tr></table></figure></p>
+<hr>
+<p>其实就是将加法的所有规则写一遍，就ok了吧。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</div><div class="line">    ListNode listNode = <span class="keyword">null</span>;</div><div class="line">    ListNode header = <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">boolean</span> isAddOne = <span class="keyword">false</span>;</div><div class="line"></div><div class="line">    <span class="keyword">while</span> (l1 != <span class="keyword">null</span> &amp;&amp; l2 != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">int</span> value;</div><div class="line">        value = l1.val + l2.val;</div><div class="line">        value = value + (isAddOne ? <span class="number">1</span> : <span class="number">0</span>);</div><div class="line">        <span class="keyword">int</span> value1 = value &gt;= <span class="number">10</span> ? value - <span class="number">10</span> : value;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (listNode == <span class="keyword">null</span>) &#123;</div><div class="line">            listNode = <span class="keyword">new</span> ListNode(value1);</div><div class="line">            header = listNode;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            listNode.next = <span class="keyword">new</span> ListNode(value1);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        isAddOne = value &gt;= <span class="number">10</span>;</div><div class="line"></div><div class="line"></div><div class="line">        l1 = l1.next;</div><div class="line">        l2 = l2.next;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (listNode.next != <span class="keyword">null</span>) &#123;</div><div class="line">            listNode = listNode.next;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">while</span> (l1 != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">int</span> value = l1.val + (isAddOne ? <span class="number">1</span> : <span class="number">0</span>);</div><div class="line">        <span class="keyword">int</span> value1 = value &gt;= <span class="number">10</span> ? value - <span class="number">10</span> : value;</div><div class="line">        listNode.next = <span class="keyword">new</span> ListNode(value1);</div><div class="line">        isAddOne = value &gt;= <span class="number">10</span>;</div><div class="line">        l1 = l1.next;</div><div class="line">        listNode = listNode.next;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">while</span> (l2 != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">int</span> value = l2.val + (isAddOne ? <span class="number">1</span> : <span class="number">0</span>);</div><div class="line">        <span class="keyword">int</span> value1 = value &gt;= <span class="number">10</span> ? value - <span class="number">10</span> : value;</div><div class="line">        listNode.next = <span class="keyword">new</span> ListNode(value1);</div><div class="line">        isAddOne = value &gt;= <span class="number">10</span>;</div><div class="line">        l2 = l2.next;</div><div class="line">        listNode = listNode.next;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (isAddOne) &#123;</div><div class="line">        listNode.next = <span class="keyword">new</span> ListNode(<span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> header;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>最佳答案的思路和我是一样的，这里就贴一下代码吧<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> ListNode <span class="title">addTwoNumbers</span><span class="params">(ListNode l1, ListNode l2)</span> </span>&#123;</div><div class="line">    ListNode temp = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</div><div class="line">    ListNode head = temp;</div><div class="line"></div><div class="line">    ListNode temp1 = l1;</div><div class="line">    ListNode temp2 = l2;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> iOver10 = <span class="number">0</span>;</div><div class="line">    <span class="keyword">while</span>(temp1 != <span class="keyword">null</span> || temp2 != <span class="keyword">null</span>)&#123;</div><div class="line">        ListNode temp3 = <span class="keyword">new</span> ListNode(<span class="number">0</span>);</div><div class="line">        <span class="keyword">int</span> val1 = temp1 == <span class="keyword">null</span> ? <span class="number">0</span> : temp1.val;</div><div class="line">        <span class="keyword">int</span> val2 = temp2 == <span class="keyword">null</span> ? <span class="number">0</span> : temp2.val;</div><div class="line">        <span class="keyword">int</span> sum = val1 + val2 + iOver10;</div><div class="line">        <span class="keyword">if</span>(sum &gt;= <span class="number">10</span>)&#123;</div><div class="line">            temp3.val = sum - <span class="number">10</span>;</div><div class="line">            iOver10 = <span class="number">1</span>;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            temp3.val = sum;</div><div class="line">            iOver10 = <span class="number">0</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        temp.next = temp3;</div><div class="line">        temp = temp3;</div><div class="line"></div><div class="line">        temp1 = temp1 == <span class="keyword">null</span>?<span class="keyword">null</span>:temp1.next;</div><div class="line">        temp2 = temp2 == <span class="keyword">null</span>?<span class="keyword">null</span>:temp2.next;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span>(iOver10 == <span class="number">1</span>)&#123;</div><div class="line">        ListNode temp3 = <span class="keyword">new</span> ListNode(<span class="number">1</span>);</div><div class="line">        temp.next = temp3;</div><div class="line">        temp = temp3;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> head.next;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2019/02/21/两数相加/" class="article-date">
+  <time datetime="2019-02-21T07:58:33.000Z" itemprop="datePublished">2019-02-21</time>
+</a>
+
+        </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+  
+  
+    <a href="/2019/02/20/递增的三元子序列/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">递增的三元子序列</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/chanchangxing"><span class="fa fa-globe"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这篇写完就删站</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3/dist/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
