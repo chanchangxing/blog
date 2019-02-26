@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>二叉树的中序遍历 | chanchangxing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="二叉树的中序遍历给定一个二叉树，返回它的中序 遍历。
+示例:12345678输入: [1,null,2,3]    1     \      2     /    3输出: [1,3,2]
+进阶: 递归算法很简单，你可以通过迭代算法完成吗？
+
+哎哎哎，这道题目宣布失败，虽然我的思路已经是知道了，但是我还是做不出来。关键的点是我不知道如何处理右子树，正确答案的思路就是不用去处理右边，因为右边自然会被">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二叉树的中序遍历">
+<meta property="og:url" content="https://chanchangxing.me/2019/02/26/二叉树的中序遍历/index.html">
+<meta property="og:site_name" content="chanchangxing">
+<meta property="og:description" content="二叉树的中序遍历给定一个二叉树，返回它的中序 遍历。
+示例:12345678输入: [1,null,2,3]    1     \      2     /    3输出: [1,3,2]
+进阶: 递归算法很简单，你可以通过迭代算法完成吗？
+
+哎哎哎，这道题目宣布失败，虽然我的思路已经是知道了，但是我还是做不出来。关键的点是我不知道如何处理右子树，正确答案的思路就是不用去处理右边，因为右边自然会被">
+<meta property="og:updated_time" content="2019-02-26T06:14:05.499Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="二叉树的中序遍历">
+<meta name="twitter:description" content="二叉树的中序遍历给定一个二叉树，返回它的中序 遍历。
+示例:12345678输入: [1,null,2,3]    1     \      2     /    3输出: [1,3,2]
+进阶: 递归算法很简单，你可以通过迭代算法完成吗？
+
+哎哎哎，这道题目宣布失败，虽然我的思路已经是知道了，但是我还是做不出来。关键的点是我不知道如何处理右子树，正确答案的思路就是不用去处理右边，因为右边自然会被">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  <link rel="stylesheet" href="/css/donate.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body class="dark">
+    
+  
+      <div id="container" class="container">
+        <article id="post-二叉树的中序遍历" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav class="mobile-nav">
+    <h1 class="nickname">铲昶行的智障空间</h1>
+    <ul class="mobile-nav-menu">
+      <label for="mobile-menu-toggle"><a>&#9776; Menu</a></label>
+      <input type="checkbox" id="mobile-menu-toggle"/>
+      <ul class="mobile-nav-link">
+        
+        <a href="/">首页</a>
+        
+        <a href="/archives">文章</a>
+        
+        <a href="/tags/android">Android</a>
+        
+        <a href="/tags/reactnative/">ReactNative</a>
+        
+        <a href="/tags/leetcode">Leetcode</a>
+        
+        <a href="/tags/面试总结">面试总结</a>
+        
+      </ul>
+    </ul>
+  </nav>
+	
+		<nav id="main-nav" class="main-nav nav-left">
+	
+	
+	  <a class="main-nav-link" href="/">首页</a>
+	
+	  <a class="main-nav-link" href="/archives">文章</a>
+	
+	  <a class="main-nav-link" href="/tags/android">Android</a>
+	
+	  <a class="main-nav-link" href="/tags/reactnative/">ReactNative</a>
+	
+	  <a class="main-nav-link" href="/tags/leetcode">Leetcode</a>
+	
+	  <a class="main-nav-link" href="/tags/面试总结">面试总结</a>
+	
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      二叉树的中序遍历
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <h4 id="二叉树的中序遍历"><a href="#二叉树的中序遍历" class="headerlink" title="二叉树的中序遍历"></a>二叉树的中序遍历</h4><p>给定一个二叉树，返回它的中序 遍历。</p>
+<p>示例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">输入: [1,null,2,3]</div><div class="line">    1</div><div class="line">     \</div><div class="line">      2</div><div class="line">     /</div><div class="line">    3</div><div class="line"></div><div class="line">输出: [1,3,2]</div></pre></td></tr></table></figure></p>
+<p>进阶: 递归算法很简单，你可以通过迭代算法完成吗？</p>
+<hr>
+<p>哎哎哎，这道题目宣布失败，虽然我的思路已经是知道了，但是我还是做不出来。<br>关键的点是我不知道如何处理右子树，正确答案的思路就是不用去处理右边，因为右边自然会被处理掉的。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;Integer&gt; <span class="title">inorderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</div><div class="line">    List&lt;Integer&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">    List&lt;TreeNode&gt; nodeList = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line"></div><div class="line">    <span class="keyword">while</span> (!nodeList.isEmpty() || root != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">while</span> (root != <span class="keyword">null</span>) &#123;</div><div class="line">            nodeList.add(root);</div><div class="line">            root = root.left;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        root = nodeList.remove(nodeList.size() - <span class="number">1</span>);</div><div class="line">        list.add(root.val);</div><div class="line">        root = root.right;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> list;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2019/02/26/二叉树的中序遍历/" class="article-date">
+  <time datetime="2019-02-26T06:11:36.000Z" itemprop="datePublished">2019-02-26</time>
+</a>
+
+        </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+  
+  
+    <a href="/2019/02/25/相交链表/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">相交链表</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/chanchangxing"><span class="fa fa-globe"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这篇写完就删站</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3/dist/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
