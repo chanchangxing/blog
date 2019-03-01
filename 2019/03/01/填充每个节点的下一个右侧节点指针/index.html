@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>填充每个节点的下一个右侧节点指针 | chanchangxing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="填充每个节点的下一个右侧节点指针给定一个完美二叉树，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：123456struct Node &amp;#123;  int val;  Node *left;  Node *right;  Node *next;  &amp;#125;
+  填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设">
+<meta property="og:type" content="article">
+<meta property="og:title" content="填充每个节点的下一个右侧节点指针">
+<meta property="og:url" content="https://chanchangxing.me/2019/03/01/填充每个节点的下一个右侧节点指针/index.html">
+<meta property="og:site_name" content="chanchangxing">
+<meta property="og:description" content="填充每个节点的下一个右侧节点指针给定一个完美二叉树，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：123456struct Node &amp;#123;  int val;  Node *left;  Node *right;  Node *next;  &amp;#125;
+  填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设">
+<meta property="og:image" content="https://chanchangxing.me/2019/03/01/填充每个节点的下一个右侧节点指针/1.png">
+<meta property="og:updated_time" content="2019-03-01T04:03:38.291Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="填充每个节点的下一个右侧节点指针">
+<meta name="twitter:description" content="填充每个节点的下一个右侧节点指针给定一个完美二叉树，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：123456struct Node &amp;#123;  int val;  Node *left;  Node *right;  Node *next;  &amp;#125;
+  填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设">
+<meta name="twitter:image" content="https://chanchangxing.me/2019/03/01/填充每个节点的下一个右侧节点指针/1.png">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  <link rel="stylesheet" href="/css/donate.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body class="dark">
+    
+  
+      <div id="container" class="container">
+        <article id="post-填充每个节点的下一个右侧节点指针" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav class="mobile-nav">
+    <h1 class="nickname">铲昶行的智障空间</h1>
+    <ul class="mobile-nav-menu">
+      <label for="mobile-menu-toggle"><a>&#9776; Menu</a></label>
+      <input type="checkbox" id="mobile-menu-toggle"/>
+      <ul class="mobile-nav-link">
+        
+        <a href="/">首页</a>
+        
+        <a href="/archives">文章</a>
+        
+        <a href="/tags/android">Android</a>
+        
+        <a href="/tags/reactnative/">ReactNative</a>
+        
+        <a href="/tags/leetcode">Leetcode</a>
+        
+        <a href="/tags/面试总结">面试总结</a>
+        
+      </ul>
+    </ul>
+  </nav>
+	
+		<nav id="main-nav" class="main-nav nav-left">
+	
+	
+	  <a class="main-nav-link" href="/">首页</a>
+	
+	  <a class="main-nav-link" href="/archives">文章</a>
+	
+	  <a class="main-nav-link" href="/tags/android">Android</a>
+	
+	  <a class="main-nav-link" href="/tags/reactnative/">ReactNative</a>
+	
+	  <a class="main-nav-link" href="/tags/leetcode">Leetcode</a>
+	
+	  <a class="main-nav-link" href="/tags/面试总结">面试总结</a>
+	
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      填充每个节点的下一个右侧节点指针
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <h4 id="填充每个节点的下一个右侧节点指针"><a href="#填充每个节点的下一个右侧节点指针" class="headerlink" title="填充每个节点的下一个右侧节点指针"></a>填充每个节点的下一个右侧节点指针</h4><p>给定一个完美二叉树，其所有叶子节点都在同一层，每个父节点都有两个子节点。二叉树定义如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">struct Node &#123;</div><div class="line">  int val;</div><div class="line">  Node *left;</div><div class="line">  Node *right;</div><div class="line">  Node *next;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
+<p>  填充它的每个 next 指针，让这个指针指向其下一个右侧节点。如果找不到下一个右侧节点，则将 next 指针设置为 NULL。<br>  初始状态下，所有 next 指针都被设置为 NULL。</p>
+<img src="/2019/03/01/填充每个节点的下一个右侧节点指针/1.png" alt="1.png" title="">
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">   输入：&#123;&quot;$id&quot;:&quot;1&quot;,&quot;left&quot;:&#123;&quot;$id&quot;:&quot;2&quot;,&quot;left&quot;:&#123;&quot;$id&quot;:&quot;3&quot;,&quot;left&quot;:null,&quot;next&quot;:null,&quot;right&quot;:null,&quot;val&quot;:4&#125;,&quot;next&quot;:null,&quot;right&quot;:&#123;&quot;$id&quot;:&quot;4&quot;,&quot;left&quot;:null,&quot;next&quot;:null,&quot;right&quot;:null,&quot;val&quot;:5&#125;,&quot;val&quot;:2&#125;,&quot;next&quot;:null,&quot;right&quot;:&#123;&quot;$id&quot;:&quot;5&quot;,&quot;left&quot;:&#123;&quot;$id&quot;:&quot;6&quot;,&quot;left&quot;:null,&quot;next&quot;:null,&quot;right&quot;:null,&quot;val&quot;:6&#125;,&quot;next&quot;:null,&quot;right&quot;:&#123;&quot;$id&quot;:&quot;7&quot;,&quot;left&quot;:null,&quot;next&quot;:null,&quot;right&quot;:null,&quot;val&quot;:7&#125;,&quot;val&quot;:3&#125;,&quot;val&quot;:1&#125;</div><div class="line">   </div><div class="line">   输出：&#123;&quot;$id&quot;:&quot;1&quot;,&quot;left&quot;:&#123;&quot;$id&quot;:&quot;2&quot;,&quot;left&quot;:&#123;&quot;$id&quot;:&quot;3&quot;,&quot;left&quot;:null,&quot;next&quot;:&#123;&quot;$id&quot;:&quot;4&quot;,&quot;left&quot;:null,&quot;next&quot;:&#123;&quot;$id&quot;:&quot;5&quot;,&quot;left&quot;:null,&quot;next&quot;:&#123;&quot;$id&quot;:&quot;6&quot;,&quot;left&quot;:null,&quot;next&quot;:null,&quot;right&quot;:null,&quot;val&quot;:7&#125;,&quot;right&quot;:null,&quot;val&quot;:6&#125;,&quot;right&quot;:null,&quot;val&quot;:5&#125;,&quot;right&quot;:null,&quot;val&quot;:4&#125;,&quot;next&quot;:&#123;&quot;$id&quot;:&quot;7&quot;,&quot;left&quot;:&#123;&quot;$ref&quot;:&quot;5&quot;&#125;,&quot;next&quot;:null,&quot;right&quot;:&#123;&quot;$ref&quot;:&quot;6&quot;&#125;,&quot;val&quot;:3&#125;,&quot;right&quot;:&#123;&quot;$ref&quot;:&quot;4&quot;&#125;,&quot;val&quot;:2&#125;,&quot;next&quot;:null,&quot;right&quot;:&#123;&quot;$ref&quot;:&quot;7&quot;&#125;,&quot;val&quot;:1&#125;</div><div class="line">   </div><div class="line">   解释：给定二叉树如图 A 所示，你的函数应该填充它的每个 next 指针，以指向其下一个右侧节点，如图 B 所示。</div></pre></td></tr></table></figure>
+<p>提示：你只能使用常量级额外空间。使用递归解题也符合要求，本题中递归程序占用的栈空间不算做额外的空间复杂度。</p>
+<hr>
+<p>今天这道题目就是把逻辑理清楚就ok了，关键点就是现在处理的行数和下一层的节点，而且这个节点的子节点连接完还要连接下一个节点的子节点。我的思路是用一个list去保存下一层的所有节点，然后再下一次循环的时候拿出来进行处理。<br>    最佳答案呢用了一个取巧的方法，通过已经搭好的next来做处理。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Node <span class="title">connect</span><span class="params">(Node root)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (root == <span class="keyword">null</span> || root.left == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span> root;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    List&lt;Node&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">    list.add(root.left);</div><div class="line">    list.add(root.right);</div><div class="line">    Node process = root.left;</div><div class="line">    </div><div class="line">    <span class="keyword">while</span> (process != <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; list.size() - <span class="number">1</span>; i++) &#123;</div><div class="line">            list.get(i).next = list.get(i + <span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">    </div><div class="line">        Node node = process;</div><div class="line">        list.clear();</div><div class="line">        <span class="keyword">while</span> (node != <span class="keyword">null</span>) &#123;</div><div class="line">            list.add(node.left);</div><div class="line">            list.add(node.right);</div><div class="line">            node = node.next;</div><div class="line">        &#125;</div><div class="line">        process = process.left;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> root;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">connect</span><span class="params">(TreeLinkNode root)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    TreeLinkNode cur = root;</div><div class="line">    <span class="keyword">while</span> (<span class="keyword">true</span>) &#123;</div><div class="line">        <span class="keyword">if</span> (cur.left == <span class="keyword">null</span>) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        TreeLinkNode next = cur.left;</div><div class="line">        <span class="keyword">while</span> (cur != <span class="keyword">null</span>) &#123;</div><div class="line">            cur.left.next = cur.right;</div><div class="line">            <span class="keyword">if</span> (cur.next != <span class="keyword">null</span>) &#123;</div><div class="line">                cur.right.next = cur.next.left;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">            cur = cur.next;</div><div class="line">        &#125;</div><div class="line">        cur = next;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2019/03/01/填充每个节点的下一个右侧节点指针/" class="article-date">
+  <time datetime="2019-03-01T03:59:51.000Z" itemprop="datePublished">2019-03-01</time>
+</a>
+
+        </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+  
+  
+    <a href="/2019/02/28/呆萝卜面试总结/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">呆萝卜面试总结</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/chanchangxing"><span class="fa fa-globe"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这篇写完就删站</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3/dist/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
