@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>二叉搜索树中第K小的元素 | chanchangxing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="二叉搜索树中第K小的元素给定一个二叉搜索树，编写一个函数 kthSmallest 来查找其中第 k 个最小的元素。
+说明：你可以假设 k 总是有效的，1 ≤ k ≤ 二叉搜索树元素个数。
+示例 1:12345678输入: root = [3,1,4,null,2], k = 1    3   / \  1   4   \    2输出: 1
+示例 2:123456789输入: root = [5,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="二叉搜索树中第K小的元素">
+<meta property="og:url" content="https://chanchangxing.me/2019/03/04/二叉搜索树中第K小的元素/index.html">
+<meta property="og:site_name" content="chanchangxing">
+<meta property="og:description" content="二叉搜索树中第K小的元素给定一个二叉搜索树，编写一个函数 kthSmallest 来查找其中第 k 个最小的元素。
+说明：你可以假设 k 总是有效的，1 ≤ k ≤ 二叉搜索树元素个数。
+示例 1:12345678输入: root = [3,1,4,null,2], k = 1    3   / \  1   4   \    2输出: 1
+示例 2:123456789输入: root = [5,">
+<meta property="og:updated_time" content="2019-03-04T04:31:32.587Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="二叉搜索树中第K小的元素">
+<meta name="twitter:description" content="二叉搜索树中第K小的元素给定一个二叉搜索树，编写一个函数 kthSmallest 来查找其中第 k 个最小的元素。
+说明：你可以假设 k 总是有效的，1 ≤ k ≤ 二叉搜索树元素个数。
+示例 1:12345678输入: root = [3,1,4,null,2], k = 1    3   / \  1   4   \    2输出: 1
+示例 2:123456789输入: root = [5,">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  <link rel="stylesheet" href="/css/donate.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body class="dark">
+    
+  
+      <div id="container" class="container">
+        <article id="post-二叉搜索树中第K小的元素" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav class="mobile-nav">
+    <h1 class="nickname">铲昶行的智障空间</h1>
+    <ul class="mobile-nav-menu">
+      <label for="mobile-menu-toggle"><a>&#9776; Menu</a></label>
+      <input type="checkbox" id="mobile-menu-toggle"/>
+      <ul class="mobile-nav-link">
+        
+        <a href="/">首页</a>
+        
+        <a href="/archives">文章</a>
+        
+        <a href="/tags/android">Android</a>
+        
+        <a href="/tags/reactnative/">ReactNative</a>
+        
+        <a href="/tags/leetcode">Leetcode</a>
+        
+        <a href="/tags/面试总结">面试总结</a>
+        
+      </ul>
+    </ul>
+  </nav>
+	
+		<nav id="main-nav" class="main-nav nav-left">
+	
+	
+	  <a class="main-nav-link" href="/">首页</a>
+	
+	  <a class="main-nav-link" href="/archives">文章</a>
+	
+	  <a class="main-nav-link" href="/tags/android">Android</a>
+	
+	  <a class="main-nav-link" href="/tags/reactnative/">ReactNative</a>
+	
+	  <a class="main-nav-link" href="/tags/leetcode">Leetcode</a>
+	
+	  <a class="main-nav-link" href="/tags/面试总结">面试总结</a>
+	
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      二叉搜索树中第K小的元素
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <h4 id="二叉搜索树中第K小的元素"><a href="#二叉搜索树中第K小的元素" class="headerlink" title="二叉搜索树中第K小的元素"></a>二叉搜索树中第K小的元素</h4><p>给定一个二叉搜索树，编写一个函数 kthSmallest 来查找其中第 k 个最小的元素。</p>
+<p>说明：<br>你可以假设 k 总是有效的，1 ≤ k ≤ 二叉搜索树元素个数。</p>
+<p>示例 1:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">输入: root = [3,1,4,null,2], k = 1</div><div class="line"></div><div class="line">    3</div><div class="line">   / \</div><div class="line">  1   4</div><div class="line">   \</div><div class="line">    2</div><div class="line">输出: 1</div></pre></td></tr></table></figure></p>
+<p>示例 2:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">输入: root = [5,3,6,2,4,null,null,1], k = 3</div><div class="line">        5</div><div class="line">       / \</div><div class="line">      3   6</div><div class="line">     / \</div><div class="line">    2   4</div><div class="line">   /</div><div class="line">  1</div><div class="line">输出: 3</div></pre></td></tr></table></figure></p>
+<p>进阶：<br>如果二叉搜索树经常被修改（插入/删除操作）并且你需要频繁地查找第 k 小的值，你将如何优化 kthSmallest 函数？</p>
+<hr>
+<p>思路和实现都很简单，就是中序，然后在列表里查找第k个node。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">kthSmallest</span><span class="params">(TreeNode root, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">    TreeNode process = root;</div><div class="line">    List&lt;TreeNode&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">    a(process, list);</div><div class="line">    <span class="keyword">return</span> list.get(k - <span class="number">1</span>).val;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">a</span><span class="params">(TreeNode node, List&lt;TreeNode&gt; list)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (node == <span class="keyword">null</span>) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    a(node.left, list);</div><div class="line">    list.add(node);</div><div class="line">    a(node.right, list);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>最佳答案的话优化了列表这个东西，他直接是将k放入递归中进行逻辑判断了，所以平均时间来讲他不需要把整个树进行递归。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> count=<span class="number">0</span>;</div><div class="line"><span class="keyword">int</span> res=<span class="number">0</span>;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">kthSmallest</span><span class="params">(TreeNode root, <span class="keyword">int</span> k)</span> </span>&#123;</div><div class="line">    inOrder(root,k);</div><div class="line">    <span class="keyword">return</span> res;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">inOrder</span><span class="params">(TreeNode root, <span class="keyword">int</span> k)</span></span>&#123;</div><div class="line">    <span class="keyword">if</span>(root==<span class="keyword">null</span>)&#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span>(res!=<span class="number">0</span>) <span class="keyword">return</span>;</div><div class="line">    inOrder(root.left,k);</div><div class="line">    count++;</div><div class="line">    <span class="keyword">if</span>(count==k)&#123;</div><div class="line">        res=root.val;</div><div class="line">    &#125;</div><div class="line">    inOrder(root.right,k);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2019/03/04/二叉搜索树中第K小的元素/" class="article-date">
+  <time datetime="2019-03-04T04:30:06.000Z" itemprop="datePublished">2019-03-04</time>
+</a>
+
+        </li>
+        
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+  
+  
+    <a href="/2019/03/01/填充每个节点的下一个右侧节点指针/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">填充每个节点的下一个右侧节点指针</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/chanchangxing"><span class="fa fa-globe"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这篇写完就删站</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3/dist/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
