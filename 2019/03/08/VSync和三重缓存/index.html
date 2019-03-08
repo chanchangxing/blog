@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>VSync和三重缓存 | chanchangxing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="VSync和三重缓存参考于https://blog.csdn.net/wangxueming/article/details/64457436
+VSync在于我现在的理解是一个信号，一个提示cpu和gpu进行下一帧工作的信号。我们先来看看为什么Android会需要VSync。
+下面是我们在分析之前需要知道的前提条件：
+
+我们知道，手机屏幕差不多都是处于一个60帧每秒的状态，也就是每一帧给到手机的是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VSync和三重缓存">
+<meta property="og:url" content="https://chanchangxing.me/2019/03/08/VSync和三重缓存/index.html">
+<meta property="og:site_name" content="chanchangxing">
+<meta property="og:description" content="VSync和三重缓存参考于https://blog.csdn.net/wangxueming/article/details/64457436
+VSync在于我现在的理解是一个信号，一个提示cpu和gpu进行下一帧工作的信号。我们先来看看为什么Android会需要VSync。
+下面是我们在分析之前需要知道的前提条件：
+
+我们知道，手机屏幕差不多都是处于一个60帧每秒的状态，也就是每一帧给到手机的是">
+<meta property="og:image" content="https://chanchangxing.me/2019/03/08/VSync和三重缓存/1.png">
+<meta property="og:image" content="https://chanchangxing.me/2019/03/08/VSync和三重缓存/2.png">
+<meta property="og:image" content="https://chanchangxing.me/2019/03/08/VSync和三重缓存/3.png">
+<meta property="og:image" content="https://chanchangxing.me/2019/03/08/VSync和三重缓存/4.png">
+<meta property="og:updated_time" content="2019-03-08T09:51:39.388Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="VSync和三重缓存">
+<meta name="twitter:description" content="VSync和三重缓存参考于https://blog.csdn.net/wangxueming/article/details/64457436
+VSync在于我现在的理解是一个信号，一个提示cpu和gpu进行下一帧工作的信号。我们先来看看为什么Android会需要VSync。
+下面是我们在分析之前需要知道的前提条件：
+
+我们知道，手机屏幕差不多都是处于一个60帧每秒的状态，也就是每一帧给到手机的是">
+<meta name="twitter:image" content="https://chanchangxing.me/2019/03/08/VSync和三重缓存/1.png">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  <link rel="stylesheet" href="/css/donate.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body class="dark">
+    
+  
+      <div id="container" class="container">
+        <article id="post-VSync和三重缓存" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav class="mobile-nav">
+    <h1 class="nickname">铲昶行的智障空间</h1>
+    <ul class="mobile-nav-menu">
+      <label for="mobile-menu-toggle"><a>&#9776; Menu</a></label>
+      <input type="checkbox" id="mobile-menu-toggle"/>
+      <ul class="mobile-nav-link">
+        
+        <a href="/">首页</a>
+        
+        <a href="/archives">文章</a>
+        
+        <a href="/tags/android">Android</a>
+        
+        <a href="/tags/reactnative/">ReactNative</a>
+        
+        <a href="/tags/leetcode">Leetcode</a>
+        
+        <a href="/tags/面试总结">面试总结</a>
+        
+      </ul>
+    </ul>
+  </nav>
+	
+		<nav id="main-nav" class="main-nav nav-left">
+	
+	
+	  <a class="main-nav-link" href="/">首页</a>
+	
+	  <a class="main-nav-link" href="/archives">文章</a>
+	
+	  <a class="main-nav-link" href="/tags/android">Android</a>
+	
+	  <a class="main-nav-link" href="/tags/reactnative/">ReactNative</a>
+	
+	  <a class="main-nav-link" href="/tags/leetcode">Leetcode</a>
+	
+	  <a class="main-nav-link" href="/tags/面试总结">面试总结</a>
+	
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      VSync和三重缓存
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <h4 id="VSync和三重缓存"><a href="#VSync和三重缓存" class="headerlink" title="VSync和三重缓存"></a>VSync和三重缓存</h4><p>参考于<a href="https://blog.csdn.net/wangxueming/article/details/64457436" target="_blank" rel="external">https://blog.csdn.net/wangxueming/article/details/64457436</a></p>
+<p>VSync在于我现在的理解是一个信号，一个提示cpu和gpu进行下一帧工作的信号。我们先来看看为什么Android会需要VSync。</p>
+<p>下面是我们在分析之前需要知道的前提条件：</p>
+<ol>
+<li>我们知道，手机屏幕差不多都是处于一个60帧每秒的状态，也就是每一帧给到手机的是16ms来处理生成一帧。</li>
+<li>在手机处理完这一帧的16ms之间，cpu和gpu就会开始处理下一帧了。</li>
+</ol>
+<p>先来看看当没有VSync的情况：</p>
+<img src="/2019/03/08/VSync和三重缓存/1.png" alt="1.png" title="">
+<p>Display这一行是屏幕显示帧数情况，cpu和gpu就是他们处理这一帧需要的时间。</p>
+<p>我们直接看出现问题的那里，也就是图上显示jank的地方。在屏幕显示第一帧的时候（图上还有第零帧！），cpu处理第二帧的时间非常靠后，导致在第一帧的16ms里并没有把下一帧的东西做出来，所以屏幕就还是显示第一帧了。结果就是第一帧出现了两次，人就会感觉到卡顿了。</p>
+<p>再来看看加入VSync的情况：</p>
+<img src="/2019/03/08/VSync和三重缓存/2.png" alt="2.png" title="">
+<p>上面已经提到了，VSync是一个告诉cpu要干活了的信号。我们可以看到每一帧显示在屏幕的时候都会发送一个VSync，而cpu会接收到这个信号并马上开始工作，这样可以避免上面那种cpu很迟才进行工作。</p>
+<p>但是并不是每一帧都可以在16ms之内完成的，android优化这个问题，加入了三重缓存。我们来循序分析双重缓存和三重缓存。</p>
+<p>先来看看双重缓存：</p>
+<img src="/2019/03/08/VSync和三重缓存/3.png" alt="3.png" title="">
+<p>先来通过这个图来介绍一下双重缓存，三重缓存和双重缓存其实就是多了一层缓存，运行原理是差不多的。</p>
+<p>这里有两个缓存区A和B，在A缓存区处理完这一帧显示在屏幕上的时候，B缓存区就已经收到VSync并开始工作了。当B缓存区的下一帧工作完成了，那么切换一下，B缓存区显示在屏幕上，A缓存区进入工作。不知道这么个描述对不对。</p>
+<p>但是呢，还是那个问题，总有工作会超出16ms。这样下次再遇到这个帧的时候，还是会出现跳帧的问题。如下图所示：</p>
+<img src="/2019/03/08/VSync和三重缓存/4.png" alt="4.png" title="">
+<p>所以，接下来就要讲到三重缓存了，先看图：</p>
+
+<p>因为B缓存区的处理时间大于16ms，导致A缓存区的帧持续了16ms，这种情况下会多出一个C缓存区来做出另一个帧。在下次出现B缓存区需要工作的时候，把C缓存区的帧拿出来，然后在这个时间里先去进行B缓存区的处理。</p>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2019/03/08/VSync和三重缓存/" class="article-date">
+  <time datetime="2019-03-08T07:46:30.000Z" itemprop="datePublished">2019-03-08</time>
+</a>
+
+        </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+  
+  
+    <a href="/2019/03/06/岛屿的个数/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">岛屿的个数</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/chanchangxing"><span class="fa fa-globe"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这篇写完就删站</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3/dist/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
