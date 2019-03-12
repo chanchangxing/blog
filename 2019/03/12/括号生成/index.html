@@ -6,24 +6,24 @@
   <title>括号生成 | chanchangxing</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="括号生成给出 n 代表生成括号的对数，请你写出一个函数，使其能够生成所有可能的并且有效的括号组合。
-例如，给出 n = 3，生成结果为：1234567[&amp;quot;((()))&amp;quot;,&amp;quot;(()())&amp;quot;,&amp;quot;(())()&amp;quot;,&amp;quot;()(())&amp;quot;,&amp;quot;()()()&amp;quot;]
+例如，给出 n = 3，生成结果为：1234567[    &amp;quot;((()))&amp;quot;,    &amp;quot;(()())&amp;quot;,    &amp;quot;(())()&amp;quot;,    &amp;quot;()(())&amp;quot;,    &amp;quot;()()()&amp;quot;]
 
-这道题目思路完全错了，所以到最后也没有做出来。我的思路">
+这道题目思路完">
 <meta property="og:type" content="article">
 <meta property="og:title" content="括号生成">
 <meta property="og:url" content="https://chanchangxing.me/2019/03/12/括号生成/index.html">
 <meta property="og:site_name" content="chanchangxing">
 <meta property="og:description" content="括号生成给出 n 代表生成括号的对数，请你写出一个函数，使其能够生成所有可能的并且有效的括号组合。
-例如，给出 n = 3，生成结果为：1234567[&amp;quot;((()))&amp;quot;,&amp;quot;(()())&amp;quot;,&amp;quot;(())()&amp;quot;,&amp;quot;()(())&amp;quot;,&amp;quot;()()()&amp;quot;]
+例如，给出 n = 3，生成结果为：1234567[    &amp;quot;((()))&amp;quot;,    &amp;quot;(()())&amp;quot;,    &amp;quot;(())()&amp;quot;,    &amp;quot;()(())&amp;quot;,    &amp;quot;()()()&amp;quot;]
 
-这道题目思路完全错了，所以到最后也没有做出来。我的思路">
-<meta property="og:updated_time" content="2019-03-12T11:40:33.127Z">
+这道题目思路完">
+<meta property="og:updated_time" content="2019-03-12T11:44:14.959Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="括号生成">
 <meta name="twitter:description" content="括号生成给出 n 代表生成括号的对数，请你写出一个函数，使其能够生成所有可能的并且有效的括号组合。
-例如，给出 n = 3，生成结果为：1234567[&amp;quot;((()))&amp;quot;,&amp;quot;(()())&amp;quot;,&amp;quot;(())()&amp;quot;,&amp;quot;()(())&amp;quot;,&amp;quot;()()()&amp;quot;]
+例如，给出 n = 3，生成结果为：1234567[    &amp;quot;((()))&amp;quot;,    &amp;quot;(()())&amp;quot;,    &amp;quot;(())()&amp;quot;,    &amp;quot;()(())&amp;quot;,    &amp;quot;()()()&amp;quot;]
 
-这道题目思路完全错了，所以到最后也没有做出来。我的思路">
+这道题目思路完">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -102,7 +102,7 @@
     <div class="article-entry typo" itemprop="articleBody">
       
         <h4 id="括号生成"><a href="#括号生成" class="headerlink" title="括号生成"></a>括号生成</h4><p>给出 n 代表生成括号的对数，请你写出一个函数，使其能够生成所有可能的并且有效的括号组合。</p>
-<p>例如，给出 n = 3，生成结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">&quot;((()))&quot;,</div><div class="line">&quot;(()())&quot;,</div><div class="line">&quot;(())()&quot;,</div><div class="line">&quot;()(())&quot;,</div><div class="line">&quot;()()()&quot;</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<p>例如，给出 n = 3，生成结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">    &quot;((()))&quot;,</div><div class="line">    &quot;(()())&quot;,</div><div class="line">    &quot;(())()&quot;,</div><div class="line">    &quot;()(())&quot;,</div><div class="line">    &quot;()()()&quot;</div><div class="line">]</div></pre></td></tr></table></figure></p>
 <hr>
 <p>这道题目思路完全错了，所以到最后也没有做出来。我的思路是把看每个成对的括号了。<br>而正确的思路应该是这样的，思路可以这么理解，将<code>)</code>插入<code>(</code>内。<br>首先是<code>(((</code>，那么就直接插入<code>)))</code>，判断左括号和右括号都没有了，结束这次循环。<br>然后再在两个左括号内看，<code>(())</code>，这样有一个左括号，那么先插入左括号，再插入右括号。得到<code>(())()</code>。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> List&lt;String&gt; <span class="title">generateParenthesis</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</div><div class="line">    List&lt;String&gt; list = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line">    chuli(<span class="string">""</span>, list, n, n);</div><div class="line">    <span class="keyword">return</span> list;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">chuli</span><span class="params">(String s, List&lt;String&gt; list,<span class="keyword">int</span> left, <span class="keyword">int</span> right)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (left&gt;right) &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (left&gt;<span class="number">0</span>) &#123;</div><div class="line">        chuli(s+<span class="string">"("</span>, list, left-<span class="number">1</span>, right);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (right&gt;<span class="number">0</span>) &#123;</div><div class="line">        chuli(s+<span class="string">")"</span>, list, left, right-<span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">if</span> (left==<span class="number">0</span>&amp;&amp;right==<span class="number">0</span>) &#123;</div><div class="line">        list.add(s);</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 
@@ -119,6 +119,14 @@
 
         </li>
         
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/leetcode/">leetcode</a></li></ul>
+
+
+          </li>
         
         <hr/>
       </ul>
