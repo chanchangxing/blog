@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>单词搜索 | chanchangxing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="给定一个二维网格和一个单词，找出该单词是否存在于网格中。
+单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
+示例:
+12345678910board =[  [&amp;apos;A&amp;apos;,&amp;apos;B&amp;apos;,&amp;apos;C&amp;apos;,&amp;apos;E&amp;apos;],  [&amp;apos;S&amp;apos;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="单词搜索">
+<meta property="og:url" content="https://chanchangxing.me/2019/04/10/单词搜索/index.html">
+<meta property="og:site_name" content="chanchangxing">
+<meta property="og:description" content="给定一个二维网格和一个单词，找出该单词是否存在于网格中。
+单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
+示例:
+12345678910board =[  [&amp;apos;A&amp;apos;,&amp;apos;B&amp;apos;,&amp;apos;C&amp;apos;,&amp;apos;E&amp;apos;],  [&amp;apos;S&amp;apos;">
+<meta property="og:updated_time" content="2019-04-10T12:17:57.919Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="单词搜索">
+<meta name="twitter:description" content="给定一个二维网格和一个单词，找出该单词是否存在于网格中。
+单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。
+示例:
+12345678910board =[  [&amp;apos;A&amp;apos;,&amp;apos;B&amp;apos;,&amp;apos;C&amp;apos;,&amp;apos;E&amp;apos;],  [&amp;apos;S&amp;apos;">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  <link rel="stylesheet" href="/css/donate.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body class="dark">
+    
+  
+      <div id="container" class="container">
+        <article id="post-单词搜索" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav class="mobile-nav">
+    <h1 class="nickname">铲昶行的智障空间</h1>
+    <ul class="mobile-nav-menu">
+      <label for="mobile-menu-toggle"><a>&#9776; Menu</a></label>
+      <input type="checkbox" id="mobile-menu-toggle"/>
+      <ul class="mobile-nav-link">
+        
+        <a href="/">首页</a>
+        
+        <a href="/archives">文章</a>
+        
+        <a href="/tags/android">Android</a>
+        
+        <a href="/tags/reactnative/">ReactNative</a>
+        
+        <a href="/tags/leetcode">Leetcode</a>
+        
+        <a href="/tags/面试总结">面试总结</a>
+        
+      </ul>
+    </ul>
+  </nav>
+	
+		<nav id="main-nav" class="main-nav nav-left">
+	
+	
+	  <a class="main-nav-link" href="/">首页</a>
+	
+	  <a class="main-nav-link" href="/archives">文章</a>
+	
+	  <a class="main-nav-link" href="/tags/android">Android</a>
+	
+	  <a class="main-nav-link" href="/tags/reactnative/">ReactNative</a>
+	
+	  <a class="main-nav-link" href="/tags/leetcode">Leetcode</a>
+	
+	  <a class="main-nav-link" href="/tags/面试总结">面试总结</a>
+	
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      单词搜索
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <p>给定一个二维网格和一个单词，找出该单词是否存在于网格中。</p>
+<p>单词必须按照字母顺序，通过相邻的单元格内的字母构成，其中“相邻”单元格是那些水平相邻或垂直相邻的单元格。同一个单元格内的字母不允许被重复使用。</p>
+<p><strong>示例:</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">board =</div><div class="line">[</div><div class="line">  [&apos;A&apos;,&apos;B&apos;,&apos;C&apos;,&apos;E&apos;],</div><div class="line">  [&apos;S&apos;,&apos;F&apos;,&apos;C&apos;,&apos;S&apos;],</div><div class="line">  [&apos;A&apos;,&apos;D&apos;,&apos;E&apos;,&apos;E&apos;]</div><div class="line">]</div><div class="line"></div><div class="line">给定 word = &quot;ABCCED&quot;, 返回 true.</div><div class="line">给定 word = &quot;SEE&quot;, 返回 true.</div><div class="line">给定 word = &quot;ABCB&quot;, 返回 false.</div></pre></td></tr></table></figure>
+<hr>
+<p>这道题目就是回溯算法，在回溯的时候要记录进来以防止下一次在循环到这个节点。再把边缘情况处理一下。</p>
+<p>边缘情况包括word的数量大于board的节点数量，循环到边缘的情况，word和board的数量都为1.</p>
+<p>我还增加了下次循环的方向以防止再次循环到来的地方。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div></pre></td><td class="code"><pre><div class="line">List&lt;Integer&gt; countList = <span class="keyword">new</span> ArrayList&lt;&gt;();</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">exist</span><span class="params">(<span class="keyword">char</span>[][] board, String word)</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">char</span> first = word.charAt(<span class="number">0</span>);</div><div class="line">    <span class="keyword">if</span> (board.length * board[<span class="number">0</span>].length &lt; word.length()) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; board.length; i++) &#123;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; board[i].length; j++) &#123;</div><div class="line">            <span class="keyword">if</span> (board[i][j] == first) &#123;</div><div class="line">                countList.add(board[<span class="number">0</span>].length * i + j);</div><div class="line"></div><div class="line">                <span class="keyword">if</span> (word.length() == <span class="number">1</span>) &#123;</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span> (a(board, word, <span class="number">1</span>, i - <span class="number">1</span>, j, <span class="number">1</span>, countList) ||</div><div class="line">                    a(board, word, <span class="number">1</span>, i, j + <span class="number">1</span>, <span class="number">2</span>, countList) ||</div><div class="line">                    a(board, word, <span class="number">1</span>, i + <span class="number">1</span>, j, <span class="number">3</span>, countList) ||</div><div class="line">                    a(board, word, <span class="number">1</span>, i, j - <span class="number">1</span>, <span class="number">4</span>, countList)) &#123;</div><div class="line">                    <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">                &#125;</div><div class="line"></div><div class="line">                countList.remove(board[<span class="number">0</span>].length * i + j);</div><div class="line"></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">a</span><span class="params">(<span class="keyword">char</span>[][] board, String word, <span class="keyword">int</span> index, <span class="keyword">int</span> i, <span class="keyword">int</span> j, <span class="keyword">int</span> k, List&lt;Integer&gt; countList)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (i &lt; <span class="number">0</span> || i == board.length</div><div class="line">        || j &lt; <span class="number">0</span> || j == board[<span class="number">0</span>].length</div><div class="line">        || word.charAt(index) != board[i][j]</div><div class="line">        || countList.contains(board[<span class="number">0</span>].length * i + j)) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (index == word.length() - <span class="number">1</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    countList.add(board[<span class="number">0</span>].length * i + j);</div><div class="line"></div><div class="line">    <span class="keyword">switch</span> (k) &#123;</div><div class="line">        <span class="keyword">case</span> <span class="number">1</span>: &#123;</div><div class="line">            <span class="keyword">if</span> (a(board, word, index + <span class="number">1</span>, i - <span class="number">1</span>, j, <span class="number">1</span>, countList) ||</div><div class="line">                a(board, word, index + <span class="number">1</span>, i, j + <span class="number">1</span>, <span class="number">2</span>, countList) ||</div><div class="line">                a(board, word, index + <span class="number">1</span>, i, j - <span class="number">1</span>, <span class="number">4</span>, countList)) &#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                countList.remove(countList.indexOf(board[<span class="number">0</span>].length * i + j));</div><div class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">case</span> <span class="number">2</span>: &#123;</div><div class="line">            <span class="keyword">if</span> (a(board, word, index + <span class="number">1</span>, i - <span class="number">1</span>, j, <span class="number">1</span>, countList) ||</div><div class="line">                a(board, word, index + <span class="number">1</span>, i, j + <span class="number">1</span>, <span class="number">2</span>, countList) ||</div><div class="line">                a(board, word, index + <span class="number">1</span>, i + <span class="number">1</span>, j, <span class="number">3</span>, countList)) &#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                countList.remove(countList.indexOf(board[<span class="number">0</span>].length * i + j));</div><div class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">case</span> <span class="number">3</span>: &#123;</div><div class="line">            <span class="keyword">if</span> (a(board, word, index + <span class="number">1</span>, i, j + <span class="number">1</span>, <span class="number">2</span>, countList) ||</div><div class="line">                a(board, word, index + <span class="number">1</span>, i + <span class="number">1</span>, j, <span class="number">3</span>, countList) ||</div><div class="line">                a(board, word, index + <span class="number">1</span>, i, j - <span class="number">1</span>, <span class="number">4</span>, countList)) &#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                countList.remove(countList.indexOf(board[<span class="number">0</span>].length * i + j));</div><div class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">case</span> <span class="number">4</span>: &#123;</div><div class="line">            <span class="keyword">if</span> (a(board, word, index + <span class="number">1</span>, i - <span class="number">1</span>, j, <span class="number">1</span>, countList) ||</div><div class="line">                a(board, word, index + <span class="number">1</span>, i + <span class="number">1</span>, j, <span class="number">3</span>, countList) ||</div><div class="line">                a(board, word, index + <span class="number">1</span>, i, j - <span class="number">1</span>, <span class="number">4</span>, countList)) &#123;</div><div class="line">                <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                countList.remove(countList.indexOf(board[<span class="number">0</span>].length * i + j));</div><div class="line">                <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最佳答案和我的思路大体是一样的，但是他优化了我的list，他直接是将相对应的值进行 ^= 256，这样保证了回溯的值变成了一个不可能出现的值，在回溯之后再将他变回来。但是呢，list在调试的时候有很直观的感觉，这个是优化的方法所不能达到的，你能深切的感受到计算机是如何处理这段回溯的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">exist</span><span class="params">(<span class="keyword">char</span>[][] board, String word)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (board == <span class="keyword">null</span> || board.length == <span class="number">0</span> || board[<span class="number">0</span>] == <span class="keyword">null</span> || board[<span class="number">0</span>].length == <span class="number">0</span>) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; board.length; i++) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; board[<span class="number">0</span>].length; j++) &#123;</div><div class="line">            <span class="keyword">if</span> (word.charAt(<span class="number">0</span>) == board[i][j]) &#123;</div><div class="line">                <span class="keyword">if</span> (dfs(board, word, <span class="number">0</span>, i, j)) <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dfs</span><span class="params">(<span class="keyword">char</span>[][] board, String word, <span class="keyword">int</span> k, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (k == word.length()) <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    <span class="keyword">if</span> (i &lt; <span class="number">0</span> || i == board.length || j &lt; <span class="number">0</span> || j == board[i].length) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    <span class="keyword">if</span> (board[i][j] != word.charAt(k)) <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    board[i][j] ^= <span class="number">256</span>;</div><div class="line">    <span class="keyword">if</span> (dfs(board, word, k + <span class="number">1</span>, i - <span class="number">1</span>, j) ||</div><div class="line">        dfs(board, word, k + <span class="number">1</span>, i + <span class="number">1</span>, j) ||</div><div class="line">        dfs(board, word, k + <span class="number">1</span>, i, j - <span class="number">1</span>) ||</div><div class="line">        dfs(board, word, k + <span class="number">1</span>, i, j + <span class="number">1</span>) ) <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    board[i][j] ^= <span class="number">256</span>;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2019/04/10/单词搜索/" class="article-date">
+  <time datetime="2019-04-10T11:36:12.000Z" itemprop="datePublished">2019-04-10</time>
+</a>
+
+        </li>
+        
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+  
+  
+    <a href="/2019/03/24/购物车浅谈/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">购物车浅谈</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/chanchangxing"><span class="fa fa-globe"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这篇写完就删站</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3/dist/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
