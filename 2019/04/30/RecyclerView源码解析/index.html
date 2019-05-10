@@ -11,13 +11,13 @@
 onLayout在RecyclerView中，子View都是在LayoutManger中进行计算大小，布局的。所以">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RecyclerView源码解析">
-<meta property="og:url" content="https://chanchangxing.me/2019/04/30/RecyclerView源码解析1/index.html">
+<meta property="og:url" content="https://chanchangxing.me/2019/04/30/RecyclerView源码解析/index.html">
 <meta property="og:site_name" content="chanchangxing">
 <meta property="og:description" content="RecyclerView渲染流程和获取缓存RecyclerView也是一个View，也要遵循View的三个步骤。onMeasure、onLayout、onDraw. 
 那么就来照着这个顺序来解剖RecyclerView。 
 解剖依照的项目是google的android sample 
 onLayout在RecyclerView中，子View都是在LayoutManger中进行计算大小，布局的。所以">
-<meta property="og:image" content="https://chanchangxing.me/2019/04/30/RecyclerView源码解析1/1.png">
+<meta property="og:image" content="https://chanchangxing.me/2019/04/30/RecyclerView源码解析/1.png">
 <meta property="og:updated_time" content="2019-05-10T14:50:42.608Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RecyclerView源码解析">
@@ -25,7 +25,7 @@ onLayout在RecyclerView中，子View都是在LayoutManger中进行计算大小�
 那么就来照着这个顺序来解剖RecyclerView。 
 解剖依照的项目是google的android sample 
 onLayout在RecyclerView中，子View都是在LayoutManger中进行计算大小，布局的。所以">
-<meta name="twitter:image" content="https://chanchangxing.me/2019/04/30/RecyclerView源码解析1/1.png">
+<meta name="twitter:image" content="https://chanchangxing.me/2019/04/30/RecyclerView源码解析/1.png">
   
   
     <link rel="icon" href="/favicon.ico">
@@ -43,7 +43,7 @@ onLayout在RecyclerView中，子View都是在LayoutManger中进行计算大小�
     
   
       <div id="container" class="container">
-        <article id="post-RecyclerView源码解析1" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-RecyclerView源码解析" class="article article-type-post" itemscope itemprop="blogPost">
   <header id="header" class="header">
   <nav class="mobile-nav">
     <h1 class="nickname">铲昶行的智障空间</h1>
@@ -133,7 +133,7 @@ onLayout在RecyclerView中，子View都是在LayoutManger中进行计算大小�
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinearLayoutManager</span> </span>&#123;</div><div class="line">		<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">recycleByLayoutState</span><span class="params">(RecyclerView.Recycler recycler, LayoutState layoutState)</span> </span>&#123;</div><div class="line">      			<span class="comment">// 这个方法是从上开始回收Item。</span></div><div class="line">            recycleViewsFromStart(recycler, layoutState.mScrollingOffset);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinearLayoutManager</span> </span>&#123;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; childCount; i++) &#123;</div><div class="line">            View child = getChildAt(i);</div><div class="line">            <span class="keyword">if</span> (mOrientationHelper.getDecoratedEnd(child) &gt; limit || mOrientationHelper.getTransformedEndWithDecoration(child) &gt; limit) &#123;</div><div class="line">              recycleChildren(recycler, <span class="number">0</span>, i);</div><div class="line">              <span class="keyword">return</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>关于找出要回收的Item的逻辑比较有意思。</p>
-<img src="/2019/04/30/RecyclerView源码解析1/1.png" alt="1.png" title="">
+<img src="/2019/04/30/RecyclerView源码解析/1.png" alt="1.png" title="">
 <p>所以他是通过滑动距离和每个item的底部的坐标来判断item的上一个item是否划出了屏幕。</p>
 <p>下面来看看是怎么回收Item。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LinearLayoutManager</span> </span>&#123;</div><div class="line">		<span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">recycleChildren</span><span class="params">(RecyclerView.Recycler recycler, <span class="keyword">int</span> startIndex, <span class="keyword">int</span> endIndex)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (startIndex == endIndex) &#123;</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">if</span> (endIndex &gt; startIndex) &#123;</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = endIndex - <span class="number">1</span>; i &gt;= startIndex; i--) &#123;</div><div class="line">                removeAndRecycleViewAt(i, recycler);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">  </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">removeAndRecycleViewAt</span><span class="params">(<span class="keyword">int</span> index, Recycler recycler)</span> </span>&#123;</div><div class="line">      	<span class="comment">// 获取这个ViewHolder的view。</span></div><div class="line">        <span class="keyword">final</span> View view = getChildAt(index);</div><div class="line">      	<span class="comment">// 在页面上删除这个已经移出的view。</span></div><div class="line">        removeViewAt(index);</div><div class="line">      	<span class="comment">// 将view交给Recycler，Recycler来完成回收的动作</span></div><div class="line">        recycler.recycleView(view);</div><div class="line">    &#125;</div><div class="line">  </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">recycleView</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">        recycleViewHolderInternal(holder);</div><div class="line">    &#125;</div><div class="line">  </div><div class="line">  	<span class="function"><span class="keyword">void</span> <span class="title">recycleViewHolderInternal</span><span class="params">(ViewHolder holder)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span> (forceRecycle || holder.isRecyclable()) &#123;</div><div class="line">            <span class="keyword">if</span> (!holder.hasAnyOfTheFlags(ViewHolder.FLAG_INVALID | ViewHolder.FLAG_REMOVED | ViewHolder.FLAG_UPDATE)) &#123;</div><div class="line">                <span class="keyword">int</span> cachedViewSize = mCachedViews.size();</div><div class="line">              	<span class="comment">// 当cachedView的数量大于等于最大缓存数的时候，那么把最开始加入到CacheView的Item移出，把新的Item放进CacheView。然后把移出的Item放入到RecyclerPool中。</span></div><div class="line">                <span class="keyword">if</span> (cachedViewSize &gt;= mViewCacheMax &amp;&amp; cachedViewSize &gt; <span class="number">0</span>) &#123;</div><div class="line">                    recycleCachedViewAt(<span class="number">0</span>);</div><div class="line">                    cachedViewSize --;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span> (cachedViewSize &lt; mViewCacheMax) &#123;</div><div class="line">                  mCachedViews.add(holder);</div><div class="line">                  cached = <span class="keyword">true</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">          	<span class="comment">// 这里我们再看看RecyclerPool是如何存储被回收的Item的。</span></div><div class="line">            <span class="keyword">if</span> (!cached) &#123;</div><div class="line">                addViewHolderToRecycledViewPool(holder);</div><div class="line">                recycled = <span class="keyword">true</span>;</div><div class="line">            &#125;</div><div class="line">        &#125; </div><div class="line">    &#125;</div><div class="line">  </div><div class="line">  	<span class="function"><span class="keyword">void</span> <span class="title">addViewHolderToRecycledViewPool</span><span class="params">(ViewHolder holder)</span> </span>&#123;</div><div class="line">        getRecycledViewPool().putRecycledView(holder);</div><div class="line">  	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -151,7 +151,7 @@ onLayout在RecyclerView中，子View都是在LayoutManger中进行计算大小�
       <ul class="article-meta">
         <li>
           <span class="label">Published Date:</span>
-          <a href="/2019/04/30/RecyclerView源码解析1/" class="article-date">
+          <a href="/2019/04/30/RecyclerView源码解析/" class="article-date">
   <time datetime="2019-04-30T06:46:22.000Z" itemprop="datePublished">2019-04-30</time>
 </a>
 
@@ -174,14 +174,7 @@ onLayout在RecyclerView中，子View都是在LayoutManger中进行计算大小�
     
 <nav id="article-nav" class="article-nav">
   
-    <a href="/2019/05/01/RecyclerView源码解析2/" id="article-nav-newer" class="article-nav-link-wrap newer">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          RecyclerView源码解析2
-        
-      </div>
-    </a>
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
   
   
     <a href="/2019/04/10/单词搜索/" id="article-nav-older" class="article-nav-link-wrap older">
