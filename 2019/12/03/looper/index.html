@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>looper | chanchangxing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="####Looper.prepare
+Looper通过sThreadLocal来判断该线程是否已经创建Looper
+构造函数里，创建了MessageQueue()，获取当前线程的Thread实例。并且把Looper的实例放到ThreadLocal中。
+在MessageQueue的构造函数里，调用了nativeInit()，这个方法就是初始化底层的那个epoll了，返回一个native的一个唯一值吧">
+<meta property="og:type" content="article">
+<meta property="og:title" content="looper">
+<meta property="og:url" content="https://chanchangxing.me/2019/12/03/looper/index.html">
+<meta property="og:site_name" content="chanchangxing">
+<meta property="og:description" content="####Looper.prepare
+Looper通过sThreadLocal来判断该线程是否已经创建Looper
+构造函数里，创建了MessageQueue()，获取当前线程的Thread实例。并且把Looper的实例放到ThreadLocal中。
+在MessageQueue的构造函数里，调用了nativeInit()，这个方法就是初始化底层的那个epoll了，返回一个native的一个唯一值吧">
+<meta property="og:updated_time" content="2019-12-03T11:03:21.706Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="looper">
+<meta name="twitter:description" content="####Looper.prepare
+Looper通过sThreadLocal来判断该线程是否已经创建Looper
+构造函数里，创建了MessageQueue()，获取当前线程的Thread实例。并且把Looper的实例放到ThreadLocal中。
+在MessageQueue的构造函数里，调用了nativeInit()，这个方法就是初始化底层的那个epoll了，返回一个native的一个唯一值吧">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  <link rel="stylesheet" href="/css/donate.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body class="dark">
+    
+  
+      <div id="container" class="container">
+        <article id="post-looper" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav class="mobile-nav">
+    <h1 class="nickname">铲昶行的智障空间</h1>
+    <ul class="mobile-nav-menu">
+      <label for="mobile-menu-toggle"><a>&#9776; Menu</a></label>
+      <input type="checkbox" id="mobile-menu-toggle"/>
+      <ul class="mobile-nav-link">
+        
+        <a href="/">首页</a>
+        
+        <a href="/archives">文章</a>
+        
+        <a href="/tags/android">Android</a>
+        
+        <a href="/tags/reactnative/">ReactNative</a>
+        
+        <a href="/tags/leetcode">Leetcode</a>
+        
+        <a href="/tags/面试总结">面试总结</a>
+        
+      </ul>
+    </ul>
+  </nav>
+	
+		<nav id="main-nav" class="main-nav nav-left">
+	
+	
+	  <a class="main-nav-link" href="/">首页</a>
+	
+	  <a class="main-nav-link" href="/archives">文章</a>
+	
+	  <a class="main-nav-link" href="/tags/android">Android</a>
+	
+	  <a class="main-nav-link" href="/tags/reactnative/">ReactNative</a>
+	
+	  <a class="main-nav-link" href="/tags/leetcode">Leetcode</a>
+	
+	  <a class="main-nav-link" href="/tags/面试总结">面试总结</a>
+	
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      looper
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <p>####Looper.prepare</p>
+<p>Looper通过sThreadLocal来判断该线程是否已经创建Looper</p>
+<p>构造函数里，创建了MessageQueue()，获取当前线程的Thread实例。并且把Looper的实例放到ThreadLocal中。</p>
+<p>在MessageQueue的构造函数里，调用了nativeInit()，这个方法就是初始化底层的那个epoll了，返回一个native的一个唯一值吧</p>
+<h4 id="Looper-loop"><a href="#Looper-loop" class="headerlink" title="Looper.loop"></a>Looper.loop</h4><p>一个死循环，死循环里从MessageQueue中获取Message，中间会有一系列关于开始结束时间的逻辑暂时先不用看。</p>
+<p>之后会调用<code>msg.target.dispatchMessage(msg);</code>，message的target就是handler的dispatchMessage。</p>
+<h4 id="new-Hander"><a href="#new-Hander" class="headerlink" title="new Hander"></a>new Hander</h4><p>获取looper和messageQueue的实例，获取Looper是通过myLooper方法，myLooper里面是通过ThreadLocal来获取的。</p>
+<h4 id="handler-sendMessage"><a href="#handler-sendMessage" class="headerlink" title="handler.sendMessage"></a>handler.sendMessage</h4><p>会调用sendMessageDelayed(msg，0)，第二个参数是延迟几秒。delayMillis如果小于0，那么就等于0。再调用<code>sendMessageAtTime(msg, SystemClock.uptimeMillis() + delayMillis)</code>，<code>SystemClock.uptimeMillis()是从开机到现在的毫秒数（手机睡眠的时间不包括在内）</code>，中间判断了一下是否有MessageQueue，之后调用了<code>enqueueMessage()</code>,</p>
+<p><code>enqueueMessage()</code>: 将Message的targe指向这个handler，之后就调用了<code>messageQueue.enqueueMessage()</code></p>
+<h4 id="MessageQueue-enqueueMessage"><a href="#MessageQueue-enqueueMessage" class="headerlink" title="MessageQueue.enqueueMessage"></a>MessageQueue.enqueueMessage</h4><p>变量传入了一个要传送的Message和要发动的时间。</p>
+<p>设置Message正在使用的标志，设置Message要开始的时间。如果messagequeue为第一次使用的话，那么</p>
+<p><code>mMessage = msg -&gt;null</code></p>
+<p>之后调用，需要将message放到正确的位置，message是一个单链，所以遍历找到when &lt; 每个message.when或者链尾的位置，把他加到单链里。最后调用<code>nativeWake()</code>，把之前init之后得到的唯一值放入</p>
+<p>至此，我们就把Message传入MessageQueue看好了，接着看看Looper如何把Message给到Handler。</p>
+<h4 id="Hander-dispatchMessage-Message"><a href="#Hander-dispatchMessage-Message" class="headerlink" title="Hander.dispatchMessage(Message)"></a>Hander.dispatchMessage(Message)</h4><p>这里就直接下发Message，但是只会分发到一个地方。优先级从高到低为Message的callback，handler的callback，重写方法handlerMessage</p>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2019/12/03/looper/" class="article-date">
+  <time datetime="2019-12-03T09:43:14.000Z" itemprop="datePublished">2019-12-03</time>
+</a>
+
+        </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+  
+  
+    <a href="/2019/12/02/arouter/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">ARouter</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/chanchangxing"><span class="fa fa-globe"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这篇写完就删站</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3/dist/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
