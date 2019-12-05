@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>view事件分发 | chanchangxing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="view事件分发android的页面结构类似一个树形结构，viewGroup包含多个view或者viewGroup。用户的动作从根部向下分发，最后到达要消费的view层，如何决定这个动作在哪里消费的逻辑，就是事件分发的存在的意义。
+事件分发主要通过两个方法实现，dispatchTouchEvent和onInterceptTouchEvent，
+dispatchTouchEvent方法是确定动作事件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="view事件分发">
+<meta property="og:url" content="https://chanchangxing.me/2019/12/05/view事件分发/index.html">
+<meta property="og:site_name" content="chanchangxing">
+<meta property="og:description" content="view事件分发android的页面结构类似一个树形结构，viewGroup包含多个view或者viewGroup。用户的动作从根部向下分发，最后到达要消费的view层，如何决定这个动作在哪里消费的逻辑，就是事件分发的存在的意义。
+事件分发主要通过两个方法实现，dispatchTouchEvent和onInterceptTouchEvent，
+dispatchTouchEvent方法是确定动作事件">
+<meta property="og:updated_time" content="2019-12-05T12:14:10.862Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="view事件分发">
+<meta name="twitter:description" content="view事件分发android的页面结构类似一个树形结构，viewGroup包含多个view或者viewGroup。用户的动作从根部向下分发，最后到达要消费的view层，如何决定这个动作在哪里消费的逻辑，就是事件分发的存在的意义。
+事件分发主要通过两个方法实现，dispatchTouchEvent和onInterceptTouchEvent，
+dispatchTouchEvent方法是确定动作事件">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  <link rel="stylesheet" href="/css/donate.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body class="dark">
+    
+  
+      <div id="container" class="container">
+        <article id="post-view事件分发" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav class="mobile-nav">
+    <h1 class="nickname">铲昶行的智障空间</h1>
+    <ul class="mobile-nav-menu">
+      <label for="mobile-menu-toggle"><a>&#9776; Menu</a></label>
+      <input type="checkbox" id="mobile-menu-toggle"/>
+      <ul class="mobile-nav-link">
+        
+        <a href="/">首页</a>
+        
+        <a href="/archives">文章</a>
+        
+        <a href="/tags/android">Android</a>
+        
+        <a href="/tags/reactnative/">ReactNative</a>
+        
+        <a href="/tags/leetcode">Leetcode</a>
+        
+        <a href="/tags/面试总结">面试总结</a>
+        
+      </ul>
+    </ul>
+  </nav>
+	
+		<nav id="main-nav" class="main-nav nav-left">
+	
+	
+	  <a class="main-nav-link" href="/">首页</a>
+	
+	  <a class="main-nav-link" href="/archives">文章</a>
+	
+	  <a class="main-nav-link" href="/tags/android">Android</a>
+	
+	  <a class="main-nav-link" href="/tags/reactnative/">ReactNative</a>
+	
+	  <a class="main-nav-link" href="/tags/leetcode">Leetcode</a>
+	
+	  <a class="main-nav-link" href="/tags/面试总结">面试总结</a>
+	
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      view事件分发
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <h4 id="view事件分发"><a href="#view事件分发" class="headerlink" title="view事件分发"></a>view事件分发</h4><p>android的页面结构类似一个树形结构，viewGroup包含多个view或者viewGroup。用户的动作从根部向下分发，最后到达要消费的view层，如何决定这个动作在哪里消费的逻辑，就是事件分发的存在的意义。</p>
+<p>事件分发主要通过两个方法实现，<code>dispatchTouchEvent</code>和<code>onInterceptTouchEvent</code>，</p>
+<p><code>dispatchTouchEvent</code>方法是确定动作事件要分发到这一层</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">dispatchTouchEvent</span><span class="params">(MotionEvent ev)</span> </span>&#123;</div><div class="line">    Log.e(DispatchViewGroup.class.getSimpleName(), <span class="string">"dispatchTouchEvent = "</span> + dispatch);</div><div class="line">    <span class="comment">// dispatch为true的话，这一层view同意将点击事件下发到这一层，那么接下来会走到该viewGroup的			    onInterceptTouchEvent方法。</span></div><div class="line">    <span class="comment">// dispatch为false的话，这一层view不同意将点击事件下发到这一层，直接回到上一层的onTouchEvent</span></div><div class="line">    <span class="keyword">return</span> dispatch ? <span class="keyword">super</span>.dispatchTouchEvent(ev) : <span class="keyword">false</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onInterceptTouchEvent</span><span class="params">(MotionEvent ev)</span> </span>&#123;</div><div class="line">  Log.e(DispatchViewGroup.class.getSimpleName(), <span class="string">"onInterceptTouchEvent = "</span> + intercept);</div><div class="line">  <span class="comment">// intercept为true的话，会拦截这个动作，直接调用这个viewGroup的onTouchEvent</span></div><div class="line">  <span class="comment">// intercept为false或者super.onInterceopTouchEventde()的话，就下发这个动作了。</span></div><div class="line">  <span class="keyword">return</span> intercept;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onTouchEvent</span><span class="params">(MotionEvent event)</span> </span>&#123;</div><div class="line">  Log.e(DispatchSubViewGroup.class.getSimpleName(), <span class="string">"onTouchEvent = "</span> + touch);</div><div class="line">  <span class="comment">// 如果touch为true的话，这个动作被消费了，不会在回传到父布局了。</span></div><div class="line">  <span class="comment">// 如果touch为false的话，这个动作没有被消费，如果该布局还有子布局，那么向下传递，如果这个布局已经是最下层的布局，则向父布局的onTouchEvent传递。</span></div><div class="line">  <span class="keyword">return</span> touch ? <span class="keyword">true</span>: <span class="keyword">super</span>.onTouchEvent(event);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后，view是没有onInterceptTouchEvent事件的。</p>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2019/12/05/view事件分发/" class="article-date">
+  <time datetime="2019-12-05T08:32:40.000Z" itemprop="datePublished">2019-12-05</time>
+</a>
+
+        </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Android/">Android</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+  
+  
+    <a href="/2019/12/03/looper/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">looper</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/chanchangxing"><span class="fa fa-globe"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这篇写完就删站</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3/dist/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
