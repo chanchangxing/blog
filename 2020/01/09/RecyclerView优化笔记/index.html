@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>RecyclerView优化笔记 | chanchangxing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="RecyclerView优化算是在玩物得志算是比较有意思也有挑战性的任务了，也算是面试一个常见和比较加分的项目，所以在这里纪录一下。
+RecyclerView为什么卡顿卡顿一定要先知道是什么引起的卡顿，才能解决。RecyclerView卡顿说到底就是两个点，一个是渲染本身消耗了太多的时间，第二个就是gc。其实现在安卓技术的普遍提高，像在主线程做耗时操作这种事情应该是做不出来了，但是还是要想到这一方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RecyclerView优化笔记">
+<meta property="og:url" content="https://chanchangxing.me/2020/01/09/RecyclerView优化笔记/index.html">
+<meta property="og:site_name" content="chanchangxing">
+<meta property="og:description" content="RecyclerView优化算是在玩物得志算是比较有意思也有挑战性的任务了，也算是面试一个常见和比较加分的项目，所以在这里纪录一下。
+RecyclerView为什么卡顿卡顿一定要先知道是什么引起的卡顿，才能解决。RecyclerView卡顿说到底就是两个点，一个是渲染本身消耗了太多的时间，第二个就是gc。其实现在安卓技术的普遍提高，像在主线程做耗时操作这种事情应该是做不出来了，但是还是要想到这一方">
+<meta property="og:updated_time" content="2020-01-11T16:00:08.684Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RecyclerView优化笔记">
+<meta name="twitter:description" content="RecyclerView优化算是在玩物得志算是比较有意思也有挑战性的任务了，也算是面试一个常见和比较加分的项目，所以在这里纪录一下。
+RecyclerView为什么卡顿卡顿一定要先知道是什么引起的卡顿，才能解决。RecyclerView卡顿说到底就是两个点，一个是渲染本身消耗了太多的时间，第二个就是gc。其实现在安卓技术的普遍提高，像在主线程做耗时操作这种事情应该是做不出来了，但是还是要想到这一方">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  <link rel="stylesheet" href="/css/donate.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body class="dark">
+    
+  
+      <div id="container" class="container">
+        <article id="post-RecyclerView优化笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav class="mobile-nav">
+    <h1 class="nickname">铲昶行的智障空间</h1>
+    <ul class="mobile-nav-menu">
+      <label for="mobile-menu-toggle"><a>&#9776; Menu</a></label>
+      <input type="checkbox" id="mobile-menu-toggle"/>
+      <ul class="mobile-nav-link">
+        
+        <a href="/">首页</a>
+        
+        <a href="/archives">文章</a>
+        
+        <a href="/tags/android">Android</a>
+        
+        <a href="/tags/reactnative/">ReactNative</a>
+        
+        <a href="/tags/leetcode">Leetcode</a>
+        
+        <a href="/tags/面试总结">面试总结</a>
+        
+      </ul>
+    </ul>
+  </nav>
+	
+		<nav id="main-nav" class="main-nav nav-left">
+	
+	
+	  <a class="main-nav-link" href="/">首页</a>
+	
+	  <a class="main-nav-link" href="/archives">文章</a>
+	
+	  <a class="main-nav-link" href="/tags/android">Android</a>
+	
+	  <a class="main-nav-link" href="/tags/reactnative/">ReactNative</a>
+	
+	  <a class="main-nav-link" href="/tags/leetcode">Leetcode</a>
+	
+	  <a class="main-nav-link" href="/tags/面试总结">面试总结</a>
+	
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      RecyclerView优化笔记
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <p>RecyclerView优化算是在玩物得志算是比较有意思也有挑战性的任务了，也算是面试一个常见和比较加分的项目，所以在这里纪录一下。</p>
+<h3 id="RecyclerView为什么卡顿"><a href="#RecyclerView为什么卡顿" class="headerlink" title="RecyclerView为什么卡顿"></a>RecyclerView为什么卡顿</h3><p>卡顿一定要先知道是什么引起的卡顿，才能解决。RecyclerView卡顿说到底就是两个点，一个是渲染本身消耗了太多的时间，第二个就是gc。其实现在安卓技术的普遍提高，像在主线程做耗时操作这种事情应该是做不出来了，但是还是要想到这一方面。</p>
+<h4 id="瞬间创建大量对象"><a href="#瞬间创建大量对象" class="headerlink" title="瞬间创建大量对象"></a>瞬间创建大量对象</h4><p>在社区推荐列表的埋点曝光中就遇到了这个问题，我在onViewBind这个生命周期中创建map，结果造成了内存抖动，造成了卡顿。</p>
+<h4 id="渲染本身消耗时间"><a href="#渲染本身消耗时间" class="headerlink" title="渲染本身消耗时间"></a>渲染本身消耗时间</h4><p><code>LayoutInflate.from(context).inflate()</code>这个方法本身就是比较耗时的，如果页面嵌套比较多的话，那么渲染耗费的时间就更长了。</p>
+<h4 id="gc"><a href="#gc" class="headerlink" title="gc"></a>gc</h4><p>gc这个是关于JVM的知识点，关键就是GC的时候会stop the world，使所有的线程都停止，保证GC的完成。</p>
+<h4 id="耗时操作"><a href="#耗时操作" class="headerlink" title="耗时操作"></a>耗时操作</h4><p>这个就不用说了，网络请求就是一个耗时操作，在主线程中进行一个网络请求就会把主线程卡死。</p>
+<h3 id="怎么会造成卡顿"><a href="#怎么会造成卡顿" class="headerlink" title="怎么会造成卡顿"></a>怎么会造成卡顿</h3><p>知道了卡顿的原因，我们接下来分析怎么样才会造成这样的卡顿。</p>
+<h4 id="什么会造成渲染时间更长"><a href="#什么会造成渲染时间更长" class="headerlink" title="什么会造成渲染时间更长"></a>什么会造成渲染时间更长</h4><p>渲染是不可避免的，所以我们要了解渲染的流程，知道什么样会造成渲染时间变得更长了。我们的页面通常是通过XML来确定布局，然后通过<code>LayoutInflate.from().inflate()</code>来解析XML，最后在每一次<code>addView</code> 进行<code>requetLayout()</code>。<code>requestLayout()</code>会将重新从根布局走一次绘制流程 onMeasure -&gt; onLayout -&gt; onDraw。</p>
+<p>当页面出现过多嵌套的时候，页面卡顿的时间就会更长</p>
+<h4 id="什么会操作gc"><a href="#什么会操作gc" class="headerlink" title="什么会操作gc"></a>什么会操作gc</h4><p>gc无时不刻的在执行，因为我们在无时不刻的在制造对象。了解jvm的内存回收机制的话会知道，gc也分为两种，一种只是新生代的gc，这种gc是比较低耗时的。另外一种老生代的gc，也被成为full gc，这种gc相对于新生代gc要消耗更多的时间，而上面讲到了gc是stop the world的，是会卡死所有线程的。</p>
+<p>当我们创建了过多或者过大的对象，都会使两种gc出现的频率变得更大。</p>
+<p>耗时操作和内存抖动我们就不需要再分析了，因为他们本身就是造成卡顿的行为了。</p>
+<h3 id="如何避免呢"><a href="#如何避免呢" class="headerlink" title="如何避免呢"></a>如何避免呢</h3><p>既然都已经知道了为什么卡，怎么造成的卡顿，那么就有了优化的方向。再加上对RecyclerView的理解，就能比较全面的优化了。</p>
+<h4 id="减少Adapter-View中的嵌套"><a href="#减少Adapter-View中的嵌套" class="headerlink" title="减少Adapter View中的嵌套"></a>减少Adapter View中的嵌套</h4><p>经过上面的分析，已经很好理解减少Adapter View嵌套了，如果减少嵌套呢，那就是用ConstraintLayout了，或者使用merge、viewStub这些东西。但是网上说Adapter结合ConstraintLayout会出现卡顿，我暂时是没有遇到这个问题。</p>
+<p>####减少gc</p>
+<p>减少在 onBindViewHolder中创建对象，能复用的对象，尽量放在Adapter的构造方法或者在onCreateViewHolder中，这样可以避免每次onBindViewHolder调用的时候重复创建类。</p>
+<p>RecyclerView中和图片或者是视频是根本分不开的，而图片在安卓中永远都是大内存的东西。所以在获取的图片的时候，一定要做一些压缩。</p>
+<p>项目中目前的图片库基本都是Glide，要了解Glide的缓存机制和连接池和Bitmap池，做好缓存策略。</p>
+<h4 id="RecyclerView缓存机制"><a href="#RecyclerView缓存机制" class="headerlink" title="RecyclerView缓存机制"></a>RecyclerView缓存机制</h4><p>简单介绍一下RecyclerView的缓存机制。RecyclerView的缓存分为4层，</p>
+<p>第一层是mCacheView，缓存的item不会调用onCreateViewHolder也不会调用onBindViewHolder，他只是保存被划上去的2个item。</p>
+<p>第二层是让用户自己扩展的。</p>
+<p>第三层是RecyclerPool，他会一个SpareArray，key值是ViewType， value值是一个ArrayList，保存相应的ViewHolder。这一层是RecyclerView缓存的关键。这个缓存能让RecyclerView只在第一次创建ViewHolder，之后只要RecylerPool中对应的ViewType的ArrayList的ViewHolder能撑起整个页面的ViewItem，那么他就不会再创建ViewHolder，也就不会再创建View，这样就能有流畅的滑动体验了。</p>
+<h3 id="总结一下"><a href="#总结一下" class="headerlink" title="总结一下"></a>总结一下</h3><p>总结一下这次我在玩物优化RecyclerView的过程，第一个是在优化addOnScrollListener，将这里不需要重复创建的类抽出来。第二个是onBindViewHolder中的优化，也是抽出重复创建的类。第三个就是获取低一点质量的图片。第四就是设置RecyclerPool的某个itemView的Viewholder的size变大，大到一定能撑起一个屏幕的item。</p>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2020/01/09/RecyclerView优化笔记/" class="article-date">
+  <time datetime="2020-01-09T14:47:51.000Z" itemprop="datePublished">2020-01-09</time>
+</a>
+
+        </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+  
+  
+    <a href="/2019/12/05/view事件分发/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">view事件分发</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/chanchangxing"><span class="fa fa-globe"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这篇写完就删站</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3/dist/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
