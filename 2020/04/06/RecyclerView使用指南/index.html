@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>RecyclerView使用指南 | chanchangxing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="ItemTouchHelper使用ItemTouchHelper是用来做一些RecyclerView Item拖动（drag）和移除（swipe）的。拖动和移除是两种不同的触发方式。拖动的话需要长按item，才会进入拖动的状态，而滑动不需要任何其他操作来进入滑动状态。因为拖动的这个神奇的触发方式，让我误认为拖动并没有效果，浪费了很多时间。
+ItemTouchHelper主要在于重写Callback">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RecyclerView使用指南">
+<meta property="og:url" content="https://chanchangxing.me/2020/04/06/RecyclerView使用指南/index.html">
+<meta property="og:site_name" content="chanchangxing">
+<meta property="og:description" content="ItemTouchHelper使用ItemTouchHelper是用来做一些RecyclerView Item拖动（drag）和移除（swipe）的。拖动和移除是两种不同的触发方式。拖动的话需要长按item，才会进入拖动的状态，而滑动不需要任何其他操作来进入滑动状态。因为拖动的这个神奇的触发方式，让我误认为拖动并没有效果，浪费了很多时间。
+ItemTouchHelper主要在于重写Callback">
+<meta property="og:image" content="https://chanchangxing.me/2020/04/06/RecyclerView使用指南/1.gif">
+<meta property="og:updated_time" content="2020-04-06T14:16:33.430Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RecyclerView使用指南">
+<meta name="twitter:description" content="ItemTouchHelper使用ItemTouchHelper是用来做一些RecyclerView Item拖动（drag）和移除（swipe）的。拖动和移除是两种不同的触发方式。拖动的话需要长按item，才会进入拖动的状态，而滑动不需要任何其他操作来进入滑动状态。因为拖动的这个神奇的触发方式，让我误认为拖动并没有效果，浪费了很多时间。
+ItemTouchHelper主要在于重写Callback">
+<meta name="twitter:image" content="https://chanchangxing.me/2020/04/06/RecyclerView使用指南/1.gif">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  <link rel="stylesheet" href="/css/donate.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body class="dark">
+    
+  
+      <div id="container" class="container">
+        <article id="post-RecyclerView使用指南" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav class="mobile-nav">
+    <h1 class="nickname">铲昶行的智障空间</h1>
+    <ul class="mobile-nav-menu">
+      <label for="mobile-menu-toggle"><a>&#9776; Menu</a></label>
+      <input type="checkbox" id="mobile-menu-toggle"/>
+      <ul class="mobile-nav-link">
+        
+        <a href="/">首页</a>
+        
+        <a href="/archives">文章</a>
+        
+        <a href="/tags/android">Android</a>
+        
+        <a href="/tags/reactnative/">ReactNative</a>
+        
+        <a href="/tags/leetcode">Leetcode</a>
+        
+        <a href="/tags/面试总结">面试总结</a>
+        
+      </ul>
+    </ul>
+  </nav>
+	
+		<nav id="main-nav" class="main-nav nav-left">
+	
+	
+	  <a class="main-nav-link" href="/">首页</a>
+	
+	  <a class="main-nav-link" href="/archives">文章</a>
+	
+	  <a class="main-nav-link" href="/tags/android">Android</a>
+	
+	  <a class="main-nav-link" href="/tags/reactnative/">ReactNative</a>
+	
+	  <a class="main-nav-link" href="/tags/leetcode">Leetcode</a>
+	
+	  <a class="main-nav-link" href="/tags/面试总结">面试总结</a>
+	
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      RecyclerView使用指南
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <h4 id="ItemTouchHelper使用"><a href="#ItemTouchHelper使用" class="headerlink" title="ItemTouchHelper使用"></a>ItemTouchHelper使用</h4><p>ItemTouchHelper是用来做一些RecyclerView Item拖动（drag）和移除（swipe）的。<br><img src="/2020/04/06/RecyclerView使用指南/1.gif" alt="1.gif" title=""><br>拖动和移除是两种不同的触发方式。拖动的话需要长按item，才会进入拖动的状态，而滑动不需要任何其他操作来进入滑动状态。因为拖动的这个神奇的触发方式，让我误认为拖动并没有效果，浪费了很多时间。</p>
+<p>ItemTouchHelper主要在于重写Callback，Callback主要有三个方法需要重写，getMoveMentFlags，onMove，onSwiped。</p>
+<p>getMoveMentFlags用来确定拖动和滑动的行为。这里，动作被分为三种状态：idle，drag，swipe。这里直接通过例子来说明：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">makeFlag(ACTION_STATE_IDLE, RIGHT) | makeFlag(ACTION_STATE_SWIPE, LEFT | RIGHT);</div></pre></td></tr></table></figure>
+<p>这说明当idle的状态下可以向右滑动来让item进入滑动的状态，并且可以左右滑动来让item滑动移除出屏幕。</p>
+<p>onMove是在drag状态下会被调用，有两个viewHolder，第一个是被拖动的Item，第二个是被拖动Item当前位置的Item。</p>
+<p>如果这个方法返回为true，那么ItemTouchHelper假设被拖动的Item已经被拖动到了新的位置。<code>If this method returns true, ItemTouchHelper assumes</code>viewHolder<code>has been moved to the adapter position of</code>target<code>ViewHolder (</code>ViewHolder#getAdapterPositionInRecyclerView()<code>).</code>，这是google的文档，而对于文档的翻译我还是不知道返回true和false的区别是什么，而且在试验之后也没有发现什么不同，唯一能知道的是，在onMove返回true之后会调用下面这个方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public void onMoved (RecyclerView recyclerView, </div><div class="line">                RecyclerView.ViewHolder viewHolder, </div><div class="line">                int fromPos, </div><div class="line">                RecyclerView.ViewHolder target, </div><div class="line">                int toPos, </div><div class="line">                int x, </div><div class="line">                int y)</div></pre></td></tr></table></figure>
+<p>根据文档的描述，拖动的原理并不是重新创建了一个View，而是直接在原有的item上面进行操作，所以我们不能将item拖动到RecyclerView之外。</p>
+<p>onSwiped这个方法会在item平移出RecyclerView的时候调用，类似之前使用过的滑动删除效果，这次需求的交互要求没有这个，所以暂时不考虑。</p>
+<p>如果对自定义Callback感觉到没有那么定制化的必要的话，那么可以SimpleCallback，一个Callback的包装类。</p>
+<h4 id="Item"><a href="#Item" class="headerlink" title="Item"></a>Item</h4>
+      
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2020/04/06/RecyclerView使用指南/" class="article-date">
+  <time datetime="2020-04-06T06:07:38.000Z" itemprop="datePublished">2020-04-06</time>
+</a>
+
+        </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+  
+  
+    <a href="/2020/01/09/RecyclerView优化笔记/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">RecyclerView优化笔记</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/chanchangxing"><span class="fa fa-globe"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这篇写完就删站</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3/dist/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
