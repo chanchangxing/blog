@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  
+  <title>记一次okhttp线上崩溃问题 | chanchangxing</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="崩溃日志如下
+java.lang.IllegalArgumentException
+Unexpected TLS version: NONE
+12345678910111213141516171819202122java.lang.IllegalArgumentExceptionUnexpected TLS version: NONE1 okhttp3.TlsVersion.forJavaName">
+<meta property="og:type" content="article">
+<meta property="og:title" content="记一次okhttp线上崩溃问题">
+<meta property="og:url" content="https://chanchangxing.me/2020/04/19/记一次okhttp线上崩溃问题/index.html">
+<meta property="og:site_name" content="chanchangxing">
+<meta property="og:description" content="崩溃日志如下
+java.lang.IllegalArgumentException
+Unexpected TLS version: NONE
+12345678910111213141516171819202122java.lang.IllegalArgumentExceptionUnexpected TLS version: NONE1 okhttp3.TlsVersion.forJavaName">
+<meta property="og:updated_time" content="2020-04-19T15:20:32.119Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="记一次okhttp线上崩溃问题">
+<meta name="twitter:description" content="崩溃日志如下
+java.lang.IllegalArgumentException
+Unexpected TLS version: NONE
+12345678910111213141516171819202122java.lang.IllegalArgumentExceptionUnexpected TLS version: NONE1 okhttp3.TlsVersion.forJavaName">
+  
+  
+    <link rel="icon" href="/favicon.ico">
+  
+  <link rel="stylesheet" href="/css/typing.css">
+  <link rel="stylesheet" href="/css/donate.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4/css/font-awesome.min.css">
+  
+</head>
+
+  
+    
+      <body class="dark">
+    
+  
+      <div id="container" class="container">
+        <article id="post-记一次okhttp线上崩溃问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <header id="header" class="header">
+  <nav class="mobile-nav">
+    <h1 class="nickname">铲昶行的智障空间</h1>
+    <ul class="mobile-nav-menu">
+      <label for="mobile-menu-toggle"><a>&#9776; Menu</a></label>
+      <input type="checkbox" id="mobile-menu-toggle"/>
+      <ul class="mobile-nav-link">
+        
+        <a href="/">首页</a>
+        
+        <a href="/archives">文章</a>
+        
+        <a href="/tags/android">Android</a>
+        
+        <a href="/tags/reactnative/">ReactNative</a>
+        
+        <a href="/tags/leetcode">Leetcode</a>
+        
+        <a href="/tags/面试总结">面试总结</a>
+        
+      </ul>
+    </ul>
+  </nav>
+	
+		<nav id="main-nav" class="main-nav nav-left">
+	
+	
+	  <a class="main-nav-link" href="/">首页</a>
+	
+	  <a class="main-nav-link" href="/archives">文章</a>
+	
+	  <a class="main-nav-link" href="/tags/android">Android</a>
+	
+	  <a class="main-nav-link" href="/tags/reactnative/">ReactNative</a>
+	
+	  <a class="main-nav-link" href="/tags/leetcode">Leetcode</a>
+	
+	  <a class="main-nav-link" href="/tags/面试总结">面试总结</a>
+	
+  </nav>
+</header>
+
+  <hr/>
+  <div class="article-inner">
+    
+
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      记一次okhttp线上崩溃问题
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry typo" itemprop="articleBody">
+      
+        <p>崩溃日志如下</p>
+<p>java.lang.IllegalArgumentException</p>
+<p>Unexpected TLS version: NONE</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">java.lang.IllegalArgumentException</div><div class="line">Unexpected TLS version: NONE</div><div class="line">1 okhttp3.TlsVersion.forJavaName(SourceFile:3)</div><div class="line">2 okhttp3.Handshake.get(SourceFile:4)</div><div class="line">3 okhttp3.internal.connection.RealConnection.connectTls(SourceFile:14)</div><div class="line">4 okhttp3.internal.connection.RealConnection.establishProtocol(SourceFile:5)</div><div class="line">5 okhttp3.internal.connection.RealConnection.connect(SourceFile:14)</div><div class="line">6 okhttp3.internal.connection.StreamAllocation.findConnection(SourceFile:36)</div><div class="line">7 okhttp3.internal.connection.StreamAllocation.findHealthyConnection(SourceFile:1)</div><div class="line">8 okhttp3.internal.connection.StreamAllocation.newStream(SourceFile:6)</div><div class="line">9 okhttp3.internal.connection.ConnectInterceptor.intercept(SourceFile:5)</div><div class="line">10 okhttp3.internal.http.RealInterceptorChain.proceed(SourceFile:10)</div><div class="line">11 okhttp3.internal.http.RealInterceptorChain.proceed(SourceFile:1)</div><div class="line">12 okhttp3.internal.cache.CacheInterceptor.intercept(SourceFile:22)</div><div class="line">13 okhttp3.internal.http.RealInterceptorChain.proceed(SourceFile:10)</div><div class="line">14 okhttp3.internal.http.RealInterceptorChain.proceed(SourceFile:1)</div><div class="line">15 okhttp3.internal.http.BridgeInterceptor.intercept(SourceFile:22)</div><div class="line">16 okhttp3.internal.http.RealInterceptorChain.proceed(SourceFile:10)</div><div class="line">17 okhttp3.internal.http.RetryAndFollowUpInterceptor.intercept(SourceFile:9)</div><div class="line">18 okhttp3.internal.http.RealInterceptorChain.proceed(SourceFile:10)</div><div class="line">19 okhttp3.internal.http.RealInterceptorChain.proceed(SourceFile:1)</div><div class="line">20 com.zdwh.wwdz.util.z0.m.a.intercept(SourceFile:2)</div></pre></td></tr></table></figure>
+<p>在通过错误堆栈可以找到相关在okhttp-3.8.1中的相应代码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TlsVersion <span class="title">forJavaName</span><span class="params">(String javaName)</span> </span>&#123;</div><div class="line">    <span class="keyword">switch</span> (javaName) &#123;</div><div class="line">      <span class="keyword">case</span> <span class="string">"TLSv1.3"</span>:</div><div class="line">        <span class="keyword">return</span> TLS_1_3;</div><div class="line">      <span class="keyword">case</span> <span class="string">"TLSv1.2"</span>:</div><div class="line">        <span class="keyword">return</span> TLS_1_2;</div><div class="line">      <span class="keyword">case</span> <span class="string">"TLSv1.1"</span>:</div><div class="line">        <span class="keyword">return</span> TLS_1_1;</div><div class="line">      <span class="keyword">case</span> <span class="string">"TLSv1"</span>:</div><div class="line">        <span class="keyword">return</span> TLS_1_0;</div><div class="line">      <span class="keyword">case</span> <span class="string">"SSLv3"</span>:</div><div class="line">        <span class="keyword">return</span> SSL_3_0;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"Unexpected TLS version: "</span> + javaName);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Handshake <span class="title">get</span><span class="params">(SSLSession session)</span> </span>&#123;</div><div class="line">    String cipherSuiteString = session.getCipherSuite();</div><div class="line">    <span class="keyword">if</span> (cipherSuiteString == <span class="keyword">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"cipherSuite == null"</span>);</div><div class="line">    CipherSuite cipherSuite = CipherSuite.forJavaName(cipherSuiteString);</div><div class="line"></div><div class="line">    String tlsVersionString = session.getProtocol();</div><div class="line">    <span class="keyword">if</span> (tlsVersionString == <span class="keyword">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"tlsVersion == null"</span>);</div><div class="line">    TlsVersion tlsVersion = TlsVersion.forJavaName(tlsVersionString);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">connectTls</span><span class="params">(ConnectionSpecSelector connectionSpecSelector)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    Address address = route.address();</div><div class="line">    SSLSocketFactory sslSocketFactory = address.sslSocketFactory();</div><div class="line">    <span class="keyword">boolean</span> success = <span class="keyword">false</span>;</div><div class="line">    SSLSocket sslSocket = <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">      <span class="comment">// Create the wrapper over the connected socket.</span></div><div class="line">      sslSocket = (SSLSocket) sslSocketFactory.createSocket(</div><div class="line">          rawSocket, address.url().host(), address.url().port(), <span class="keyword">true</span> <span class="comment">/* autoClose */</span>);</div><div class="line"></div><div class="line">      <span class="comment">// Configure the socket's ciphers, TLS versions, and extensions.</span></div><div class="line">      ConnectionSpec connectionSpec = connectionSpecSelector.configureSecureSocket(sslSocket);</div><div class="line">      <span class="keyword">if</span> (connectionSpec.supportsTlsExtensions()) &#123;</div><div class="line">        Platform.get().configureTlsExtensions(</div><div class="line">            sslSocket, address.url().host(), address.protocols());</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="comment">// Force handshake. This can throw!</span></div><div class="line">      sslSocket.startHandshake();</div><div class="line">      Handshake unverifiedHandshake = Handshake.get(sslSocket.getSession());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>通过关键代码可以找到tls version是session的protocol，而session是从sslSocket中获取的，sslSocket是通过<code>sslSocketFactory.createSocket</code>获取的。</p>
+<p>后来谷歌了解到okhttp针对这个问题在3.10.0版本中解决了这个问题。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">connectTls</span><span class="params">(ConnectionSpecSelector connectionSpecSelector)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">    Address address = route.address();</div><div class="line">    SSLSocketFactory sslSocketFactory = address.sslSocketFactory();</div><div class="line">    <span class="keyword">boolean</span> success = <span class="keyword">false</span>;</div><div class="line">    SSLSocket sslSocket = <span class="keyword">null</span>;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">      <span class="comment">// Create the wrapper over the connected socket.</span></div><div class="line">      sslSocket = (SSLSocket) sslSocketFactory.createSocket(</div><div class="line">          rawSocket, address.url().host(), address.url().port(), <span class="keyword">true</span> <span class="comment">/* autoClose */</span>);</div><div class="line"></div><div class="line">      <span class="comment">// Configure the socket's ciphers, TLS versions, and extensions.</span></div><div class="line">      ConnectionSpec connectionSpec = connectionSpecSelector.configureSecureSocket(sslSocket);</div><div class="line">      <span class="keyword">if</span> (connectionSpec.supportsTlsExtensions()) &#123;</div><div class="line">        Platform.get().configureTlsExtensions(</div><div class="line">            sslSocket, address.url().host(), address.protocols());</div><div class="line">      &#125;</div><div class="line"></div><div class="line">      <span class="comment">// Force handshake. This can throw!</span></div><div class="line">      sslSocket.startHandshake();</div><div class="line">      <span class="comment">// block for session establishment</span></div><div class="line">      SSLSession sslSocketSession = sslSocket.getSession();</div><div class="line">      <span class="keyword">if</span> (!isValid(sslSocketSession)) &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">"a valid ssl session was not established"</span>);</div><div class="line">      &#125;</div><div class="line">      Handshake unverifiedHandshake = Handshake.get(sslSocketSession);</div><div class="line">&#125;</div><div class="line">  </div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">boolean</span> <span class="title">isValid</span><span class="params">(SSLSession sslSocketSession)</span> </span>&#123;</div><div class="line">    <span class="comment">// don't use SslSocket.getSession since for failed results it returns SSL_NULL_WITH_NULL_NULL</span></div><div class="line">    <span class="keyword">return</span> !<span class="string">"NONE"</span>.equals(sslSocketSession.getProtocol()) &amp;&amp; !<span class="string">"SSL_NULL_WITH_NULL_NULL"</span>.equals(</div><div class="line">        sslSocketSession.getCipherSuite());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面是3.10.0的代码，可以看到在connectTLS方法中已经将这个问题过滤了一遍，并且从报IllegalArgumentException改成IOException了。而网络框架能够catch住IOException，所以这个bug可以通过升级3.10.0解决，等升级之后观察一下线上的崩溃。</p>
+<p>下面有两个问题，1是什么TLS，为什么会出现TLS的protocol为none，2是在bugly上的反馈，暴露这个问题的机型都是android9.0及以上的机子。</p>
+<p>TLS其实就是标准版后的SSL，SSL3.0其实和TLS1.0没有什么差别。</p>
+<p>为什么会出现NONE：这里我在OKHTTP别人的讨论纪录中找到了答案</p>
+<blockquote>
+<p>NONE isn’t unknown or old. It’s that there is no SSL session anymore, or it failed initially. So changing TlsVersion lookup doesn’t seem right to me.</p>
+<p>NONE并非未知或以前的协议。这是因为没有SSL会话了，或者它在最开始就失败了。因此，更改TlsVersion查找对我而言似乎不合适。</p>
+</blockquote>
+<p>这里的意思是，NONE出现的原因是因为这个连接已经断开了，或者他根本就没有连接成功，所以这里应该是服务端和客户端的连接问题。</p>
+<p>android9.0是有对TLS做一些改动，但是这些改动看起来和这次的问题没有关联性。暂时还找不到这个问题和9.0的关系</p>
+
+      
+      
+    </div>
+    <footer class="article-footer">
+      <ul class="article-meta">
+        <li>
+          <span class="label">Published Date:</span>
+          <a href="/2020/04/19/记一次okhttp线上崩溃问题/" class="article-date">
+  <time datetime="2020-04-19T07:43:44.000Z" itemprop="datePublished">2020-04-19</time>
+</a>
+
+        </li>
+        
+        
+          <li>
+            <span class="label">Tag:</span>
+            
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/android/">android</a></li></ul>
+
+
+          </li>
+        
+        <hr/>
+      </ul>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav" class="article-nav">
+  
+    <span id="article-nav-newer" class="article-nav-link-wrap newer"></span>
+  
+  
+    <a href="/2020/04/06/RecyclerView使用指南/" id="article-nav-older" class="article-nav-link-wrap older">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">RecyclerView使用指南</div>
+    </a>
+  
+</nav>
+
+
+  
+</article>
+
+
+
+
+
+
+
+
+
+
+      </div>
+      
+    <footer id="footer" class="post-footer footer">
+      
+        <ul class="footer-links">
+          
+            <li><a href="/archives/"><span class="fa fa-book"></span></a></li>
+          
+            <li><a href="https://github.com/chanchangxing"><span class="fa fa-globe"></span></a></li>
+          
+        </ul>
+	    
+      <hr/>
+      <div id="footerContent" class="footer-content">
+        <p>这篇写完就删站</p>
+
+
+      </div>
+    </footer>
+
+      
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+
+
+<script src="/js/typing.js"></script>
+<!--[if lt IE 9]><script src="https://cdn.jsdelivr.net/npm/html5shiv@3/dist/html5shiv.min.js"></script><![endif]-->
+
+
+
+
+
+
+
+    </div>
+  </body>
+</html>
